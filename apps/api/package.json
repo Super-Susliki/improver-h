@@ -20,12 +20,22 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:generate": "yarn prisma generate --schema ./src/data-access/schema",
+    "db:migrate:deploy": "yarn prisma migrate deploy --schema ./src/data-access/schema"
   },
   "dependencies": {
+    "@nestjs/axios": "^4.0.0",
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.2.0",
+    "@prisma/client": "^6.9.0",
+    "@privy-io/server-auth": "^1.27.0",
+    "nestjs-pino": "^4.4.0",
+    "pino-http": "^10.5.0",
+    "prisma": "^6.9.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
