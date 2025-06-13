@@ -9,9 +9,8 @@ model UserStore {
     createdAt DateTime @default(now()) @map("created_at")
     updatedAt DateTime @updatedAt @map("updated_at")
 
-    userSignature UserSignature[]
+    merchantSignatures MerchantSignature[]
 
     @@id([userId, storeId])
     @@map("user_merchant")
-    @@schema("api")
 }

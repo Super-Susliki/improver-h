@@ -2,8 +2,6 @@ enum Role {
   USER
   ADMIN
   MERCHANT_USER
-
-  @@schema("api")
 }
 
 model User {
@@ -18,5 +16,4 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("user")
-  @@schema("api")
 }

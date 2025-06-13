@@ -12,5 +12,4 @@ model Store {
   users     UserStore[]
 
   @@map("store")
-  @@schema("api")
 }

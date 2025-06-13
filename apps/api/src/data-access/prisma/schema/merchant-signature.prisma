@@ -1,4 +1,4 @@
-model UserSignature {
+model MerchantSignature {
     id String @id @default(uuid())
 
     userId  String
@@ -12,5 +12,4 @@ model UserSignature {
     userStore UserStore @relation(fields: [userId, storeId], references: [userId, storeId])
 
     @@map("user_signature")
-    @@schema("api")
 }
