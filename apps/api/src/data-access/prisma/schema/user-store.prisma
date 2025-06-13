@@ -1,0 +1,16 @@
+model UserStore {
+    userId  String
+    storeId String
+    user    User   @relation(fields: [userId], references: [id])
+    store   Store  @relation(fields: [storeId], references: [id])
+
+    bonusesAmount Int @default(0) @map("bonuses_amount")
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    merchantSignatures MerchantSignature[]
+
+    @@id([userId, storeId])
+    @@map("user_merchant")
+}
