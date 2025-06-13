@@ -1,0 +1,42 @@
+{
+  "name": "@hackathon-2025/root",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach -A run build",
+    "dev": "yarn workspaces foreach -A -p run dev",
+    "test": "yarn workspaces foreach -A run test",
+    "lint": "yarn workspaces foreach -A run lint",
+    "lint:fix": "yarn workspaces foreach -A run lint:fix",
+    "clean": "yarn workspaces foreach -A run clean && rimraf node_modules/.cache",
+    "typecheck": "yarn workspaces foreach -A run typecheck",
+    "api:dev": "yarn workspace @hackathon-2025/api run dev",
+    "web:dev": "yarn workspace @hackathon-2025/web run dev",
+    "contracts:dev": "yarn workspace @hackathon-2025/contracts run dev",
+    "contracts:deploy": "yarn workspace @hackathon-2025/contracts run deploy",
+    "contracts:compile": "yarn workspace @hackathon-2025/contracts run compile"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.4.1",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=4.0.0"
+  },
+  "packageManager": "yarn@4.9.2"
+}
