@@ -1,0 +1,16 @@
+model UserSignature {
+    id String @id @default(uuid())
+
+    userId  String
+    storeId String
+
+    signature String
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    userStore UserStore @relation(fields: [userId, storeId], references: [userId, storeId])
+
+    @@map("user_signature")
+    @@schema("api")
+}
