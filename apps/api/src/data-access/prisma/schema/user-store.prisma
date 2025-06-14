@@ -12,5 +12,5 @@ model UserStore {
     merchantSignatures MerchantSignature[]
 
     @@id([userId, storeId])
-    @@map("user_merchant")
+    @@map("user_store")
 }

@@ -5,6 +5,8 @@ import { RouterProvider } from "react-router";
 import { WagmiProvider } from "wagmi";
 import { wagmiConfig } from "./lib/wagmi-config";
 
+import { Loader } from "./components/common/Loader";
+import { AuthProvider } from "./contexts/AuthContext";
 import { env } from "./env";
 import { SUPPORTED_CHAIN } from "./lib/chains";
 import { router } from "./lib/router";
@@ -32,9 +34,11 @@ const App = memo(() => {
     >
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<div>Loading...</div>}>
-            <RouterProvider router={router} />
-          </Suspense>
+          <AuthProvider>
+            <Suspense fallback={<Loader />}>
+              <RouterProvider router={router} />
+            </Suspense>
+          </AuthProvider>
         </QueryClientProvider>
       </WagmiProvider>
     </PrivyProvider>
