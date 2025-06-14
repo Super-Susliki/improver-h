@@ -33,7 +33,7 @@ export const EstablishmentDetailsContent = ({ storeId }: Props) => {
             }}
           >
             <QRCodeIcon className="size-[26px]" color="white" />
-            Scan QR
+            Scan customer&apos;s QR
           </Button>
         )}
         <SendTipCard />
