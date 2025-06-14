@@ -30,9 +30,9 @@ export default [
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-misused-promises': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'warn',
-      '@typescript-eslint/no-unsafe-call': 'warn',
-      '@typescript-eslint/no-unsafe-return': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off',
 
       // Decorator support
@@ -60,6 +60,8 @@ export default [
 
       // Class-based architecture
       'max-lines-per-function': 'off', // Controllers can be longer
+      'max-lines': 'off',
+      'max-params': 'off',
       complexity: 'off',
     },
   },

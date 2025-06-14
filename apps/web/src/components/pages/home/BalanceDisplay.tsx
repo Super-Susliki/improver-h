@@ -21,7 +21,7 @@ interface IntMaxTokenBalance {
 export const BalanceDisplay = () => {
   const { privyUser } = useAuth();
   const [isVisible, setIsVisible] = useState(true);
-
+  console.log("privyUser ==>", privyUser);
   const address = privyUser?.wallet?.address as Address | undefined;
   const { balance, balanceUSD, isLoading, error } = useEthBalance(address);
 

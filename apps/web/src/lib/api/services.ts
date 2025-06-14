@@ -1,7 +1,16 @@
 import { httpClient } from "../httpClient";
 
 import { API_ENDPOINTS } from "./endpoints";
-import type { GrantBonusRequest, GrantBonusResponse, Store, UserStore } from "./types";
+import type {
+  GrantBonusRequest,
+  GrantBonusResponse,
+  Store,
+  UserStore,
+  LoyaltyReward,
+  LoyaltyStats,
+  RewardRedemption,
+  RedemptionStatus,
+} from "./types";
 
 export class ApiService {
   static async getUserStores(): Promise<UserStore[]> {
@@ -34,5 +43,40 @@ export class ApiService {
         },
       }
     );
+  }
+
+  static async getStoreRewards(storeId: string): Promise<LoyaltyReward[]> {
+    return httpClient.get<LoyaltyReward[]>(API_ENDPOINTS.getStoreRewards(storeId));
+  }
+
+  static async getUserLoyaltyStats(storeId: string): Promise<LoyaltyStats> {
+    return httpClient.get<LoyaltyStats>(API_ENDPOINTS.getUserLoyaltyStats(storeId));
+  }
+
+  static async redeemReward(storeId: string, rewardId: string): Promise<RewardRedemption> {
+    return httpClient.post<RewardRedemption>(API_ENDPOINTS.redeemReward(storeId), {
+      rewardId,
+    });
+  }
+
+  static async getMerchantRedemptions(storeId: string): Promise<RewardRedemption[]> {
+    return httpClient.get<RewardRedemption[]>(API_ENDPOINTS.getMerchantRedemptions(storeId));
+  }
+
+  static async updateRedemptionStatus(
+    redemptionId: string,
+    status: RedemptionStatus
+  ): Promise<RewardRedemption> {
+    return httpClient.put<RewardRedemption>(API_ENDPOINTS.updateRedemptionStatus(redemptionId), {
+      status,
+    });
+  }
+
+  static async getUserRedemptions(): Promise<RewardRedemption[]> {
+    return httpClient.get<RewardRedemption[]>(API_ENDPOINTS.getUserRedemptions());
+  }
+
+  static async getUserStoreRedemptions(storeId: string): Promise<RewardRedemption[]> {
+    return httpClient.get<RewardRedemption[]>(API_ENDPOINTS.getUserStoreRedemptions(storeId));
   }
 }

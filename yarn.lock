@@ -1657,6 +1657,7 @@ __metadata:
     "@radix-ui/react-slot": "npm:^1.2.3"
     "@t3-oss/env-core": "npm:^0.13.8"
     "@tailwindcss/vite": "npm:^4.1.10"
+    "@tanstack/eslint-plugin-query": "npm:^5.78.0"
     "@tanstack/react-query": "npm:^5.80.7"
     "@types/node": "npm:^24.0.1"
     "@types/react": "npm:^19.1.2"
@@ -1667,10 +1668,12 @@ __metadata:
     buffer: "npm:^6.0.3"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
+    date-fns: "npm:^4.1.0"
     eslint: "npm:^9.25.0"
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:^5.2.0"
     eslint-plugin-react-refresh: "npm:^0.4.19"
+    eslint-plugin-svg-jsx: "npm:^1.2.4"
     globals: "npm:^16.0.0"
     graphql: "npm:^16.11.0"
     intmax2-client-sdk: "npm:@super-susliki/intmax2-client-sdk@1.2.4"
@@ -1679,6 +1682,7 @@ __metadata:
     react-dom: "npm:^19.1.0"
     react-qr-code: "npm:^2.0.15"
     react-router: "npm:^7.6.2"
+    sonner: "npm:^2.0.5"
     tailwind-merge: "npm:^3.3.1"
     tailwindcss: "npm:^4.1.10"
     tw-animate-css: "npm:^1.3.4"
@@ -5781,6 +5785,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/eslint-plugin-query@npm:^5.78.0":
+  version: 5.78.0
+  resolution: "@tanstack/eslint-plugin-query@npm:5.78.0"
+  dependencies:
+    "@typescript-eslint/utils": "npm:^8.18.1"
+  peerDependencies:
+    eslint: ^8.57.0 || ^9.0.0
+  checksum: 10c0/b3276f5f365e61866f8e00b19cc096c285760ab25fbbed1663940484eddaf2810f7ce1a1d93f35dffe0e9d9ca40a52ad23322241530b68dd8b32b98dbcd9a4bf
+  languageName: node
+  linkType: hard
+
 "@tanstack/query-core@npm:5.80.7":
   version: 5.80.7
   resolution: "@tanstack/query-core@npm:5.80.7"
@@ -6587,7 +6602,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.34.0":
+"@typescript-eslint/utils@npm:8.34.0, @typescript-eslint/utils@npm:^8.18.1":
   version: 8.34.0
   resolution: "@typescript-eslint/utils@npm:8.34.0"
   dependencies:
@@ -9963,6 +9978,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "date-fns@npm:4.1.0"
+  checksum: 10c0/b79ff32830e6b7faa009590af6ae0fb8c3fd9ffad46d930548fbb5acf473773b4712ae887e156ba91a7b3dc30591ce0f517d69fd83bd9c38650fdc03b4e0bac8
+  languageName: node
+  linkType: hard
+
 "dateformat@npm:^4.6.3":
   version: 4.6.3
   resolution: "dateformat@npm:4.6.3"
@@ -11033,6 +11055,13 @@ __metadata:
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
   checksum: 10c0/c850bfd556291d4d9234f5ca38db1436924a1013627c8ab1853f77cac73ec19b020e861e6c7b783436a48b6ffcdfba4547598235a37ad4611b6739f65fd8ad57
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-svg-jsx@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "eslint-plugin-svg-jsx@npm:1.2.4"
+  checksum: 10c0/a7823fec66bafd59ad691a6f2349d77fb7250185941c5d816a2e8ee04d1302bf16919b38a1c1b4fcb9d25344a6a5f3a5f4fbd87390efe24c3e0be4ad60ab38aa
   languageName: node
   linkType: hard
 
@@ -18581,6 +18610,16 @@ __metadata:
   dependencies:
     atomic-sleep: "npm:^1.0.0"
   checksum: 10c0/ae897e6c2cd6d3cb7cdcf608bc182393b19c61c9413a85ce33ffd25891485589f39bece0db1de24381d0a38fc03d08c9862ded0c60f184f1b852f51f97af9684
+  languageName: node
+  linkType: hard
+
+"sonner@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "sonner@npm:2.0.5"
+  peerDependencies:
+    react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+    react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+  checksum: 10c0/38ec98e2f5d7e086825307f737a90bdc8639182d184e002719c2368bf3a9259c340f41afda731716d2b78c40e5e3aa9165058375be42f6a93bda0876b9b433ba
   languageName: node
   linkType: hard
 

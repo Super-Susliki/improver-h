@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { cloneElement } from "react";
 import { useLocation, useOutlet } from "react-router";
+import { Toaster } from "sonner";
 
 import { BottomTabs } from "@/components/bottom-tabs/bottom-tabs";
 import { routes } from "@/lib/router";
@@ -15,6 +16,7 @@ const DefaultLayout = () => {
 
   return (
     <div className={cn("relative flex min-h-screen max-w-[480px] flex-col mx-auto items-center")}>
+      <Toaster position="top-center" richColors closeButton />
       <AnimatePresence mode="wait" initial={false}>
         {outlet && (
           <motion.div

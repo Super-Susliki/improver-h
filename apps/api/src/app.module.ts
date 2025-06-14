@@ -8,6 +8,7 @@ import { validateEnv } from './config/env.schema';
 import { DataAccessModule } from './data-access/data-access.module';
 import { GlobalGuard } from './guards/global.guard';
 import { LoggerModule } from './logger/logger.module';
+import { LoyaltyModule } from './loyalty/loyalty.module';
 import { MerchantsModule } from './merchants/merchants.module';
 import { QueueModule } from './queue/queue.module';
 import { StoresModule } from './stores/stores.module';
@@ -37,6 +38,9 @@ import { UsersModule } from './users/users.module';
 
     // Stores
     StoresModule,
+
+    // Loyalty
+    LoyaltyModule,
 
     // Queue
     QueueModule,

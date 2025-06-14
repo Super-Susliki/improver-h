@@ -7,9 +7,11 @@ model Store {
   bannerUrl   String? @map("banner_url")
   websiteUrl  String? @map("website_url")
 
-  createdAt DateTime    @default(now()) @map("created_at")
-  updatedAt DateTime    @updatedAt @map("updated_at")
-  users     UserStore[]
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+  users          UserStore[]
+  loyaltyRewards LoyaltyReward[]
+  redemptions    RewardRedemption[]
 
   @@map("store")
 }

@@ -1,0 +1,52 @@
+enum RewardType {
+    DISCOUNT_PERCENTAGE
+    DISCOUNT_FIXED
+    FREE_ITEM
+    SPECIAL_OFFER
+}
+
+model LoyaltyReward {
+    id                 String     @id @default(uuid())
+    storeId            String     @map("store_id")
+    name               String     @map("name")
+    description        String?    @map("description")
+    type               RewardType @map("type")
+    value              Float      @map("value") // percentage, fixed amount, or item value
+    pointsRequired     Int        @map("points_required")
+    isActive           Boolean    @default(true) @map("is_active")
+    maxRedemptions     Int?       @map("max_redemptions") // null = unlimited
+    currentRedemptions Int        @default(0) @map("current_redemptions")
+
+    store       Store              @relation(fields: [storeId], references: [id], onDelete: Cascade)
+    redemptions RewardRedemption[]
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("loyalty_reward")
+}
+
+model RewardRedemption {
+    id         String           @id @default(uuid())
+    userId     String           @map("user_id")
+    storeId    String           @map("store_id")
+    rewardId   String           @map("reward_id")
+    pointsUsed Int              @map("points_used")
+    status     RedemptionStatus @default(PENDING) @map("status")
+
+    user   User          @relation(fields: [userId], references: [id])
+    store  Store         @relation(fields: [storeId], references: [id])
+    reward LoyaltyReward @relation(fields: [rewardId], references: [id])
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("reward_redemption")
+}
+
+enum RedemptionStatus {
+    PENDING
+    APPROVED
+    REJECTED
+    USED
+}

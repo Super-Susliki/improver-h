@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { sepolia } from "viem/chains";
 
 import { BuyIcon, QRCodeIcon, ReceiveIcon } from "@/components/svg";
+import { Gift } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const ActionButtons = () => {
@@ -19,6 +20,7 @@ const ActionButtons = () => {
   }[] = useMemo(
     () => [
       { title: "Show QR", icon: <QRCodeIcon />, link: "/qr" },
+      { title: "Loyalty", icon: <Gift className="h-6 w-6" color="#B8ACFF" />, link: "/loyalty" },
       { title: "Receive", icon: <ReceiveIcon />, link: "/receive" },
       {
         title: "Fund",
@@ -47,7 +49,7 @@ const ActionButtons = () => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-[10px] mt-5">
+    <div className="grid grid-cols-2 gap-[10px] mt-5">
       {buttonsConfig.map((button) => {
         return (
           <button
