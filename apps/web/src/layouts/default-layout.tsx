@@ -1,9 +1,13 @@
 import { Outlet } from "react-router";
 
-export const DefaultLayout = () => {
+const DefaultLayout = () => {
   return (
     <div className="relative flex min-h-screen flex-col px-5">
       <Outlet />
     </div>
   );
 };
+
+DefaultLayout.displayName = "DefaultLayout";
+
+export default DefaultLayout;

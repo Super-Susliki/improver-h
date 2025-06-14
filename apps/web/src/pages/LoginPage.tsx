@@ -1,15 +1,30 @@
-import React from "react";
+import { usePrivy } from "@privy-io/react-auth";
 
-export const LoginPage = () => {
+import { Button } from "@/components/ui/button";
+
+const LoginPage = () => {
+  const { login } = usePrivy();
+
   return (
-    <section className="flex flex-col gap-10 items-center">
+    <section className="flex flex-col gap-10 pt-[40vh] items-center">
       <div className="flex flex-col gap-5">
-        <h1 className="font">Improve your HoReCa with Improver</h1>
-        <p>
+        <h1 className="font-medium text-[32px]">Improve your HoReCa with Improver</h1>
+        <p className="text-light-gray text-lg">
           Lorem ipsum dolor sit amet consectetur. Ut in ut phasellus augue turpis magna gravida
           tincidunt. Sem massa in id duis.
         </p>
       </div>
+      <Button
+        onClick={() => {
+          login();
+        }}
+      >
+        Get Started
+      </Button>
     </section>
   );
 };
+
+LoginPage.displayName = "LoginPage";
+
+export default LoginPage;
