@@ -6,6 +6,8 @@ import { BottomTabs } from "@/components/bottom-tabs/bottom-tabs";
 import { routes } from "@/lib/router";
 import { cn } from "@/lib/utils";
 
+const routesWithPadding = [routes.login, routes.home];
+
 const DefaultLayout = () => {
   const { pathname } = useLocation();
   const outlet = useOutlet();
@@ -14,7 +16,8 @@ const DefaultLayout = () => {
   return (
     <div
       className={cn(
-        "relative flex min-h-screen pb-[58px] max-w-[480px] flex-col px-5 mx-auto items-center"
+        "relative flex min-h-screen pb-[58px] max-w-[480px] flex-col mx-auto items-center",
+        routesWithPadding.includes(pathname) ? "px-5" : ""
       )}
     >
       <AnimatePresence mode="wait" initial={false}>

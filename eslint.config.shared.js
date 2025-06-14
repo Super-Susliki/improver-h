@@ -192,5 +192,6 @@ export const testConfig = {
     "@typescript-eslint/no-non-null-assertion": "off",
     "max-lines-per-function": "off",
     "no-magic-numbers": "off",
+    complexity: "off",
   },
 };
