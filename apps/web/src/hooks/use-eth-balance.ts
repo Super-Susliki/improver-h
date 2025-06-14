@@ -1,8 +1,9 @@
-import { useBalance, useReadContract } from "wagmi";
 import { formatEther, type Address } from "viem";
+import { mainnet } from "viem/chains";
+import { useBalance, useReadContract } from "wagmi";
+
 import { AggregatorV3InterfaceAbi } from "@/abi/AggregatorV3Interface";
 import { ETH_USD_PRICE_FEED } from "@/config/contracts";
-import { mainnet } from "viem/chains";
 
 interface EthBalanceHook {
   balance: string | null;
@@ -43,6 +44,6 @@ export const useEthBalance = (address?: Address): EthBalanceHook => {
     balance,
     balanceUSD,
     isLoading: isBalanceLoading || isPriceLoading,
-    error: balanceError?.message || priceError?.message || null,
+    error: balanceError?.message ?? priceError?.message ?? null,
   };
 };

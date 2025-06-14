@@ -1,5 +1,6 @@
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
+import path from "path";
+
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -10,5 +11,8 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  server: {
+    allowedHosts: ["localhost", "e3cdf4d44203.ngrok.app"],
   },
 });

@@ -39,7 +39,6 @@ export class PrivyAuthGuard implements CanActivate {
       // console.log('verifiedClaims', verifiedClaims);
 
       const user = await this.privyClient.getUserById(verifiedClaims.userId);
-      // console.log('user', user);
 
       let dbUser = await this.prisma.user.findUnique({
         where: {

@@ -100,7 +100,7 @@ const ReceivePage = () => {
 
               {/* Instructions */}
               <div className="text-center text-sm text-gray-600 mt-4">
-                <p>Share this QR code or address to receive payments</p>
+                <p>Share this QR code or address to receive tips</p>
               </div>
             </div>
           )}

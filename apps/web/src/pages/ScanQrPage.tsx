@@ -21,19 +21,14 @@ const ScanQrPage = () => {
     }
 
     setTo(r.rawValue);
-    navigate(routes.createPayment);
+    navigate(routes.sendTip);
   };
 
   return (
     <LightTopPage
       top={[
-        <LightTopPageBackButton
-          route={routes.createPayment}
-          className="col-span-1"
-        />,
-        <LightTopPageTitle className="col-span-3">
-          Scan QR code
-        </LightTopPageTitle>,
+        <LightTopPageBackButton route={routes.sendTip} className="col-span-1" />,
+        <LightTopPageTitle className="col-span-3">Scan QR code</LightTopPageTitle>,
       ]}
     >
       <LightTopPageContent>

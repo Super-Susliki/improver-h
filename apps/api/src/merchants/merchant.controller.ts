@@ -75,7 +75,7 @@ export class MerchantsController {
       merchantAddress: getAddress(user.externalUser.wallet!.address),
       signature: body.signature as `0x${string}`,
       userId: body.userId,
-      bonusesAmount: body.bonusesAmount,
+      bonusesAmount: +body.bonusesAmount,
       challengeId: challengId,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       userAddress: user.externalUser.wallet!.address as Address,

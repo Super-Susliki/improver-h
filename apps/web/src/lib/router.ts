@@ -1,10 +1,11 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 
-function lazyWithRetry(dynamicImportFn: () => any) {
+function lazyWithRetry(dynamicImportFn: () => Promise<{ default: React.ComponentType }>) {
   return lazy(() =>
     dynamicImportFn().catch(() => {
       window.location.reload();
+      return dynamicImportFn();
     })
   );
 }
@@ -13,7 +14,7 @@ export const routes = {
   home: "/",
   old: "/old",
   login: "/login",
-  createPayment: "/create-payment",
+  sendTip: "/send-tip",
   establishments: "/establishments",
   scanQrCode: "/scan-qr-code",
   receive: "/receive",
@@ -34,8 +35,8 @@ export const router = createBrowserRouter([
         Component: lazyWithRetry(() => import("@/pages/LoginPage")),
       },
       {
-        path: routes.createPayment,
-        Component: lazyWithRetry(() => import("@/pages/CreatePaymentPage")),
+        path: routes.sendTip,
+        Component: lazyWithRetry(() => import("@/pages/SendTipPage")),
       },
       {
         path: routes.establishments,
