@@ -18,3 +18,6 @@ const SignaturesSubmitterModule = buildModule(
 );
 
 export default SignaturesSubmitterModule;
+
+// deployed address:
+// 0xfbB032b3D4b4756140d35f1ab86e12AB99433EFF
