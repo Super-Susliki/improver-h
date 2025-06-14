@@ -46,7 +46,7 @@ const ActionButtons = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-[10px] mt-5">
+    <div className="grid grid-cols-3 gap-[10px] mt-5">
       {buttonsConfig.map((button) => {
         return (
           <button
