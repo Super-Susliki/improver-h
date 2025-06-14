@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { EthereumIcon, EyeIcon, EyeOffIcon } from "../../svg";
 import { useEthBalance } from "@/hooks/use-eth-balance";
-import { useAccount } from "wagmi";
+import { useAuth } from "@/contexts/AuthContext";
+import type { Address } from "viem";
 
 export const BalanceDisplay = () => {
-  const { address } = useAccount();
+  const { privyUser } = useAuth();
   const [isVisible, setIsVisible] = useState(true);
+
+  const address = privyUser?.wallet?.address as Address | undefined;
   const { balance, balanceUSD, isLoading, error } = useEthBalance(address);
 
   const toggleVisibility = () => {
