@@ -22,6 +22,6 @@ export const tabs: Tab[] = [
   {
     label: "Tips",
     icon: <CreditCard />,
-    href: routes.sendTip,
+    href: routes.tipsHistory,
   },
 ] as const;
