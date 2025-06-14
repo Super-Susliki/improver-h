@@ -15,7 +15,12 @@ const DefaultLayout = () => {
   const isLogin = pathname === routes.login;
 
   return (
-    <div className={cn("relative flex min-h-screen max-w-[480px] flex-col mx-auto items-center")}>
+    <div
+      className={cn(
+        "relative flex min-h-screen flex-col mx-auto items-center",
+        isLogin ? "max-mobile:max-w-[480px]" : "max-w-[480px]"
+      )}
+    >
       <Toaster position="top-center" richColors closeButton />
       <AnimatePresence mode="wait" initial={false}>
         {outlet && (
@@ -30,7 +35,7 @@ const DefaultLayout = () => {
             }}
             className={cn(
               "w-full flex-1 overflow-y-auto",
-              routesWithPadding.includes(pathname) ? "px-5" : "",
+              routesWithPadding.includes(pathname) ? "max-mobile:px-5" : "",
               !isLogin ? "pb-20" : ""
             )}
           >

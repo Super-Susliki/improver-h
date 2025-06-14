@@ -22,6 +22,7 @@ export const routes = {
   loyalty: "/loyalty",
   tipsHistory: "/tips-history",
   establishmentDetails: "/establishment/:storeId",
+  establishmentHistory: "/establishment/:storeId/history",
 };
 
 export const router = createBrowserRouter([
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
       {
         path: routes.establishmentDetails,
         Component: lazyWithRetry(() => import("@/pages/EstablishmentDetailsPage")),
+      },
+      {
+        path: routes.establishmentHistory,
+        Component: lazyWithRetry(() => import("@/pages/EstablishmentHistoryPage")),
       },
     ],
   },

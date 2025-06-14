@@ -21,7 +21,7 @@ export const BottomTab = ({ tab }: { tab: Tab }) => {
       className={({ isActive }) =>
         cn(
           "flex flex-col gap-0.5 items-center transition-all",
-          isActive ? "text-black" : "text-light-gray"
+          isActive ? "text-black" : "text-light-gray/70"
         )
       }
     >

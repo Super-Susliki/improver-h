@@ -8,6 +8,7 @@
 @theme inline {
   --font-sans: "Kumbh Sans", sans-serif;
   --font-red-hat-text: "Red Hat Text", sans-serif;
+  --breakpoint-mobile: 480px;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
