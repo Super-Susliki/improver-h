@@ -4,6 +4,8 @@ model UserStore {
     user    User   @relation(fields: [userId], references: [id])
     store   Store  @relation(fields: [storeId], references: [id])
 
+    isMerchant Boolean @default(false) @map("is_merchant")
+
     bonusesAmount Int @default(0) @map("bonuses_amount")
 
     createdAt DateTime @default(now()) @map("created_at")
@@ -11,6 +13,6 @@ model UserStore {
 
     merchantSignatures MerchantSignature[]
 
-    @@id([userId, storeId])
+    @@id([userId, storeId, isMerchant])
     @@map("user_store")
 }

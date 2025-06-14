@@ -116,7 +116,11 @@ async function main() {
   }
   let userStore1 = await prisma.userStore.findUnique({
     where: {
-      userId_storeId: { storeId: mcdonalds.id, userId: user1.id },
+      userId_storeId_isMerchant: {
+        storeId: mcdonalds.id,
+        userId: user1.id,
+        isMerchant: true,
+      },
       userId: user1.id,
       storeId: mcdonalds.id,
     },
@@ -133,7 +137,11 @@ async function main() {
 
   let userStore2 = await prisma.userStore.findUnique({
     where: {
-      userId_storeId: { storeId: ethkyiv.id, userId: user1.id },
+      userId_storeId_isMerchant: {
+        storeId: ethkyiv.id,
+        userId: user1.id,
+        isMerchant: true,
+      },
       userId: user1.id,
       storeId: ethkyiv.id,
     },
@@ -150,7 +158,11 @@ async function main() {
 
   let userStore3 = await prisma.userStore.findUnique({
     where: {
-      userId_storeId: { storeId: lvivcroissants.id, userId: user2.id },
+      userId_storeId_isMerchant: {
+        storeId: lvivcroissants.id,
+        userId: user2.id,
+        isMerchant: true,
+      },
       userId: user2.id,
       storeId: lvivcroissants.id,
     },
