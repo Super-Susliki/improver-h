@@ -1429,7 +1429,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphprotocol/graph-cli@npm:^0.97.1":
+"@graphprotocol/graph-cli@npm:0.97.1, @graphprotocol/graph-cli@npm:^0.97.1":
   version: 0.97.1
   resolution: "@graphprotocol/graph-cli@npm:0.97.1"
   dependencies:
@@ -1462,6 +1462,15 @@ __metadata:
   bin:
     graph: bin/run.js
   checksum: 10c0/0148ff075cd88599be22886c3718159d8b8b3bf0acc614d331ae1510f9281d549bbb13719041003d2a5c6db5621e8f29a6586cf51f1e082e6fdcef0f44c647f0
+  languageName: node
+  linkType: hard
+
+"@graphprotocol/graph-ts@npm:0.37.0":
+  version: 0.37.0
+  resolution: "@graphprotocol/graph-ts@npm:0.37.0"
+  dependencies:
+    assemblyscript: "npm:0.27.31"
+  checksum: 10c0/4c2da4e0f856ad6bcb84bbf89b460f474bd4291d1f4853ddd94cd27e8a3774789eee6ef8c1b8fa37f48d2f8e53566747c40550488bc739002b84f27bb5c00f06
   languageName: node
   linkType: hard
 
@@ -7243,6 +7252,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"assemblyscript@npm:0.27.31":
+  version: 0.27.31
+  resolution: "assemblyscript@npm:0.27.31"
+  dependencies:
+    binaryen: "npm:116.0.0-nightly.20240114"
+    long: "npm:^5.2.1"
+  bin:
+    asc: bin/asc.js
+    asinit: bin/asinit.js
+  checksum: 10c0/56b17b57c589625f7683508a2c457e01677e5c2943d08f29b0d6a56e021c2a8ac37e71541771c2659f7b05a672c816a15e0d23fe37e002a700f74efda08440cf
+  languageName: node
+  linkType: hard
+
 "assertion-error@npm:^1.1.0":
   version: 1.1.0
   resolution: "assertion-error@npm:1.1.0"
@@ -7506,6 +7528,16 @@ __metadata:
   bin:
     wasm-opt: bin/wasm-opt
   checksum: 10c0/bb9314d8de107d42dc2a233c8b394e92008656af43f23a5b903be11068a88f7a984c64a9a728be5ee3f7223d583b5b4b8a97bab66a3a389644bdc5165845b53c
+  languageName: node
+  linkType: hard
+
+"binaryen@npm:116.0.0-nightly.20240114":
+  version: 116.0.0-nightly.20240114
+  resolution: "binaryen@npm:116.0.0-nightly.20240114"
+  bin:
+    wasm-opt: bin/wasm-opt
+    wasm2js: bin/wasm2js
+  checksum: 10c0/95e14b87c27fef94fb4008dcd63fa61ea66f69bcb179f7f73f56dfb39aed58afec6957ef18acacfce15e4874a0da402b0fc3d47ee392a9b906a97e7634bbbad3
   languageName: node
   linkType: hard
 
@@ -11769,6 +11801,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"improverh@workspace:apps/subgraph":
+  version: 0.0.0-use.local
+  resolution: "improverh@workspace:apps/subgraph"
+  dependencies:
+    "@graphprotocol/graph-cli": "npm:0.97.1"
+    "@graphprotocol/graph-ts": "npm:0.37.0"
+    matchstick-as: "npm:0.6.0"
+  languageName: unknown
+  linkType: soft
+
 "imurmurhash@npm:^0.1.4":
   version: 0.1.4
   resolution: "imurmurhash@npm:0.1.4"
@@ -13734,7 +13776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"long@npm:^5.2.0":
+"long@npm:^5.2.0, long@npm:^5.2.1":
   version: 5.3.2
   resolution: "long@npm:5.3.2"
   checksum: 10c0/7130fe1cbce2dca06734b35b70d380ca3f70271c7f8852c922a7c62c86c4e35f0c39290565eca7133c625908d40e126ac57c02b1b1a4636b9457d77e1e60b981
@@ -13869,6 +13911,15 @@ __metadata:
   version: 1.1.3
   resolution: "markdown-table@npm:1.1.3"
   checksum: 10c0/aea6eb998900449d938ce46819630492792dd26ac9737f8b506f98baf88c98b7cc1e69c33b72959e0f8578fc0a4b4b44d740daf2db9d8e92ccf3c3522f749fda
+  languageName: node
+  linkType: hard
+
+"matchstick-as@npm:0.6.0":
+  version: 0.6.0
+  resolution: "matchstick-as@npm:0.6.0"
+  dependencies:
+    wabt: "npm:1.0.24"
+  checksum: 10c0/ada0c5039d4b5b85c60600b19338f8b8dd2e566d3afac4da12c0cf612f3ae97d5e0db8ac0ca501975b3e815b1d9a8d8a028a8cc2be24a6c87241242050f64204
   languageName: node
   linkType: hard
 
@@ -18845,6 +18896,23 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 10c0/df70201659085133abffc6b88dcdb8a57ef35f742a01311fc56a4cfcda6a404202860729cc65a2c401a724f6e25f9ab40ce4339ed4946f550541531ced6fe41c
+  languageName: node
+  linkType: hard
+
+"wabt@npm:1.0.24":
+  version: 1.0.24
+  resolution: "wabt@npm:1.0.24"
+  bin:
+    wasm-decompile: bin/wasm-decompile
+    wasm-interp: bin/wasm-interp
+    wasm-objdump: bin/wasm-objdump
+    wasm-opcodecnt: bin/wasm-opcodecnt
+    wasm-strip: bin/wasm-strip
+    wasm-validate: bin/wasm-validate
+    wasm2c: bin/wasm2c
+    wasm2wat: bin/wasm2wat
+    wat2wasm: bin/wat2wasm
+  checksum: 10c0/d3fa20e3c783a3f0d0c293ffb98fab9047ee941cb00ba71922802d2acc8a1f8c5d133fb0e966f21ebc92a72ae5cb4b65b986566de0b1eac184e14fba6a5b0cdc
   languageName: node
   linkType: hard
 
