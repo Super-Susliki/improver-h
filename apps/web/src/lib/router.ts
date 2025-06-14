@@ -12,6 +12,7 @@ function lazyWithRetry(dynamicImportFn: () => any) {
 export const routes = {
   home: "/",
   login: "/login",
+  createPayment: '/create-payment',
 };
 
 export const router = createBrowserRouter([
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
         path: routes.login,
         Component: lazyWithRetry(() => import("@/pages/LoginPage")),
       },
+      {
+        path: routes.createPayment,
+        Component: lazyWithRetry(() => import("@/pages/CreatePaymentPage"))
+      }
     ],
   },
 ]);
