@@ -26,7 +26,11 @@ const DefaultLayout = () => {
               duration: 0.3,
               ease: "easeInOut",
             }}
-            className={cn("w-full", routesWithPadding.includes(pathname) ? "px-5" : "")}
+            className={cn(
+              "w-full flex-1 overflow-y-auto",
+              routesWithPadding.includes(pathname) ? "px-5" : "",
+              !isLogin ? "pb-20" : ""
+            )}
           >
             {cloneElement(outlet, { key: pathname })}
           </motion.div>

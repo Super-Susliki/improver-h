@@ -99,6 +99,7 @@ async function bootstrap() {
         'X-Request-ID',
         'X-Cloud-Trace-Context',
         'Cookie',
+        'challenge-id',
       ],
       exposedHeaders: ['X-Request-ID'],
       preflightContinue: false,

@@ -1,19 +1,19 @@
 import { NavLink } from "react-router";
 
-import { routes } from "@/lib/router";
 import { cn } from "@/lib/utils";
 
 interface Props {
+  id: string;
   name: string;
   image: string | null;
   className?: string;
   imageSize?: number;
 }
 
-export const EstablishmentCard = ({ name, image, className, imageSize = 44 }: Props) => {
+export const EstablishmentCard = ({ id, name, image, className, imageSize = 44 }: Props) => {
   return (
     <NavLink
-      to={routes.establishmentDetails}
+      to={`/establishment/${id}`}
       className={cn(
         "rounded-[30px] border border-[#DADADA] flex flex-col items-center justify-center gap-2.5 relative",
         className

@@ -1,26 +1,44 @@
+import { useState } from "react";
+
 import { SendTipCard } from "../pages/home/SendTipCard";
+import { QRCodeIcon } from "../svg";
 import { Button } from "../ui/button";
 
 import { ActionButtons } from "./action-buttons";
+import { QRScannerModal } from "./qr-scanner-modal";
 import { SocialMedia } from "./social-media";
 
-export const EstablishmentDetailsContent = () => {
+interface Props {
+  storeId: string | undefined;
+}
+
+export const EstablishmentDetailsContent = ({ storeId }: Props) => {
+  const [isQRScannerOpen, setIsQRScannerOpen] = useState(false);
+
   return (
-    <div className="flex flex-col gap-5 pb-5">
-      <div className="flex flex-col gap-2.5">
-        <Button className="flex flex-col h-[94px]  gap-1 items-center">
-          <div className="grid grid-cols-2 gap-[2px]">
-            <div className="w-2 h-2 rounded-[1px] border border-white"></div>
-            <div className="w-2 h-2 rounded-[1px] border border-white"></div>
-            <div className="w-2 h-2 rounded-[1px] border border-white"></div>
-            <div className="w-2 h-2 rounded-[1px] border border-white"></div>
-          </div>
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col">
+        <Button
+          className="flex gap-1 items-center"
+          onClick={() => {
+            setIsQRScannerOpen(true);
+          }}
+        >
+          <QRCodeIcon className="size-[26px]" color="white" />
           Scan QR
         </Button>
         <SendTipCard />
       </div>
       <ActionButtons />
       <SocialMedia />
+
+      <QRScannerModal
+        isOpen={isQRScannerOpen}
+        onClose={() => {
+          setIsQRScannerOpen(false);
+        }}
+        storeId={storeId}
+      />
     </div>
   );
 };

@@ -12,6 +12,10 @@ export class ApiService {
     return httpClient.get<Store[]>(API_ENDPOINTS.getMerchantStores());
   }
 
+  static async getStore(storeId: string): Promise<Store> {
+    return httpClient.get<Store>(API_ENDPOINTS.getStore(storeId));
+  }
+
   static async grantBonus(request: GrantBonusRequest): Promise<GrantBonusResponse> {
     return httpClient.post<GrantBonusResponse>(
       API_ENDPOINTS.grantBonus(request.storeId),
@@ -22,7 +26,7 @@ export class ApiService {
       },
       {
         headers: {
-          "challeng-id": request.challengeId,
+          "challenge-id": request.challengeId,
         },
       }
     );

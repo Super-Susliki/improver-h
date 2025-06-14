@@ -74,9 +74,10 @@ async function main() {
       data: {
         id: 'ethkyiv',
         name: 'ETHKyiv',
-        description: 'ETHKyiv is a',
+        description:
+          'ETHKyiv is a hackathon that takes place in Kyiv, Ukraine. It is a great place to learn about blockchain and web3.',
         logoUrl:
-          'https://www.google.com/url?sa=i&url=https%3A%2F%2Fx.com%2Fethkyiv_&psig=AOvVaw3tqq5kn2laXHDUMmHd6ADs&ust=1749991271050000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKiF4tX38I0DFQAAAAAdAAAAABAE',
+          'https://ethkyiv.devfolio.co/_next/image?url=https%3A%2F%2Fassets.devfolio.co%2Fhackathons%2F166176a965ef4207be7d83a37fe59159%2Fassets%2Ffavicon%2F817.jpeg&w=1440&q=75',
         bannerUrl:
           'https://incrypted.com/wp-content/uploads/2024/12/ethkyiv.jpg',
         websiteUrl: 'https://ethkyiv.com/',

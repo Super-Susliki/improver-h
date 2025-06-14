@@ -21,7 +21,7 @@ const ScanQrPage = () => {
     }
 
     setTo(r.rawValue);
-    navigate(routes.sendTip);
+    void navigate(routes.sendTip);
   };
 
   return (

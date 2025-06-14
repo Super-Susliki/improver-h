@@ -27,12 +27,20 @@ export function useMerchantStores() {
   });
 }
 
+export function useStore(storeId: string) {
+  return useQuery({
+    queryKey: ["store", storeId],
+    queryFn: () => ApiService.getStore(storeId),
+    enabled: !!storeId,
+  });
+}
+
 export function useGrantBonus({ storeId, userId }: { storeId: string; userId: string }) {
   const queryClient = useQueryClient();
   const challengeId = generateUUID();
 
   const { privyUser } = useAuth();
-  const message = `${challengeId}-${userId}-${storeId}-${privyUser?.id}`;
+  const message = `${challengeId}-${userId}-${storeId}-${privyUser?.id ?? ""}`;
 
   const { signMessage } = useSignMessage();
 

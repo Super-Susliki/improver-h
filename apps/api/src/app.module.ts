@@ -10,6 +10,7 @@ import { GlobalGuard } from './guards/global.guard';
 import { LoggerModule } from './logger/logger.module';
 import { MerchantsModule } from './merchants/merchants.module';
 import { QueueModule } from './queue/queue.module';
+import { StoresModule } from './stores/stores.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -25,7 +26,6 @@ import { UsersModule } from './users/users.module';
       validate: () => validateEnv(),
     }),
 
-
     // Auth
     AuthModule.forRoot(),
 
@@ -34,6 +34,9 @@ import { UsersModule } from './users/users.module';
 
     // Merchants
     MerchantsModule,
+
+    // Stores
+    StoresModule,
 
     // Queue
     QueueModule,

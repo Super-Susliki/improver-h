@@ -1,9 +1,8 @@
-export type * from "./types";
+export { ApiService } from "./services";
+export * from "./types";
+
+export { useUserStores, useMerchantStores, useStore, useGrantBonus } from "./hooks";
 
 export { API_ENDPOINTS } from "./endpoints";
-
-export { ApiService } from "./services";
-
-export { useUserStores, useMerchantStores, useGrantBonus } from "./hooks";
 
 export { httpClient } from "../httpClient";

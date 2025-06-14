@@ -58,6 +58,7 @@ const EstablishmentsPage = () => {
                   {merchantEstablishmentsToShow.map((establishment) => (
                     <EstablishmentCard
                       key={establishment.id}
+                      id={establishment.id}
                       className="w-[calc(33.333%-6.6666px)] relative pb-[calc(33.333%-6.6666px)]"
                       name={establishment.name}
                       image={establishment.logoUrl ?? null}
@@ -73,6 +74,7 @@ const EstablishmentsPage = () => {
                   {userEstablishmentsToShow.map((establishment) => (
                     <EstablishmentCard
                       key={establishment.id}
+                      id={establishment.id}
                       className="w-[calc(33.333%-6.6666px)] relative pb-[calc(33.333%-6.6666px)]"
                       name={establishment.name}
                       image={establishment.logoUrl ?? null}

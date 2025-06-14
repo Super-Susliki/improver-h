@@ -68,7 +68,7 @@ export const LightTopPageTitle = ({
 export const LightTopPageContent = ({
   children,
   className,
-  addBottomPadding = true,
+  addBottomPadding = false,
 }: {
   children: React.ReactNode;
   className?: string;
@@ -77,7 +77,7 @@ export const LightTopPageContent = ({
   return (
     <div
       className={cn(
-        "flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8 flex-1",
+        "flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8 flex-1 pb-0",
         className,
         addBottomPadding && "pb-[58px]"
       )}

@@ -41,6 +41,7 @@ export default [
       "@typescript-eslint/no-unsafe-assignment": "off", // More lenient for React props
       "@typescript-eslint/no-unsafe-member-access": "warn",
       "import/no-default-export": "off", // React components often use default exports
+      "@typescript-eslint/no-unnecessary-condition": "off",
       "prefer-const": "error",
       "no-var": "error",
 

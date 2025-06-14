@@ -20,7 +20,7 @@ export const routes = {
   receive: "/receive",
   qr: "/qr",
   tipsHistory: "/tips-history",
-  establishmentDetails: "/establishment-details",
+  establishmentDetails: "/establishment/:storeId",
 };
 
 export const router = createBrowserRouter([

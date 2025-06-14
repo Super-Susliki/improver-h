@@ -10,11 +10,13 @@ interface Props {
   children: React.ReactNode;
   topClassName?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export const DarkTopPage = ({ children, top, topClassName, className }: Props) => {
+export const DarkTopPage = ({ children, top, topClassName, className, style }: Props) => {
   return (
     <main
+      style={style}
       className={cn(
         "bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px] flex-1",
         className
@@ -72,7 +74,7 @@ export const DarkTopPageTitle = ({
 export const DarkTopPageContent = ({
   children,
   className,
-  addBottomPadding = true,
+  addBottomPadding = false,
 }: {
   children: React.ReactNode;
   className?: string;
@@ -81,7 +83,7 @@ export const DarkTopPageContent = ({
   return (
     <div
       className={cn(
-        "flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8 flex-1",
+        "flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8 flex-1 pb-0",
         className,
         addBottomPadding && "pb-[58px]"
       )}

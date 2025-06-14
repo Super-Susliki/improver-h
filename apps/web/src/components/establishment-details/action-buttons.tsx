@@ -64,14 +64,14 @@ interface ActionButtonProps {
 
 export const ActionButton = ({ label, background, icon }: ActionButtonProps) => {
   return (
-    <div className="w-full border border-[#DADADA] rounded-[30px] flex flex-col gap-2.5 px-5 py-7 items-center justify-center relative">
-      <div className="absolute top-2.5 left-2.5 bg-black rounded-[12px] px-2 py-1 text-white">
+    <div className="w-full border border-[#DADADA] rounded-[30px] flex flex-col gap-2.5 p-[21px] items-center justify-start relative">
+      <div className="absolute text-xs top-2.5 left-2.5 h-[24px] bg-black rounded-[12px] px-2 py-1 text-white">
         Coming soon
       </div>
       <div style={{ background }} className="w-11 h-11 rounded-[16px] p-2.5">
         {icon}
       </div>
-      <p className="text-base leading-1">{label}</p>
+      <p className="text-base leading-none text-center">{label}</p>
     </div>
   );
 };
