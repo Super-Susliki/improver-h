@@ -1,4 +1,11 @@
-import { BadgeDollarSign, ChevronRight, QrCode, Wallet } from "lucide-react";
+import {
+  BadgeDollarSign,
+  ChevronRight,
+  Loader2,
+  QrCode,
+  Wallet,
+} from "lucide-react";
+import { useNavigate } from "react-router";
 
 import {
   DarkTopPage,
@@ -8,19 +15,30 @@ import {
 } from "@/components/common/dark-top-page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
+import { useSendTip } from "@/hooks/use-send-tip";
 import { useTipBalance } from "@/hooks/use-tip-balance";
-import { useNavigate } from "react-router";
 import { routes } from "@/lib/router";
 
 const CreatePaymentPage = () => {
   const { balance, setBalance, to, setTo } = useTipBalance();
   const navigate = useNavigate();
+  const { intMaxState } = useAuth();
+  const { mutateAsync, isPending } = useSendTip();
+  console.log(intMaxState.address);
+
+  const onNextMock = async () => {
+    const response = await mutateAsync({ address: to, value: balance });
+    console.log(response);
+  };
 
   return (
     <DarkTopPage
       top={[
         <DarkTopPageBackButton route="/" className="col-span-1" />,
-        <DarkTopPageTitle className="col-span-3">Create a payment</DarkTopPageTitle>,
+        <DarkTopPageTitle className="col-span-3">
+          Create a payment
+        </DarkTopPageTitle>,
       ]}
     >
       <DarkTopPageContent>
@@ -33,7 +51,9 @@ const CreatePaymentPage = () => {
             <div>
               <Input
                 value={to}
-                onChange={(e) => setTo(e.target.value)}
+                onChange={(e) => {
+                  setTo(e.target.value);
+                }}
                 className="py-[20px] pl-[20px] rounded-[30px] text-[18px]"
               />
             </div>
@@ -64,27 +84,34 @@ const CreatePaymentPage = () => {
               <div className="grid grid-cols-3 gap-[8px]">
                 <Button
                   className="bg-[#E0DBFC] text-black font-normal hover:bg-[#E0DBFC]/50"
-                  onClick={() => setBalance("5")}
+                  onClick={() => {
+                    setBalance("5");
+                  }}
                 >
                   $5
                 </Button>
                 <Button
                   className="bg-[#E0DBFC] text-black font-normal hover:bg-[#E0DBFC]/50"
-                  onClick={() => setBalance("10")}
+                  onClick={() => {
+                    setBalance("10");
+                  }}
                 >
                   $10
                 </Button>
                 <Button
                   className="bg-[#E0DBFC] text-black font-normal hover:bg-[#E0DBFC]/50"
-                  onClick={() => setBalance("15")}
+                  onClick={() => {
+                    setBalance("15");
+                  }}
                 >
                   $15
                 </Button>
               </div>
             </div>
           </div>
-          <Button>
-            Next <ChevronRight className="w-8 h-8" />
+          <Button onClick={onNextMock} disabled={isPending}>
+            {isPending && <Loader2 className="animate-spin" />} Next{" "}
+            <ChevronRight className="w-8 h-8" />
           </Button>
         </div>
       </DarkTopPageContent>
