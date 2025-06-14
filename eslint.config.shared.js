@@ -72,10 +72,7 @@ export const baseConfig = [
       "@typescript-eslint/restrict-template-expressions": "warn",
       "@typescript-eslint/prefer-readonly": "error",
       "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
-      "@typescript-eslint/consistent-type-imports": [
-        "error",
-        { prefer: "type-imports" },
-      ],
+      "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
       "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/ban-ts-comment": [
         "error",
@@ -91,14 +88,7 @@ export const baseConfig = [
       "import/order": [
         "error",
         {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index",
-          ],
+          groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
           "newlines-between": "always",
           alphabetize: {
             order: "asc",
@@ -108,16 +98,6 @@ export const baseConfig = [
       ],
       "import/no-duplicates": "error",
       "import/no-unresolved": "off", // TypeScript handles this
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-          ts: "never",
-          tsx: "never",
-          js: "never",
-          jsx: "never",
-        },
-      ],
       "import/no-default-export": "off",
       "import/prefer-default-export": "off",
       "import/no-cycle": "error",
@@ -154,7 +134,6 @@ export const baseConfig = [
       complexity: ["warn", 10],
       "max-depth": ["warn", 4],
       "max-lines": ["warn", 300],
-      "max-lines-per-function": ["warn", 50],
       "max-params": ["warn", 4],
       "no-magic-numbers": "off", // Too restrictive for most use cases
       "no-nested-ternary": "error",

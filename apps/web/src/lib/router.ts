@@ -1,16 +1,32 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
-import { DefaultLayout } from "../layouts/default-layout";
-import { HomePage } from "../pages/HomePage";
+
+function lazyWithRetry(dynamicImportFn: () => any) {
+  return lazy(() =>
+    dynamicImportFn().catch(() => {
+      window.location.reload();
+    })
+  );
+}
+
+export const routes = {
+  home: "/",
+  login: "/login",
+};
 
 export const router = createBrowserRouter([
-    {
-        path: '/',
-        Component: DefaultLayout,
-        children: [
-            {
-                path: '/',
-                Component: HomePage
-            }
-        ]
-    }
+  {
+    path: "/",
+    Component: lazyWithRetry(() => import("@/layouts/default-layout")),
+    children: [
+      {
+        path: routes.home,
+        Component: lazyWithRetry(() => import("@/pages/HomePage")),
+      },
+      {
+        path: routes.login,
+        Component: lazyWithRetry(() => import("@/pages/LoginPage")),
+      },
+    ],
+  },
 ]);

@@ -19,7 +19,7 @@ import { useIntMaxBalances } from "@/hooks/use-int-max-balances";
 import { useIntMaxClientStore } from "@/hooks/use-int-max-client";
 import { useIntMaxLogin } from "@/hooks/use-int-max-login";
 
-export const HomePage = () => {
+const HomePage = () => {
   const { ready, authenticated, user, login, logout } = usePrivy();
   const { intMaxClient, setIntMaxClient } = useIntMaxClientStore();
   const { fundWallet } = useFundWallet();
@@ -142,3 +142,6 @@ export const HomePage = () => {
     </main>
   );
 };
+
+HomePage.displayName = "HomePage";
+export default HomePage;
