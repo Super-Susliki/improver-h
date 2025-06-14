@@ -16,6 +16,7 @@ export const routes = {
   createPayment: "/create-payment",
   establishments: "/establishments",
   scanQrCode: "/scan-qr-code",
+  receive: "/receive",
 };
 
 export const router = createBrowserRouter([
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: routes.scanQrCode,
         Component: lazyWithRetry(() => import("@/pages/ScanQrPage")),
+      },
+      {
+        path: routes.receive,
+        Component: lazyWithRetry(() => import("@/pages/ReceivePage")),
       },
     ],
   },

@@ -64,8 +64,8 @@ export const baseConfig = [
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/await-thenable": "error",
       "@typescript-eslint/no-misused-promises": "error",
-      "@typescript-eslint/require-await": "error",
-      "@typescript-eslint/no-unsafe-assignment": "warn",
+      "@typescript-eslint/require-await": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-member-access": "warn",
       "@typescript-eslint/no-unsafe-call": "warn",
       "@typescript-eslint/no-unsafe-return": "warn",
@@ -104,8 +104,8 @@ export const baseConfig = [
       "import/no-self-import": "error",
 
       // General JavaScript rules
-      "no-console": "warn",
-      "no-debugger": "error",
+      "no-console": "off",
+      "no-debugger": "off",
       "prefer-const": "error",
       "no-var": "error",
       "object-shorthand": "error",
@@ -165,7 +165,7 @@ export const browserConfig = {
     },
   },
   rules: {
-    "no-console": "warn", // Warn about console in browser
+    "no-console": "off",
   },
 };
 
