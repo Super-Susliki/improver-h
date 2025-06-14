@@ -25,6 +25,8 @@ import { PrivyAuthGuard } from '../auth/guards/privy-auth.guard';
 import { GrantBonusesToUserRequestDto } from './dtos/grant-bonuses-to-user.dto';
 import { MerchantResponseDto } from './dtos/merchant-stores-response.dto';
 import { MerchantsService } from './merchants.service';
+import { storesWithHashedId } from 'src/utils/store';
+
 @ApiTags('Merchants')
 @Controller('merchants')
 @UseGuards(PrivyAuthGuard)
@@ -46,7 +48,7 @@ export class MerchantsController {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       user.dbUser!.id,
     );
-    return stores;
+    return storesWithHashedId(stores);
   }
 
   @Post('me/stores/:storeId/bonuses')
