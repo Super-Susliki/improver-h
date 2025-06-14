@@ -1,7 +1,8 @@
+import { useSignMessage } from "@privy-io/react-auth";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { ApiService } from "./services";
-import { useSignMessage } from "@privy-io/react-auth";
+
 import { useAuth } from "@/contexts/AuthContext";
 
 function generateUUID() {
@@ -47,8 +48,8 @@ export function useGrantBonus({ storeId, userId }: { storeId: string; userId: st
         challengeId,
       });
     },
-    onSuccess: (_) => {
-      queryClient.invalidateQueries({
+    onSuccess: () => {
+      void queryClient.invalidateQueries({
         queryKey: ["useGrantBonus", storeId, userId],
       });
     },

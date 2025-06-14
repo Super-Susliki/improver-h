@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router";
 import { sepolia } from "viem/chains";
 
-import { BuyIcon, ReceiveIcon } from "@/components/svg";
+import { BuyIcon, QRCodeIcon, ReceiveIcon } from "@/components/svg";
 import { useAuth } from "@/contexts/AuthContext";
 
 const ActionButtons = () => {
@@ -18,6 +18,7 @@ const ActionButtons = () => {
     onClick?: () => void;
   }[] = useMemo(
     () => [
+      { title: "Show QR", icon: <QRCodeIcon />, link: "/qr" },
       { title: "Receive", icon: <ReceiveIcon />, link: "/receive" },
       {
         title: "Fund",
