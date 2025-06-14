@@ -30,5 +30,11 @@ export default registerAs('app', () => {
     database: {
       url: env.DATABASE_URL,
     },
+
+    // Blockchain configuration
+    blockchain: {
+      rpcUrl: env.BLOCKCHAIN_RPC_URL,
+      privateKey: env.BLOCKCHAIN_PRIVATE_KEY,
+    },
   };
 });

@@ -28,6 +28,7 @@
     "react-router": "^7.6.2",
     "tailwind-merge": "^3.3.1",
     "viem": "^2.24.1",
+    "wagmi": "^2.15.6",
     "zod": "^3.25.64",
     "zustand": "^5.0.5"
   },
@@ -38,6 +39,7 @@
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
     "eslint": "^9.25.0",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",

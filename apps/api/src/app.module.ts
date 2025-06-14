@@ -10,6 +10,7 @@ import { DataAccessModule } from './data-access/data-access.module';
 import { GlobalGuard } from './guards/global.guard';
 import { LoggerModule } from './logger/logger.module';
 import { MerchantsModule } from './merchants/merchants.module';
+import { QueueModule } from './queue/queue.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -36,6 +37,9 @@ import { UsersModule } from './users/users.module';
 
     // Merchants
     MerchantsModule,
+
+    // Queue
+    QueueModule,
   ],
   controllers: [],
   providers: [

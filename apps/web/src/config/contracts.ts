@@ -1,0 +1,6 @@
+import { mainnet, sepolia } from "viem/chains";
+
+export const ETH_USD_PRICE_FEEDS = {
+  [mainnet.id]: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
+  [sepolia.id]: "0x694AA1769357215DE4FAC081bf1f309aDC325306",
+} as const;

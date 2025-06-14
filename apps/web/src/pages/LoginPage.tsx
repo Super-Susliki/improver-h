@@ -6,7 +6,7 @@ const LoginPage = () => {
   const { login } = usePrivy();
 
   return (
-    <section className="flex flex-col max-w-[480px] gap-10 pt-[40vh] items-center">
+    <section className="flex flex-col max-w-[480px] gap-10 pt-[30vh] items-center">
       <div className="flex flex-col gap-5">
         <h1 className="font-medium text-[32px]">Improve your HoReCa with Improver</h1>
         <p className="text-light-gray text-lg">
