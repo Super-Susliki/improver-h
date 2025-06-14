@@ -24,6 +24,11 @@ export const DarkTopSearch = ({ value, onChange }: Props) => {
         }
       }}
       className={cn("flex items-center absolute h-11 justify-end")}
+      initial={{
+        width: "44px",
+        right: 20,
+        left: "auto",
+      }}
       animate={{
         width: isFocused ? "calc(100% - 40px)" : "44px",
         right: isFocused ? "auto" : 20,
@@ -59,6 +64,10 @@ export const DarkTopSearch = ({ value, onChange }: Props) => {
         />
         <motion.div
           className="text-white absolute top-1/2 -translate-y-1/2 pointer-events-none"
+          initial={{
+            right: 10,
+            left: "auto",
+          }}
           animate={{
             right: isFocused ? "auto" : 10,
             left: isFocused ? 10 : "auto",
