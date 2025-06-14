@@ -19,20 +19,24 @@ export class MerchantsService {
   ) {}
 
   async getMerchantStores(userId: string): Promise<Store[]> {
-    const stores = await this.prisma.store.findMany({
+    const userStores = await this.prisma.userStore.findMany({
       where: {
-        users: {
-          some: {
+        AND: [
+          { isMerchant: true },
+          {
             user: {
               id: userId,
               roles: { has: 'MERCHANT_USER' },
             },
           },
-        },
+        ],
+      },
+      include: {
+        store: true,
       },
     });
 
-    return stores;
+    return userStores.map((store) => store.store);
   }
 
   async grantBonusesToUser({
@@ -64,24 +68,28 @@ export class MerchantsService {
     });
 
     return await this.prisma.$transaction(async (tx) => {
-      const merchantStore = await tx.userStore.findUnique({
-        where: {
-          userId_storeId: { userId: merchantId, storeId },
-        },
-      });
-
-      if (!merchantStore) {
-        throw new NotFoundException(
-          `Merchant store with id ${storeId} not found`,
-        );
-      }
-
       const store = await tx.store.findUnique({
         where: { id: storeId },
       });
 
       if (!store) {
         throw new NotFoundException(`Store with id ${storeId} not found`);
+      }
+
+      const merchantStore = await tx.userStore.findUnique({
+        where: {
+          userId_storeId_isMerchant: {
+            userId: merchantId,
+            storeId,
+            isMerchant: true,
+          },
+        },
+      });
+
+      if (!merchantStore) {
+        throw new NotFoundException(
+          `User is not a merchant for a provided store`,
+        );
       }
 
       const user = await tx.user.findUnique({
@@ -91,9 +99,14 @@ export class MerchantsService {
       if (!user) {
         throw new NotFoundException(`User with id ${userId} not found`);
       }
+
       let userStore = await tx.userStore.findUnique({
         where: {
-          userId_storeId: { userId, storeId },
+          userId_storeId_isMerchant: {
+            userId,
+            storeId,
+            isMerchant: false,
+          },
         },
       });
 
@@ -102,21 +115,24 @@ export class MerchantsService {
           data: {
             userId,
             storeId,
+            isMerchant: false,
             bonusesAmount,
           },
         });
       } else {
         userStore = await tx.userStore.update({
-          where: { userId_storeId: { userId, storeId } },
-          data: { bonusesAmount: userStore.bonusesAmount + bonusesAmount },
+          where: {
+            userId_storeId_isMerchant: { userId, storeId, isMerchant: false },
+          },
+          data: { bonusesAmount: { increment: bonusesAmount } },
         });
       }
 
-      // TODO: save to contracts
       const signatureEntity = await tx.merchantSignature.create({
         data: {
-          userId: merchantId,
+          userId,
           storeId,
+          isMerchant: false,
           signature,
         },
       });

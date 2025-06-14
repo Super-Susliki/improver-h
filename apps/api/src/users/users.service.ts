@@ -23,6 +23,7 @@ export class UsersService {
     const stores = await this.prisma.userStore.findMany({
       where: {
         userId,
+        isMerchant: false,
         bonusesAmount: { gt: 0 },
       },
       include: {
