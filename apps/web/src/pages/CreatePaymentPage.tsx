@@ -7,6 +7,11 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router";
 
+import {
+  DarkTopPage,
+  DarkTopPageBackButton,
+  DarkTopPageTitle,
+} from "@/components/common/dark-top-page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTipBalance } from "@/hooks/use-tip-balance";
@@ -20,22 +25,12 @@ const CreatePaymentPage = () => {
   };
 
   return (
-    <main className="bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px]">
-      <div className="grid grid-cols-3 px-5">
-        <div className="flex">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-fit h-fit rounded-full bg-transparent border border-white w-16 h-16 p-0"
-            onClick={onBack}
-          >
-            <ChevronLeft size={32} />
-          </Button>
-        </div>
-        <div className="self-center text-center text-[20px] font-medium">
-          Create a payment
-        </div>
-      </div>
+    <DarkTopPage
+      top={[
+        <DarkTopPageBackButton route="/" className="col-span-1" />,
+        <DarkTopPageTitle className="col-span-3">Create a payment</DarkTopPageTitle>,
+      ]}
+    >
       <div className="flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
@@ -80,7 +75,7 @@ const CreatePaymentPage = () => {
           </Button>
         </div>
       </div>
-    </main>
+    </DarkTopPage>
   );
 };
 
