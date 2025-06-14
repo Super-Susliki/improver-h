@@ -14,7 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { getAddress } from 'viem';
+import { Address, getAddress } from 'viem';
 
 import {
   RequestUser,
@@ -75,6 +75,8 @@ export class MerchantsController {
       userId: body.userId,
       bonusesAmount: body.bonusesAmount,
       challengeId: challengId,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      userAddress: user.externalUser.wallet!.address as Address,
     });
   }
 }

@@ -4,12 +4,19 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Store } from '@prisma/client';
+import { EvmProviderService } from 'src/blockchain/evm/evm-provider.service';
 import { PrismaService } from 'src/data-access';
+import { QueueService } from 'src/queue/queue.service';
+import { storeWithHashedId } from 'src/utils/store';
 import { Address, verifyMessage } from 'viem';
 
 @Injectable()
 export class MerchantsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly evmProvider: EvmProviderService,
+    private readonly queueService: QueueService,
+  ) {}
 
   async getMerchantStores(userId: string): Promise<Store[]> {
     const stores = await this.prisma.store.findMany({
@@ -30,6 +37,7 @@ export class MerchantsService {
 
   async grantBonusesToUser({
     userId,
+    userAddress,
     merchantId,
     storeId,
     bonusesAmount,
@@ -38,6 +46,7 @@ export class MerchantsService {
     merchantAddress,
   }: {
     userId: string;
+    userAddress: Address;
     merchantId: string;
     storeId: string;
     bonusesAmount: number;
@@ -92,7 +101,7 @@ export class MerchantsService {
       }
 
       // TODO: save to contracts
-      await tx.merchantSignature.create({
+      const signatureEntity = await tx.merchantSignature.create({
         data: {
           userId: merchantId,
           storeId,
@@ -100,7 +109,45 @@ export class MerchantsService {
         },
       });
 
+      const queueData = {
+        merchant: merchantAddress,
+        user: userAddress,
+        storeId: storeWithHashedId(store).idHash,
+        signature,
+        signatureId: signatureEntity.id,
+      };
+
+      const fnToQueue = this.pushSignatureCreationToQueue.bind(this);
+
+      this.queueService.addJob(queueData, fnToQueue);
+
       return userStore;
+    });
+  }
+
+  private async pushSignatureCreationToQueue({
+    user,
+    storeId,
+    signature,
+    merchant,
+    signatureId,
+  }: {
+    user: Address;
+    storeId: `0x${string}`;
+    signature: `0x${string}`;
+    merchant: Address;
+    signatureId: string;
+  }) {
+    const txHash = await this.evmProvider.pushSignatureOnchain({
+      user,
+      storeId,
+      signature,
+      merchant,
+    });
+
+    await this.prisma.merchantSignature.update({
+      where: { id: signatureId },
+      data: { txHash },
     });
   }
 

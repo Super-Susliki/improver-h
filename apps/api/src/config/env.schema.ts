@@ -26,6 +26,10 @@ export const envSchema = z.object({
 
   // Database
   DATABASE_URL: z.string(),
+
+  // Blockchain
+  BLOCKCHAIN_RPC_URL: z.string().default('https://base-sepolia.drpc.org'),
+  BLOCKCHAIN_PRIVATE_KEY: z.string(),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
@@ -35,11 +39,9 @@ export function validateEnv(): EnvSchema {
     return envSchema.parse(process.env);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const errorMessage =
-        'Environment validation failed:\n' +
-        error.errors
-          .map((err) => `- ${err.path.join('.')}: ${err.message}`)
-          .join('\n');
+      const errorMessage = `Environment validation failed:\n${error.errors
+        .map((err) => `- ${err.path.join('.')}: ${err.message}`)
+        .join('\n')}`;
       throw new Error(errorMessage);
     }
     throw error;
