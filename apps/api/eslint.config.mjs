@@ -58,7 +58,6 @@ export default [
 
       // Class-based architecture
       'max-lines-per-function': ['warn', 100], // Controllers can be longer
-      complexity: ['warn', 15], // Allow slightly more complexity for business logic
     },
   },
 

@@ -131,7 +131,6 @@ export const baseConfig = [
       "@typescript-eslint/return-await": "error",
 
       // Code quality rules
-      complexity: ["warn", 10],
       "max-depth": ["warn", 4],
       "max-lines": ["warn", 300],
       "max-params": ["warn", 4],

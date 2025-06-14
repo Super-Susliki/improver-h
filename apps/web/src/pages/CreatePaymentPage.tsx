@@ -68,4 +68,6 @@ const CreatePaymentPage = () => {
   );
 };
 
+CreatePaymentPage.displayName = "CreatePaymentPage";
+
 export default CreatePaymentPage;

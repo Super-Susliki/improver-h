@@ -14,7 +14,7 @@ interface Props {
 export const DarkTopPage = ({ children, top, topClassName }: Props) => {
   return (
     <main className="bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px]">
-      <div className={cn("grid grid-cols-5 px-5", topClassName)}>
+      <div className={cn("grid grid-cols-5 px-5 relative", topClassName)}>
         {Array.isArray(top) ? top.map((item) => item) : top}
       </div>
       {children}

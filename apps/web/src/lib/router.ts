@@ -13,6 +13,7 @@ export const routes = {
   home: "/",
   login: "/login",
   createPayment: "/create-payment",
+  establishments: "/establishments",
 };
 
 export const router = createBrowserRouter([
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: routes.createPayment,
         Component: lazyWithRetry(() => import("@/pages/CreatePaymentPage")),
+      },
+      {
+        path: routes.establishments,
+        Component: lazyWithRetry(() => import("@/pages/EstablishmentsPage")),
       },
     ],
   },
