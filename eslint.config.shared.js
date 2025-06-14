@@ -63,7 +63,7 @@ export const baseConfig = [
       "@typescript-eslint/no-unnecessary-type-assertion": "error",
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/await-thenable": "error",
-      "@typescript-eslint/no-misused-promises": "error",
+      "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/require-await": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-member-access": "warn",

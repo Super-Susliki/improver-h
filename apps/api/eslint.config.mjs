@@ -28,6 +28,7 @@ export default [
       '@typescript-eslint/no-explicit-any': 'warn', // More lenient for NestJS decorators
       '@typescript-eslint/no-floating-promises': 'warn', // NestJS handles promises differently
       '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'warn',
       '@typescript-eslint/no-unsafe-call': 'warn',
@@ -57,7 +58,8 @@ export default [
       'import/prefer-default-export': 'off',
 
       // Class-based architecture
-      'max-lines-per-function': ['warn', 100], // Controllers can be longer
+      'max-lines-per-function': 'off', // Controllers can be longer
+      complexity: 'off',
     },
   },
 

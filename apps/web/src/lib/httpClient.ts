@@ -20,7 +20,7 @@ class HttpClient {
 
   constructor(baseURL?: string) {
     this.client = axios.create({
-      baseURL: baseURL || env.VITE_API_BASE_URL || "http://localhost:3000/api",
+      baseURL: baseURL ?? env.VITE_API_BASE_URL ?? "http://localhost:3000/api",
       timeout: 30000,
       withCredentials: true,
       headers: {
