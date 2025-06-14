@@ -1,9 +1,24 @@
-import { usePrivy } from "@privy-io/react-auth";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 import { Button } from "@/components/ui/button";
+import { Loader } from "@/components/common/Loader";
+import { useAuth } from "@/contexts/AuthContext";
+import { routes } from "@/lib/router";
 
 const LoginPage = () => {
-  const { login } = usePrivy();
+  const { privyReady, privyAuthenticated, privyLogin } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (privyReady && privyAuthenticated) {
+      navigate(routes.home);
+    }
+  }, [privyReady, privyAuthenticated, navigate]);
+
+  if (!privyReady || privyAuthenticated) {
+    return <Loader />;
+  }
 
   return (
     <section className="flex flex-col gap-10 pt-[30vh] items-center">
@@ -20,7 +35,7 @@ const LoginPage = () => {
       <Button
         className="w-full"
         onClick={() => {
-          login();
+          privyLogin();
         }}
       >
         Get Started
