@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 export const BottomTabs = () => {
   return (
-    <div className="fixed bottom-0 w-full flex mx-auto max-w-[480px] justify-between items-center py-2 left-0 right-0 px-4 backdrop-blur-[4px] bg-white/60">
+    <div className="fixed bottom-0 w-full flex mx-auto max-w-[480px] justify-around items-center py-2 left-0 right-0 px-4 backdrop-blur-[4px] bg-white/60">
       {tabs.map((tab) => (
         <BottomTab key={tab.href} tab={tab} />
       ))}

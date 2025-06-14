@@ -106,7 +106,7 @@ const TipsHistoryPage = () => {
       top={[<DarkTopPageTitle className="col-span-4 text-left">Tips history</DarkTopPageTitle>]}
     >
       <DarkTopPageContent addBottomPadding={false}>
-        <div className="flex overflow-y-auto max-h-[calc(100vh-125px)] gap-4 flex-col pb-[40px]">
+        <div className="flex gap-4 flex-col pb-[40px]">
           {payments.map((dayPayments) => (
             <div className="w-full flex flex-col gap-4" key={dayPayments.date.toISOString()}>
               <div className="text-md text-center">{dayPayments.date.toLocaleDateString()}</div>

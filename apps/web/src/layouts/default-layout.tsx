@@ -14,12 +14,7 @@ const DefaultLayout = () => {
   const isLogin = pathname === routes.login;
 
   return (
-    <div
-      className={cn(
-        "relative flex min-h-screen max-w-[480px] flex-col mx-auto items-center",
-        routesWithPadding.includes(pathname) ? "px-5" : ""
-      )}
-    >
+    <div className={cn("relative flex min-h-screen max-w-[480px] flex-col mx-auto items-center")}>
       <AnimatePresence mode="wait" initial={false}>
         {outlet && (
           <motion.div
@@ -31,7 +26,7 @@ const DefaultLayout = () => {
               duration: 0.3,
               ease: "easeInOut",
             }}
-            className="w-full "
+            className={cn("w-full", routesWithPadding.includes(pathname) ? "px-5" : "")}
           >
             {cloneElement(outlet, { key: pathname })}
           </motion.div>

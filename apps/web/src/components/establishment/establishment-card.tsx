@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   name: string;
-  image: string;
+  image: string | null;
   className?: string;
   imageSize?: number;
 }
@@ -20,7 +20,7 @@ export const EstablishmentCard = ({ name, image, className, imageSize = 44 }: Pr
           style={{ width: imageSize, height: imageSize }}
           className="flex items-center justify-center"
         >
-          <img src={image} alt={name} className="w-full h-full object-cover" />
+          {image && <img src={image} alt={name} className="w-full h-full object-cover" />}
         </div>
         <p className="text-[14px] font-medium text-center">{name}</p>
       </div>
