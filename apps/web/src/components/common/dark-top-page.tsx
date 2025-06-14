@@ -16,15 +16,7 @@ export const DarkTopPage = ({ children, top, topClassName }: Props) => {
   return (
     <main className="bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px]">
       <div className={cn("grid grid-cols-5 px-5", topClassName)}>
-        {Array.isArray(top) ? (
-          <>
-            {top[0]}
-            <div className="flex items-center justify-center col-span-3">{top[1]}</div>
-            {top.slice(2)}
-          </>
-        ) : (
-          top
-        )}
+        {Array.isArray(top) ? top.map((item) => item) : top}
       </div>
       {children}
     </main>
@@ -33,16 +25,17 @@ export const DarkTopPage = ({ children, top, topClassName }: Props) => {
 
 interface DarkTopPageBackButtonProps {
   route: string;
+  className?: string;
 }
 
-export const DarkTopPageBackButton = ({ route }: DarkTopPageBackButtonProps) => {
+export const DarkTopPageBackButton = ({ route, className }: DarkTopPageBackButtonProps) => {
   const navigate = useNavigate();
   const onBack = () => {
     return navigate(route);
   };
 
   return (
-    <div className="flex">
+    <div className={cn("flex", className)}>
       <Button
         variant="ghost"
         size="icon"
@@ -57,6 +50,16 @@ export const DarkTopPageBackButton = ({ route }: DarkTopPageBackButtonProps) => 
   );
 };
 
-export const DarkTopPageTitle = ({ children }: { children: string }) => {
-  return <div className="self-center text-center text-[20px] font-medium">{children}</div>;
+export const DarkTopPageTitle = ({
+  children,
+  className,
+}: {
+  children: string;
+  className?: string;
+}) => {
+  return (
+    <div className={cn("self-center text-center text-[20px] font-medium", className)}>
+      {children}
+    </div>
+  );
 };

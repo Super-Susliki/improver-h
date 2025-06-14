@@ -12,8 +12,8 @@ const CreatePaymentPage = () => {
   return (
     <DarkTopPage
       top={[
-        <DarkTopPageBackButton route="/" />,
-        <DarkTopPageTitle>Create a payment</DarkTopPageTitle>,
+        <DarkTopPageBackButton route="/" className="col-span-1" />,
+        <DarkTopPageTitle className="col-span-3">Create a payment</DarkTopPageTitle>,
       ]}
     >
       <div className="flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8">
