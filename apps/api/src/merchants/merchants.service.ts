@@ -1,6 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Store } from '@prisma/client';
 import { PrismaService } from 'src/data-access';
+import { Address, verifyMessage } from 'viem';
 
 @Injectable()
 export class MerchantsService {
@@ -29,13 +34,26 @@ export class MerchantsService {
     storeId,
     bonusesAmount,
     signature,
+    challengeId,
+    merchantAddress,
   }: {
     userId: string;
     merchantId: string;
     storeId: string;
     bonusesAmount: number;
-    signature: string;
+    signature: `0x${string}`;
+    challengeId: string;
+    merchantAddress: Address;
   }) {
+    await this.validateSignature({
+      challengeId,
+      signature,
+      userId,
+      storeId,
+      merchantId,
+      merchantAddress,
+    });
+
     return await this.prisma.$transaction(async (tx) => {
       const store = await tx.store.findUnique({
         where: { id: storeId },
@@ -84,5 +102,33 @@ export class MerchantsService {
 
       return userStore;
     });
+  }
+
+  private async validateSignature({
+    challengeId,
+    signature,
+    userId,
+    storeId,
+    merchantId,
+    merchantAddress,
+  }: {
+    challengeId: string;
+    userId: string;
+    storeId: string;
+    merchantId: string;
+    signature: `0x${string}`;
+    merchantAddress: Address;
+  }) {
+    const str = `${challengeId}-${userId}-${storeId}-${merchantId}`;
+
+    const valid = await verifyMessage({
+      address: merchantAddress,
+      message: str,
+      signature,
+    });
+
+    if (!valid) {
+      throw new BadRequestException('Invalid signature');
+    }
   }
 }

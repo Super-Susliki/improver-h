@@ -1,10 +1,19 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { getAddress } from 'viem';
 
 import {
   RequestUser,
@@ -15,7 +24,6 @@ import { PrivyAuthGuard } from '../auth/guards/privy-auth.guard';
 import { GrantBonusesToUserRequestDto } from './dtos/grant-bonuses-to-user.dto';
 import { MerchantResponseDto } from './dtos/merchant-stores-response.dto';
 import { MerchantsService } from './merchants.service';
-
 @ApiTags('Merchants')
 @Controller('merchants')
 @UseGuards(PrivyAuthGuard)
@@ -50,14 +58,18 @@ export class MerchantsController {
     @Param('storeId') storeId: string,
     @RequestUser() user: UserClaims,
     @Body() body: GrantBonusesToUserRequestDto,
+    @Headers('challeng-id') challengId: string,
   ) {
     await this.merchantsService.grantBonusesToUser({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       merchantId: user.dbUser!.id,
       storeId,
-      signature: body.signature,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      merchantAddress: getAddress(user.externalUser.wallet!.address),
+      signature: body.signature as `0x${string}`,
       userId: body.userId,
       bonusesAmount: body.bonusesAmount,
+      challengeId: challengId,
     });
   }
 }
