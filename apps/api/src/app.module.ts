@@ -1,14 +1,15 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
-import { DataAccessModule } from './data-access/data-access.module';
 
 import { AuthModule } from './auth/auth.module';
 import appConfig from './config/configuration';
 import { validateEnv } from './config/env.schema';
+import { DataAccessModule } from './data-access/data-access.module';
 import { GlobalGuard } from './guards/global.guard';
 import { LoggerModule } from './logger/logger.module';
+import { MerchantsModule } from './merchants/merchants.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -32,6 +33,9 @@ import { UsersModule } from './users/users.module';
 
     // Users
     UsersModule,
+
+    // Merchants
+    MerchantsModule,
   ],
   controllers: [],
   providers: [

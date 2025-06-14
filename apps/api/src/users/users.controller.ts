@@ -1,25 +1,20 @@
-import {
-  Controller,
-  Get,
-  Param,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
-  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-
-import { UserResponseDto } from './dtos/user-response.dto';
-import { UsersService } from './users.service';
 
 import {
   RequestUser,
   UserClaims,
 } from '../auth/decorators/request-user.decorator';
 import { PrivyAuthGuard } from '../auth/guards/privy-auth.guard';
+
+import { UserResponseDto } from './dtos/user-response.dto';
+import { UserStoresResponseDto } from './dtos/user-stores-response.dto';
+import { UsersService } from './users.service';
 
 @ApiTags('Users')
 @Controller('users')
@@ -38,29 +33,22 @@ export class UsersController {
   async getCurrentUser(
     @RequestUser() user: UserClaims,
   ): Promise<UserResponseDto> {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const userDb = await this.usersService.findById(user.dbUser!.id);
     return { ...userDb };
   }
 
-  @Get('wallet/:walletAddress')
-  @ApiOperation({ summary: 'Get user by wallet address' })
-  @ApiParam({
-    name: 'walletAddress',
-    description: 'The wallet address of the user',
-  })
+  @Get('me/stores')
+  @ApiOperation({ summary: 'Get current user stores' })
   @ApiResponse({
     status: 200,
-    description: 'The user profile has been successfully retrieved',
-    type: UserResponseDto,
+    type: [UserStoresResponseDto],
   })
-  @ApiResponse({
-    status: 404,
-    description: 'User not found',
-  })
-  async getUserByWalletAddress(
-    @Param('walletAddress') walletAddress: string,
-  ): Promise<UserResponseDto> {
-    const user = await this.usersService.findByWalletAddress(walletAddress);
-    return { ...user };
+  async getUserStores(
+    @RequestUser() user: UserClaims,
+  ): Promise<UserStoresResponseDto[]> {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const stores = await this.usersService.getUserStores(user.dbUser!.id);
+    return stores;
   }
 }
