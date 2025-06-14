@@ -13,7 +13,7 @@ export const envSchema = z.object({
     .default('info'),
 
   // CORS
-  CORS_ORIGINS: z.string().default('http://localhost:4200'),
+  CORS_ORIGINS: z.string().default('http://localhost:5173'),
 
   // Cookies and Security
   COOKIE_SECRET: z
@@ -25,7 +25,7 @@ export const envSchema = z.object({
   PRIVY_SECRET: z.string(),
 
   // Database
-  DATABASE_URL: z.string(),
+  DATABASE: z.string(),
 
   // Blockchain
   BLOCKCHAIN_RPC_URL: z.string().default('https://base-sepolia.drpc.org'),

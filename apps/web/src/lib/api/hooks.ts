@@ -1,21 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ApiService } from "./services";
 import type { GrantBonusRequest } from "./types";
-import type { Address } from "viem";
 
-export function useUserStores(userAddress?: string) {
+export function useUserStores() {
   return useQuery({
-    queryKey: ["userStores", userAddress],
-    queryFn: () => ApiService.getUserStores(userAddress as Address),
-    enabled: !!userAddress,
+    queryKey: ["userStores"],
+    queryFn: () => ApiService.getUserStores(),
   });
 }
 
-export function useMerchantStores(merchantAddress?: string) {
+export function useMerchantStores() {
   return useQuery({
-    queryKey: ["merchantStores", merchantAddress],
-    queryFn: () => ApiService.getMerchantStores(merchantAddress as Address),
-    enabled: !!merchantAddress,
+    queryKey: ["merchantStores"],
+    queryFn: () => ApiService.getMerchantStores(),
   });
 }
 

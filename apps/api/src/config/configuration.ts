@@ -28,7 +28,7 @@ export default registerAs('app', () => {
 
     // Database configuration
     database: {
-      url: env.DATABASE_URL,
+      url: env.DATABASE,
     },
 
     // Blockchain configuration
