@@ -31,10 +31,6 @@ export const router = createBrowserRouter([
         Component: lazyWithRetry(() => import("@/pages/LoginPage")),
       },
       {
-        path: routes.old,
-        Component: lazyWithRetry(() => import("@/pages/HomePage_old")),
-      },
-      {
         path: routes.createPayment,
         Component: lazyWithRetry(() => import("@/pages/CreatePaymentPage")),
       },
