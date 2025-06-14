@@ -3,6 +3,7 @@ import { BadgeDollarSign, ChevronRight, QrCode, Wallet } from "lucide-react";
 import {
   DarkTopPage,
   DarkTopPageBackButton,
+  DarkTopPageContent,
   DarkTopPageTitle,
 } from "@/components/common/dark-top-page";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ const CreatePaymentPage = () => {
         <DarkTopPageTitle className="col-span-3">Create a payment</DarkTopPageTitle>,
       ]}
     >
-      <div className="flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8">
+      <DarkTopPageContent>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-4">
@@ -43,7 +44,7 @@ const CreatePaymentPage = () => {
             Next <ChevronRight className="w-8 h-8" />
           </Button>
         </div>
-      </div>
+      </DarkTopPageContent>
     </DarkTopPage>
   );
 };

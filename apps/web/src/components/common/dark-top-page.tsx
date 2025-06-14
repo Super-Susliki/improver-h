@@ -1,5 +1,4 @@
 import { ChevronLeft } from "lucide-react";
-import type { JSX } from "react";
 import { useNavigate } from "react-router";
 
 import { Button } from "../ui/button";
@@ -7,8 +6,8 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  top: JSX.Element | JSX.Element[];
-  children: JSX.Element;
+  top: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode;
   topClassName?: string;
 }
 
@@ -59,6 +58,25 @@ export const DarkTopPageTitle = ({
 }) => {
   return (
     <div className={cn("self-center text-center text-[20px] font-medium", className)}>
+      {children}
+    </div>
+  );
+};
+
+export const DarkTopPageContent = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div
+      className={cn(
+        "flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8",
+        className
+      )}
+    >
       {children}
     </div>
   );
