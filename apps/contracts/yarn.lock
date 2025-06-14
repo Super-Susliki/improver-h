@@ -518,7 +518,7 @@ __metadata:
     "@nomicfoundation/hardhat-ignition-ethers": "npm:^0.15.0"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.0"
     "@nomicfoundation/hardhat-toolbox": "npm:^5.0.0"
-    "@nomicfoundation/hardhat-verify": "npm:^2.0.0"
+    "@nomicfoundation/hardhat-verify": "npm:^2.0.14"
     "@typechain/ethers-v6": "npm:^0.5.0"
     "@typechain/hardhat": "npm:^9.0.0"
     "@types/chai": "npm:^4.2.0"
@@ -850,7 +850,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nomicfoundation/hardhat-verify@npm:^2.0.0":
+"@nomicfoundation/hardhat-verify@npm:^2.0.14":
   version: 2.0.14
   resolution: "@nomicfoundation/hardhat-verify@npm:2.0.14"
   dependencies:
