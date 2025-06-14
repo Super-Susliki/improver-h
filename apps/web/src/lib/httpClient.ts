@@ -21,6 +21,7 @@ class HttpClient {
     this.client = axios.create({
       baseURL: baseURL || env.VITE_API_BASE_URL || "http://localhost:3000/api",
       timeout: 30000,
+      withCredentials: true,
       headers: {
         "Content-Type": "application/json",
       },

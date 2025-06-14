@@ -16,46 +16,24 @@ export interface User {
 
 export interface Store {
   id: string;
+
   name: string;
-  description?: string;
-  logoUrl?: string;
-  bannerUrl?: string;
-  websiteUrl?: string;
-  createdAt: string;
-  updatedAt: string;
+
+  description?: string | null;
+
+  logoUrl?: string | null;
+
+  bannerUrl?: string | null;
+
+  websiteUrl?: string | null;
+
+  createdAt: Date;
+
+  updatedAt: Date;
 }
 
-export interface UserStore {
-  userId: string;
-  storeId: string;
+export interface UserStore extends Store {
   bonusesAmount: number;
-  createdAt: string;
-  updatedAt: string;
-  user?: User;
-  store?: Store;
-}
-
-export interface MerchantSignature {
-  id: string;
-  userId: string;
-  storeId: string;
-  signature: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-// API Request/Response types
-export interface UserStoreWithDetails extends UserStore {
-  store: Store;
-}
-
-export interface GetUserStoresResponse {
-  stores: UserStoreWithDetails[];
-  totalBonuses: number;
-}
-
-export interface GetMerchantStoresResponse {
-  stores: Store[];
 }
 
 export interface GrantBonusRequest {

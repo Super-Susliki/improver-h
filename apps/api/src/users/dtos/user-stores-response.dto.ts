@@ -8,6 +8,12 @@ export class UserStoresResponseDto {
   id: string;
 
   @ApiProperty({
+    description: 'The unique identifier of the store',
+    example: '0x123e4567e89b12d3a456426614174000',
+  })
+  idHash: string;
+
+  @ApiProperty({
     description: 'The name of the store',
     example: 'My Awesome Store',
   })

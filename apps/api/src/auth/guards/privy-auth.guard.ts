@@ -27,31 +27,40 @@ export class PrivyAuthGuard implements CanActivate {
     if (isPublic(context, this.reflector)) return true;
 
     const request = context.switchToHttp().getRequest<Request>();
+    // console.log('test', request.cookies);
     const idToken =
       request.cookies?.['privy-token'] || request.cookies?.['privy-id-token'];
 
     if (!idToken) {
       throw new UnauthorizedException('`privy-token` cookie is required');
     }
-
     try {
       const verifiedClaims = await this.privyClient.verifyAuthToken(idToken);
-      const user = await this.privyClient.getUserById(verifiedClaims.userId);
+      // console.log('verifiedClaims', verifiedClaims);
 
-      const dbUser = await this.prisma.user.findUnique({
+      const user = await this.privyClient.getUserById(verifiedClaims.userId);
+      // console.log('user', user);
+
+      let dbUser = await this.prisma.user.findUnique({
         where: {
           id: user.id,
         },
       });
 
-      if (!user.email && !user.wallet) {
+      if (!dbUser) {
+        dbUser = await this.prisma.user.create({
+          data: {
+            id: user.id,
+            walletAddress: user.wallet!.address!,
+            email: user.email?.address!,
+          },
+        });
+      }
+
+      if (!user.wallet) {
         throw new UnauthorizedException(
           'User must have either email or wallet authentication',
         );
-      }
-
-      if (!dbUser && !isAllowedNoDbUser(context, this.reflector)) {
-        throw new UnauthorizedException('User not found in database');
       }
 
       // Attach the user to the request object for use in controllers

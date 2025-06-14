@@ -1,8 +1,7 @@
 export const API_ENDPOINTS = {
-  getUserStores: (userAddress: string) => `/users/${userAddress}/stores`,
+  getUserStores: () => `/users/me/stores`,
 
-  getMerchantStores: (merchantAddress: string) =>
-    `/merchants/${merchantAddress}/stores`,
+  getMerchantStores: () => `/merchants/me/stores`,
 
   grantBonus: "/bonuses/grant",
 } as const;

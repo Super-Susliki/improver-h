@@ -40,6 +40,7 @@ const EstablishmentsPage = () => {
 
   return (
     <DarkTopPage
+      topClassName="relative"
       top={[
         <DarkTopPageTitle className="col-span-4 text-left">Establishments</DarkTopPageTitle>,
         <div className="h-11">

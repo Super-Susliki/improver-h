@@ -15,6 +15,7 @@ import { PrivyAuthGuard } from '../auth/guards/privy-auth.guard';
 import { UserResponseDto } from './dtos/user-response.dto';
 import { UserStoresResponseDto } from './dtos/user-stores-response.dto';
 import { UsersService } from './users.service';
+import { storesWithHashedId } from 'src/utils/store';
 
 @ApiTags('Users')
 @Controller('users')
@@ -49,6 +50,6 @@ export class UsersController {
   ): Promise<UserStoresResponseDto[]> {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const stores = await this.usersService.getUserStores(user.dbUser!.id);
-    return stores;
+    return storesWithHashedId(stores);
   }
 }

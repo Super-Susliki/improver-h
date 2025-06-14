@@ -11,9 +11,9 @@ interface Props {
   topClassName?: string;
 }
 
-export const DarkTopPage = ({ children, top, topClassName }: Props) => {
+export const LightTopPage = ({ children, top, topClassName }: Props) => {
   return (
-    <main className="bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px] flex-1">
+    <main className="bg-white w-full h-full text-black flex flex-col gap-[16px] pt-[16px] flex-1">
       <div className={cn("grid grid-cols-5 px-5", topClassName)}>
         {Array.isArray(top) ? top.map((item) => item) : top}
       </div>
@@ -22,12 +22,12 @@ export const DarkTopPage = ({ children, top, topClassName }: Props) => {
   );
 };
 
-interface DarkTopPageBackButtonProps {
+interface LightTopPageBackButtonProps {
   route: string;
   className?: string;
 }
 
-export const DarkTopPageBackButton = ({ route, className }: DarkTopPageBackButtonProps) => {
+export const LightTopPageBackButton = ({ route, className }: LightTopPageBackButtonProps) => {
   const navigate = useNavigate();
   const onBack = () => {
     return navigate(route);
@@ -38,7 +38,7 @@ export const DarkTopPageBackButton = ({ route, className }: DarkTopPageBackButto
       <Button
         variant="ghost"
         size="icon"
-        className="rounded-full bg-transparent border border-white w-16 h-16 p-0"
+        className="rounded-full bg-transparent border border-black w-16 h-16 p-0"
         onClick={() => {
           void onBack();
         }}
@@ -49,7 +49,7 @@ export const DarkTopPageBackButton = ({ route, className }: DarkTopPageBackButto
   );
 };
 
-export const DarkTopPageTitle = ({
+export const LightTopPageTitle = ({
   children,
   className,
 }: {
@@ -63,7 +63,7 @@ export const DarkTopPageTitle = ({
   );
 };
 
-export const DarkTopPageContent = ({
+export const LightTopPageContent = ({
   children,
   className,
 }: {
