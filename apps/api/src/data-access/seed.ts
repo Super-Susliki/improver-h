@@ -131,7 +131,7 @@ async function main() {
     });
   }
 
-  let userStore1 = await prisma.userStore.findUnique({
+  const userStore1 = await prisma.userStore.findUnique({
     where: {
       userId_storeId_isMerchant: {
         storeId: mcdonalds.id,
@@ -153,7 +153,7 @@ async function main() {
     });
   }
 
-  let userStore2 = await prisma.userStore.findUnique({
+  const userStore2 = await prisma.userStore.findUnique({
     where: {
       userId_storeId_isMerchant: {
         storeId: ethkyiv.id,
@@ -175,7 +175,7 @@ async function main() {
     });
   }
 
-  let userStore3 = await prisma.userStore.findUnique({
+  const userStore3 = await prisma.userStore.findUnique({
     where: {
       userId_storeId_isMerchant: {
         storeId: lvivcroissants.id,
@@ -197,7 +197,7 @@ async function main() {
     });
   }
 
-  let userStore4 = await prisma.userStore.findUnique({
+  const userStore4 = await prisma.userStore.findUnique({
     where: {
       userId_storeId_isMerchant: {
         storeId: ethkyiv.id,
@@ -225,7 +225,7 @@ main()
   .then(async () => {
     await prisma.$disconnect();
   })
-  .catch(async (e) => {
+  .catch(async (e: unknown) => {
     console.error(e);
     await prisma.$disconnect();
     process.exit(1);

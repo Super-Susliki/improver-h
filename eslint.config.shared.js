@@ -58,7 +58,7 @@ export const baseConfig = [
       ],
       "@typescript-eslint/no-extraneous-class": "off",
       "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/prefer-nullish-coalescing": "error",
+      "@typescript-eslint/prefer-nullish-coalescing": "off",
       "@typescript-eslint/prefer-optional-chain": "error",
       "@typescript-eslint/no-unnecessary-type-assertion": "error",
       "@typescript-eslint/no-floating-promises": "error",

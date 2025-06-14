@@ -36,7 +36,7 @@ export class AuthController {
   })
   async createUser(@RequestUser() user: UserClaims): Promise<UserResponseDto> {
     const dbUser =
-      user.dbUser ||
+      user.dbUser ??
       (await this.authService.createUserFromPrivyUser(user.externalUser));
 
     return {
