@@ -3,108 +3,15 @@ import {
   DarkTopPageContent,
   DarkTopPageTitle,
 } from "@/components/common/dark-top-page";
+import { useAuth } from "@/contexts/AuthContext";
 import { useIntMaxDeposits } from "@/hooks/use-int-max-deposits";
 import type { Transaction } from "intmax2-client-sdk";
 import { useMemo } from "react";
-import { formatUnits, parseUnits } from "viem";
-
-const payments = [
-  {
-    date: new Date(),
-    payments: [
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-    ],
-  },
-  {
-    date: new Date(),
-    payments: [
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-    ],
-  },
-  {
-    date: new Date(),
-    payments: [
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-    ],
-  },
-  {
-    date: new Date(),
-    payments: [
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-      {
-        amount: 100,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpWEuGNJdWjitoA-uFMXPivWnrEc5px6n6KQ&s",
-        name: "Aroma Coffee",
-      },
-    ],
-  },
-];
+import { formatUnits } from "viem";
 
 const TipsHistoryPage = () => {
   const { data, isLoading, error } = useIntMaxDeposits();
+  const { intMaxState } = useAuth();
 
   console.log({ data, isLoading, error });
 
@@ -128,6 +35,18 @@ const TipsHistoryPage = () => {
     >
       <DarkTopPageContent>
         <div className="flex gap-4 flex-col">
+          {intMaxState.isConnecting && (
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-8 h-8 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
+              <p className="text-gray-600">Connecting to IntMax...</p>
+            </div>
+          )}
+          {!intMaxState.isConnecting && isLoading && (
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-8 h-8 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
+              <p className="text-gray-600">Loading...</p>
+            </div>
+          )}
           {dataGrouped?.map(([dateStartTs, payments]) => (
             <div
               className="w-full flex flex-col gap-4"
@@ -166,7 +85,7 @@ const TipsHistoryPage = () => {
               </div>
             </div>
           ))}
-          {!dataGrouped?.length && (
+          {!dataGrouped?.length && !intMaxState.isConnecting && !isLoading && (
             <div className="text-center text-sm text-[#00000066]">No historical data</div>
           )}
         </div>
