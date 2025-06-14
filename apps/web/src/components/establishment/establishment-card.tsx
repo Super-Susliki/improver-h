@@ -1,3 +1,6 @@
+import { NavLink } from "react-router";
+
+import { routes } from "@/lib/router";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -9,7 +12,8 @@ interface Props {
 
 export const EstablishmentCard = ({ name, image, className, imageSize = 44 }: Props) => {
   return (
-    <div
+    <NavLink
+      to={routes.establishmentDetails}
       className={cn(
         "rounded-[30px] border border-[#DADADA] flex flex-col items-center justify-center gap-2.5 relative",
         className
@@ -24,6 +28,6 @@ export const EstablishmentCard = ({ name, image, className, imageSize = 44 }: Pr
         </div>
         <p className="text-[14px] font-medium text-center">{name}</p>
       </div>
-    </div>
+    </NavLink>
   );
 };

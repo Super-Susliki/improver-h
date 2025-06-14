@@ -9,12 +9,16 @@ interface Props {
   top: React.ReactNode | React.ReactNode[];
   children: React.ReactNode;
   topClassName?: string;
+  className?: string;
 }
 
-export const DarkTopPage = ({ children, top, topClassName }: Props) => {
+export const DarkTopPage = ({ children, top, topClassName, className }: Props) => {
   return (
     <main
-      className={cn("bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px] flex-1")}
+      className={cn(
+        "bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px] flex-1",
+        className
+      )}
     >
       <div className={cn("grid grid-cols-5 min-h-11 px-5", topClassName)}>
         {Array.isArray(top) ? top.map((item) => item) : top}
