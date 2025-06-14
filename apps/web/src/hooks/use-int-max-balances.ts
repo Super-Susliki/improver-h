@@ -9,9 +9,7 @@ export const useIntMaxBalances = () => {
     queryKey: ["intmax-balances", intMaxClient?.address ?? null],
     queryFn: async () => {
       if (!intMaxClient) return [];
-      console.log("fetching balances");
       const balances = await intMaxClient.fetchTokenBalances();
-      console.log("balances", balances);
       return balances;
     },
     enabled: !!intMaxClient,
