@@ -3,5 +3,5 @@ export const API_ENDPOINTS = {
 
   getMerchantStores: () => `/merchants/me/stores`,
 
-  grantBonus: "/bonuses/grant",
+  grantBonus: (storeId: string) => `/merchants/me/stores/${storeId}/bonuses`,
 } as const;

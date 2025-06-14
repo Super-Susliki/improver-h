@@ -18,7 +18,7 @@ export const PRIVATE_KEY = 'PRIVATE_KEY';
 export class EvmProviderService {
   constructor(
     @Inject(RPC_URL) private readonly rpcUrl: string | undefined,
-    @Inject(PRIVATE_KEY) private readonly privateKey: string | undefined,
+    @Inject(PRIVATE_KEY) private readonly privateKey: `0x${string}`,
   ) {}
 
   getPublicClient() {
@@ -42,7 +42,7 @@ export class EvmProviderService {
     const walletClient = createWalletClient({
       chain: baseSepolia,
       transport: http(this.rpcUrl),
-      account: privateKeyToAccount('0x'),
+      account: privateKeyToAccount(this.privateKey),
     });
 
     const contract = getContract({

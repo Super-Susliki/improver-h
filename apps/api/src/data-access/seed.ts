@@ -101,14 +101,14 @@ async function main() {
   }
   let user2 = await prisma.user.findUnique({
     where: {
-      id: 'kpcjvtu1apr9p8wca7y4b5du',
+      id: 'did:privy:cmbw729mt00aajl0lo5nb5kh7',
     },
   });
 
   if (!user2) {
     user2 = await prisma.user.create({
       data: {
-        id: 'kpcjvtu1apr9p8wca7y4b5du',
+        id: 'did:privy:cmbw729mt00aajl0lo5nb5kh7',
         roles: ['MERCHANT_USER', 'USER'],
         walletAddress: '0x8A406938111C0e29534FFf25810c04277cf3B2de',
       },

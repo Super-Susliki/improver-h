@@ -64,6 +64,18 @@ export class MerchantsService {
     });
 
     return await this.prisma.$transaction(async (tx) => {
+      const merchantStore = await tx.userStore.findUnique({
+        where: {
+          userId_storeId: { userId: merchantId, storeId },
+        },
+      });
+
+      if (!merchantStore) {
+        throw new NotFoundException(
+          `Merchant store with id ${storeId} not found`,
+        );
+      }
+
       const store = await tx.store.findUnique({
         where: { id: storeId },
       });

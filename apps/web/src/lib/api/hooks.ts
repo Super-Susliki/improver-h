@@ -1,6 +1,16 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ApiService } from "./services";
 import type { GrantBonusRequest } from "./types";
+import { usePrivy, useSignMessage } from "@privy-io/react-auth";
+import { useAuth } from "@/contexts/AuthContext";
+
+function generateUUID() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 
 export function useUserStores() {
   return useQuery({
@@ -16,14 +26,30 @@ export function useMerchantStores() {
   });
 }
 
-export function useGrantBonus() {
+export function useGrantBonus({ storeId, userId }: { storeId: string; userId: string }) {
   const queryClient = useQueryClient();
+  const challengeId = generateUUID();
+
+  const { privyUser } = useAuth();
+  const message = `${challengeId}-${userId}-${storeId}-${privyUser?.id}`;
+
+  const { signMessage } = useSignMessage();
 
   return useMutation({
-    mutationFn: (request: GrantBonusRequest) => ApiService.grantBonus(request),
+    mutationFn: async () => {
+      const { signature } = await signMessage({ message });
+
+      return ApiService.grantBonus({
+        userId,
+        storeId,
+        bonusesAmount: 1,
+        signature,
+        challengeId,
+      });
+    },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ["userStores", variables.userAddress],
+        queryKey: ["useGrantBonus", storeId, userId],
       });
     },
   });

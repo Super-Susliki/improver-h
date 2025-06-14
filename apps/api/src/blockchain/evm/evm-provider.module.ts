@@ -14,14 +14,14 @@ import {
       provide: RPC_URL,
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        return configService.get<string | undefined>('blockchain.rpcUrl');
+        return configService.getOrThrow<string>('app.blockchain.rpcUrl');
       },
     },
     {
       provide: PRIVATE_KEY,
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        return configService.get<string | undefined>('blockchain.privateKey');
+        return configService.getOrThrow<string>('app.blockchain.privateKey');
       },
     },
     EvmProviderService,

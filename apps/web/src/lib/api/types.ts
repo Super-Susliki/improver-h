@@ -37,10 +37,11 @@ export interface UserStore extends Store {
 }
 
 export interface GrantBonusRequest {
-  userAddress: string;
+  userId: string;
   storeId: string;
-  merchantSignature: string;
-  amount?: number; // Optional, defaults to 1
+  bonusesAmount: number;
+  signature: string;
+  challengeId: string;
 }
 
 export interface GrantBonusResponse {
