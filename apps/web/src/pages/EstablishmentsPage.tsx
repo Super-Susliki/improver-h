@@ -8,7 +8,6 @@ import {
 import { DarkTopSearch } from "@/components/common/dark-top-search";
 import { Loader } from "@/components/common/Loader";
 import { EstablishmentCard } from "@/components/establishment/establishment-card";
-import { Button } from "@/components/ui/button";
 import { useMerchantStores, useUserStores } from "@/lib/api";
 import { useStores } from "@/lib/api/hooks";
 
