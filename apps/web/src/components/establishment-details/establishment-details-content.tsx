@@ -38,7 +38,7 @@ export const EstablishmentDetailsContent = ({ storeId }: Props) => {
         )}
         <SendTipCard />
       </div>
-      <ActionButtons />
+      <ActionButtons storeId={storeId} />
       <SocialMedia />
 
       <QRScannerModal

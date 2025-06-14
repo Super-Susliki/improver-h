@@ -19,15 +19,15 @@ import { formatDistanceToNow } from "date-fns";
 const getRewardIcon = (type: RewardType) => {
   switch (type) {
     case RewardType.DISCOUNT_PERCENTAGE:
-      return <Percent className="h-4 w-4" />;
+      return <Percent className="h-3.5 w-3.5" />;
     case RewardType.DISCOUNT_FIXED:
-      return <DollarSign className="h-4 w-4" />;
+      return <DollarSign className="h-3.5 w-3.5" />;
     case RewardType.FREE_ITEM:
-      return <Gift className="h-4 w-4" />;
+      return <Gift className="h-3.5 w-3.5" />;
     case RewardType.SPECIAL_OFFER:
-      return <Star className="h-4 w-4" />;
+      return <Star className="h-3.5 w-3.5" />;
     default:
-      return <Gift className="h-4 w-4" />;
+      return <Gift className="h-3.5 w-3.5" />;
   }
 };
 
@@ -49,15 +49,15 @@ const getRewardValue = (reward: { type: RewardType; value: number }) => {
 const getStatusIcon = (status: RedemptionStatus) => {
   switch (status) {
     case RedemptionStatus.PENDING:
-      return <Clock className="h-4 w-4" />;
+      return <Clock className="h-3 w-3" />;
     case RedemptionStatus.APPROVED:
-      return <CheckCircle className="h-4 w-4" />;
+      return <CheckCircle className="h-3 w-3" />;
     case RedemptionStatus.USED:
-      return <CheckCircle className="h-4 w-4" />;
+      return <CheckCircle className="h-3 w-3" />;
     case RedemptionStatus.REJECTED:
-      return <XCircle className="h-4 w-4" />;
+      return <XCircle className="h-3 w-3" />;
     default:
-      return <AlertCircle className="h-4 w-4" />;
+      return <AlertCircle className="h-3 w-3" />;
   }
 };
 
@@ -81,23 +81,18 @@ export const RedemptionHistory = () => {
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-3">
         {[1, 2, 3].map((i) => (
           <Card key={i}>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-start gap-3 flex-1">
-                  <Skeleton className="h-10 w-10" />
-                  <div className="flex-1">
-                    <Skeleton className="h-5 w-32 mb-2" />
-                    <Skeleton className="h-4 w-24 mb-2" />
-                    <Skeleton className="h-4 w-48" />
-                  </div>
+            <CardContent className="p-3">
+              <div className="flex items-start gap-3">
+                <Skeleton className="h-8 w-8 rounded-lg flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <Skeleton className="h-4 w-24 mb-1" />
+                  <Skeleton className="h-3 w-16 mb-2" />
+                  <Skeleton className="h-3 w-32" />
                 </div>
-                <div className="text-right">
-                  <Skeleton className="h-6 w-16 mb-2" />
-                  <Skeleton className="h-4 w-20" />
-                </div>
+                <Skeleton className="h-5 w-12 flex-shrink-0" />
               </div>
             </CardContent>
           </Card>
@@ -119,39 +114,48 @@ export const RedemptionHistory = () => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {redemptions.map((redemption) => (
         <Card key={redemption.id} className="border-gray-200">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-start gap-3 flex-1">
-                <div className="p-2 bg-gray-100 rounded-lg">
-                  {getRewardIcon(redemption.reward.type)}
+          <CardContent className="p-3">
+            <div className="flex items-start gap-3">
+              {/* Icon */}
+              <div className="p-1.5 bg-gray-100 rounded-lg flex-shrink-0">
+                {getRewardIcon(redemption.reward.type)}
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-2 mb-1">
+                  <h4 className="font-medium text-sm text-gray-900 leading-tight truncate">
+                    {redemption.reward.name}
+                  </h4>
+                  <Badge
+                    variant="outline"
+                    className={`flex items-center gap-1 text-xs px-1.5 py-0.5 flex-shrink-0 ${getStatusColor(redemption.status)}`}
+                  >
+                    {getStatusIcon(redemption.status)}
+                    <span className="capitalize">{redemption.status.toLowerCase()}</span>
+                  </Badge>
                 </div>
-                <div className="flex-1">
-                  <h4 className="font-medium text-gray-900">{redemption.reward.name}</h4>
-                  <p className="text-sm text-gray-600 mb-1">{redemption.store?.name || "Store"}</p>
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="text-nowrap">
+
+                <p className="text-xs text-gray-600 mb-1.5 truncate">
+                  {redemption.store?.name || "Store"}
+                </p>
+
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Badge variant="outline" className="text-xs px-1.5 py-0.5 text-nowrap">
                       {getRewardValue(redemption.reward)}
                     </Badge>
-                    <span className="text-sm text-gray-500">
-                      {redemption.pointsUsed} points used
+                    <span className="text-xs text-gray-500 truncate">
+                      {redemption.pointsUsed} pts
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <span className="text-xs text-gray-500 flex-shrink-0">
                     {formatDistanceToNow(new Date(redemption.createdAt), { addSuffix: true })}
-                  </p>
+                  </span>
                 </div>
-              </div>
-              <div className="text-right">
-                <Badge
-                  variant="outline"
-                  className={`flex items-center gap-1 ${getStatusColor(redemption.status)}`}
-                >
-                  {getStatusIcon(redemption.status)}
-                  {redemption.status}
-                </Badge>
               </div>
             </div>
           </CardContent>

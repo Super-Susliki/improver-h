@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { Gift, History, Store, Sparkles } from "lucide-react";
 
 import {
@@ -16,16 +17,64 @@ import { routes } from "@/lib/router";
 import { useUserStores } from "@/lib/api/hooks";
 
 const LoyaltyPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedStoreId, setSelectedStoreId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"overview" | "rewards" | "history">("overview");
 
   const { data: userStores, isLoading } = useUserStores();
+
+  useEffect(() => {
+    const storeIdFromUrl = searchParams.get("storeId");
+    const tabFromUrl = searchParams.get("tab") as "overview" | "rewards" | "history" | null;
+
+    if (storeIdFromUrl && userStores?.some((store) => store.id === storeIdFromUrl)) {
+      setSelectedStoreId(storeIdFromUrl);
+      setActiveTab(tabFromUrl === "rewards" || tabFromUrl === "history" ? tabFromUrl : "rewards");
+    } else if (tabFromUrl === "history") {
+      setActiveTab("history");
+      setSelectedStoreId(null);
+    }
+  }, [searchParams, userStores]);
+
+  const updateUrl = (newStoreId: string | null, newTab: "overview" | "rewards" | "history") => {
+    const newSearchParams = new URLSearchParams();
+
+    if (newStoreId && newTab !== "overview") {
+      newSearchParams.set("storeId", newStoreId);
+      newSearchParams.set("tab", newTab);
+    } else if (newTab === "history") {
+      newSearchParams.set("tab", "history");
+    }
+
+    setSearchParams(newSearchParams);
+  };
+
+  const handleStoreSelect = (storeId: string) => {
+    setSelectedStoreId(storeId);
+    setActiveTab("rewards");
+    updateUrl(storeId, "rewards");
+  };
+
+  const handleTabChange = (tab: "overview" | "rewards" | "history") => {
+    setActiveTab(tab);
+    if (tab === "overview") {
+      setSelectedStoreId(null);
+      updateUrl(null, tab);
+    } else if (tab === "history") {
+      updateUrl(null, tab);
+    } else if (tab === "rewards" && selectedStoreId) {
+      updateUrl(selectedStoreId, tab);
+    }
+  };
 
   const selectedStore =
     selectedStoreId && userStores ? userStores.find((store) => store.id === selectedStoreId) : null;
 
   const totalPoints = userStores?.reduce((sum, store) => sum + store.bonusesAmount, 0) || 0;
   const totalStores = userStores?.length || 0;
+
+  const backRoute =
+    searchParams.get("from") === "establishment" ? routes.establishments : routes.home;
 
   if (isLoading) {
     return (
@@ -60,7 +109,7 @@ const LoyaltyPage = () => {
   return (
     <LightTopPage
       top={[
-        <LightTopPageBackButton route={routes.home} className="col-span-1" />,
+        <LightTopPageBackButton route={backRoute} className="col-span-1" />,
         <LightTopPageTitle className="col-span-3">My Loyalty</LightTopPageTitle>,
       ]}
     >
@@ -86,7 +135,7 @@ const LoyaltyPage = () => {
           <div className="flex bg-gray-100 rounded-lg p-1">
             <Button
               variant={activeTab === "overview" ? "default" : "ghost"}
-              onClick={() => setActiveTab("overview")}
+              onClick={() => handleTabChange("overview")}
               className="flex-1 h-10 text-base gap-0"
             >
               <Store className="h-4 w-4 mr-2" />
@@ -94,7 +143,7 @@ const LoyaltyPage = () => {
             </Button>
             <Button
               variant={activeTab === "rewards" ? "default" : "ghost"}
-              onClick={() => setActiveTab("rewards")}
+              onClick={() => handleTabChange("rewards")}
               className="flex-1 h-10 text-base gap-0"
               disabled={!selectedStore}
             >
@@ -103,7 +152,7 @@ const LoyaltyPage = () => {
             </Button>
             <Button
               variant={activeTab === "history" ? "default" : "ghost"}
-              onClick={() => setActiveTab("history")}
+              onClick={() => handleTabChange("history")}
               className="flex-1 h-10 text-base gap-0"
             >
               <History className="h-4 w-4 mr-2" />
@@ -124,10 +173,7 @@ const LoyaltyPage = () => {
                     <LoyaltyCard storeId={store.id} storeName={store.name} />
                     <div className="flex justify-center mt-2">
                       <Button
-                        onClick={() => {
-                          setSelectedStoreId(store.id);
-                          setActiveTab("rewards");
-                        }}
+                        onClick={() => handleStoreSelect(store.id)}
                         variant="outline"
                         size="sm"
                       >
@@ -157,7 +203,7 @@ const LoyaltyPage = () => {
                 <h3 className="text-lg font-semibold text-gray-800">
                   {selectedStore.name} Rewards
                 </h3>
-                <Button onClick={() => setActiveTab("overview")} variant="outline" size="sm">
+                <Button onClick={() => handleTabChange("overview")} variant="outline" size="sm">
                   Back to Stores
                 </Button>
               </div>

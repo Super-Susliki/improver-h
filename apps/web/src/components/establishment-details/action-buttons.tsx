@@ -8,6 +8,8 @@ import {
   Volleyball,
 } from "lucide-react";
 
+import { LoyaltyActionButton } from "./loyalty-action-button";
+
 const actionButtons = [
   {
     label: "Cashback",
@@ -46,10 +48,16 @@ const actionButtons = [
   },
 ];
 
-export const ActionButtons = () => {
+interface ActionButtonsProps {
+  storeId?: string;
+}
+
+export const ActionButtons = ({ storeId }: ActionButtonsProps) => {
   return (
     <div className="grid grid-cols-2 gap-2.5">
-      {actionButtons.map((button) => (
+      {storeId && <LoyaltyActionButton storeId={storeId} />}
+
+      {actionButtons.slice(0, storeId ? 5 : 6).map((button) => (
         <ActionButton key={button.label} {...button} />
       ))}
     </div>
