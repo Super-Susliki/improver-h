@@ -10,7 +10,7 @@ import { useIntMaxBalances } from "@/hooks/use-int-max-balances";
 import { useIntMaxClientStore } from "@/hooks/use-int-max-client";
 import { useIntMaxLogin } from "@/hooks/use-int-max-login";
 
-export const HomePage = () => {
+const HomePage = () => {
   const { ready, authenticated, user, login, logout } = usePrivy();
   const { intMaxClient, setIntMaxClient } = useIntMaxClientStore();
   const { fundWallet } = useFundWallet();
@@ -121,7 +121,7 @@ export const HomePage = () => {
           <>
             <Button onClick={onLogoutIntMax}>Logout</Button>
             <Button onClick={onDepositIntMax}>Deposit</Button>
-            <p>{JSON.stringify(balances, null, 2)}</p>
+            <p>{JSON.stringify(balances, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2)}</p>
           </>
         ) : (
           <Button onClick={onLoginIntMax}>Login</Button>
@@ -130,3 +130,5 @@ export const HomePage = () => {
     </main>
   );
 };
+
+export default HomePage;
