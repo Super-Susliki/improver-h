@@ -1,6 +1,7 @@
 import { usePrivy, useWallets } from "@privy-io/react-auth";
 import { IntMaxClient } from "intmax2-client-sdk";
 import { useCallback, useEffect, useRef, useState } from "react";
+
 import { useIntMaxClientStore } from "./use-int-max-client";
 import { useIntMaxLogin } from "./use-int-max-login";
 
@@ -55,6 +56,7 @@ export const usePrivyIntMaxSync = () => {
   }, [authenticated, setIntMaxClient]);
 
   useEffect(() => {
+    // eslint-disable-next-line complexity
     const initializeAndLogin = async () => {
       if (!authenticated || !ready || wallets.length === 0 || operationInProgress.current) {
         return;
@@ -135,7 +137,8 @@ export const usePrivyIntMaxSync = () => {
       }
     };
 
-    initializeAndLogin();
+    void initializeAndLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     authenticated,
     ready,

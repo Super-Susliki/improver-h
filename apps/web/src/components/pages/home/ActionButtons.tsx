@@ -34,7 +34,7 @@ const ActionButtons = () => {
         requiresIntMax: true,
       },
     ],
-    [fundWallet, privyUser],
+    [fundWallet, privyUser]
   );
 
   const handleButtonClick = (button: (typeof buttonsConfig)[0]) => {
@@ -46,7 +46,7 @@ const ActionButtons = () => {
       return;
     }
     if (button.link) {
-      navigate(button.link);
+      void navigate(button.link);
     }
   };
 
@@ -73,15 +73,11 @@ const ActionButtons = () => {
             {isLoading ? (
               <>
                 <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                <p className="text-[14px] leading-[16px] text-white">
-                  Connecting...
-                </p>
+                <p className="text-[14px] leading-[16px] text-white">Connecting...</p>
               </>
             ) : (
               <>
-                <div className={isDisabled ? "opacity-50" : ""}>
-                  {button.icon}
-                </div>
+                <div className={isDisabled ? "opacity-50" : ""}>{button.icon}</div>
                 <p
                   className={`text-[14px] leading-[16px] text-white ${isDisabled ? "opacity-50" : ""}`}
                 >

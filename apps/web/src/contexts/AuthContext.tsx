@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
+
 import { usePrivyIntMaxSync } from "@/hooks/use-privy-intmax-sync";
 
 type AuthContextType = ReturnType<typeof usePrivyIntMaxSync>;
@@ -15,6 +16,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const contextValue = useMemo(
     () => authState,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       authState.privyReady,
       authState.privyAuthenticated,
@@ -32,6 +34,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
 

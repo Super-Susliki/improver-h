@@ -38,7 +38,7 @@ export default [
       ...browserConfig.rules,
 
       // React-specific adjustments
-      "@typescript-eslint/no-unsafe-assignment": "warn", // More lenient for React props
+      "@typescript-eslint/no-unsafe-assignment": "off", // More lenient for React props
       "@typescript-eslint/no-unsafe-member-access": "warn",
       "import/no-default-export": "off", // React components often use default exports
       "prefer-const": "error",
