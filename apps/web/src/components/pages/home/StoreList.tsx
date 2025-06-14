@@ -6,8 +6,8 @@ export const StoreList = () => {
 
   if (!stores?.length) {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="text-xl text-center">No establishments yet</div>
+      <div className="flex flex-col gap-4 py-4">
+        <div className="text-base text-light-gray text-center">No establishments yet</div>
       </div>
     );
   }

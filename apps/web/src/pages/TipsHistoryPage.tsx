@@ -86,7 +86,7 @@ const TipsHistoryPage = () => {
             </div>
           ))}
           {!dataGrouped?.length && !intMaxState.isConnecting && !isLoading && (
-            <div className="text-center text-sm text-[#00000066]">No historical data</div>
+            <div className="text-center text-base text-light-gray">No historical data</div>
           )}
         </div>
       </DarkTopPageContent>

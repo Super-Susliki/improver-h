@@ -55,7 +55,7 @@ const EstablishmentsPage = () => {
               !userEstablishmentsToShow.length &&
               !allEstablishmentsToShow.length && (
                 <div className="flex flex-col gap-4">
-                  <div className="text-xl text-center">No establishments yet</div>
+                  <div className="text-base text-light-gray text-center">No establishments yet</div>
                   {/* <Button>Add establishment</Button> */}
                 </div>
               )}

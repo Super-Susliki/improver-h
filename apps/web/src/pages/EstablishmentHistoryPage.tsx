@@ -4,12 +4,15 @@ import {
   DarkTopPageContent,
   DarkTopPageTitle,
 } from "@/components/common/dark-top-page";
+import { Loader } from "@/components/common/Loader";
 import { HistoryItem } from "@/components/establishment-history/history-item";
 import { Button } from "@/components/ui/button";
 import { useSubmittedSignatures } from "@/lib/subgraph/hooks";
 
 const EstablishmentHistoryPage = () => {
-  const { data } = useSubmittedSignatures("0x123");
+  const { data, loading } = useSubmittedSignatures("0x123");
+
+  if (loading) return <Loader />;
 
   const handleExportAsCSV = async () => {
     const csv = data?.map((item) => ({
