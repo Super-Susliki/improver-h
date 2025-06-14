@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
+
 import { env } from "../env";
 
 export interface ApiError {
@@ -15,7 +16,7 @@ export interface ApiResponse<T = unknown> {
 }
 
 class HttpClient {
-  private client: AxiosInstance;
+  private readonly client: AxiosInstance;
 
   constructor(baseURL?: string) {
     this.client = axios.create({
@@ -54,8 +55,8 @@ export const httpClient = new HttpClient();
 
 export { HttpClient };
 
-export type ApiEndpoint<TParams = Record<string, unknown>, TResponse = unknown> = {
+export interface ApiEndpoint<TParams = Record<string, unknown>, TResponse = unknown> {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   path: string | ((params: TParams) => string);
   response: TResponse;
-};
+}

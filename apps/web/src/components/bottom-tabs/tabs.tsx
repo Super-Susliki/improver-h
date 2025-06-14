@@ -20,8 +20,8 @@ export const tabs: Tab[] = [
     href: routes.establishments,
   },
   {
-    label: "Payments",
+    label: "Tips",
     icon: <CreditCard />,
-    href: routes.createPayment,
+    href: routes.sendTip,
   },
 ] as const;

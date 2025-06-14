@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { EthereumIcon, EyeIcon, EyeOffIcon } from "../../svg";
-import { useEthBalance } from "@/hooks/use-eth-balance";
-import { useAuth } from "@/contexts/AuthContext";
 import type { Address } from "viem";
+
+import { EthereumIcon, EyeIcon, EyeOffIcon } from "../../svg";
+
+import { useAuth } from "@/contexts/AuthContext";
+import { useEthBalance } from "@/hooks/use-eth-balance";
 
 export const BalanceDisplay = () => {
   const { privyUser } = useAuth();

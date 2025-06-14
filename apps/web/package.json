@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@privy-io/react-auth": "^2.14.1",
+    "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
     "@t3-oss/env-core": "^0.13.8",
     "@tailwindcss/vite": "^4.1.10",

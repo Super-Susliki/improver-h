@@ -1,8 +1,10 @@
 import { useFundWallet } from "@privy-io/react-auth";
-import { TokenType, type PrepareDepositTransactionRequest } from "intmax2-client-sdk";
 import { useMutation } from "@tanstack/react-query";
+import { TokenType, type PrepareDepositTransactionRequest } from "intmax2-client-sdk";
 import { zeroAddress } from "viem";
+
 import { SUPPORTED_CHAIN } from "../lib/chains";
+
 import { useAuth } from "@/contexts/AuthContext";
 
 export const useIntMaxOperations = () => {

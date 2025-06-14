@@ -56,7 +56,6 @@ export const usePrivyIntMaxSync = () => {
   }, [authenticated, setIntMaxClient]);
 
   useEffect(() => {
-    // eslint-disable-next-line complexity
     const initializeAndLogin = async () => {
       if (!authenticated || !ready || wallets.length === 0 || operationInProgress.current) {
         return;

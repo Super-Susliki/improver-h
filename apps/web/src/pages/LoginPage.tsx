@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/common/Loader";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { routes } from "@/lib/router";
 
@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (privyReady && privyAuthenticated) {
-      navigate(routes.home);
+      void navigate(routes.home);
     }
   }, [privyReady, privyAuthenticated, navigate]);
 

@@ -52,6 +52,7 @@ export default [
           allowTernary: true,
         },
       ],
+      complexity: "off",
     },
   },
 
