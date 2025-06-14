@@ -14,7 +14,7 @@ async function main() {
         name: 'MacDonalds',
         description: 'MacDonalds is a fast food restaurant',
         logoUrl:
-          'https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nfl_sharing_logos/mc_donalds_logo_png_4c_black.png?$mcd_sharing_logo$',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/1200px-McDonald%27s_Golden_Arches.svg.png',
         bannerUrl:
           'https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nfl_sharing_logos/mc_donalds_logo_png_4c_black.png?$mcd_sharing_logo$',
         websiteUrl: 'https://www.mcdonalds.com',
