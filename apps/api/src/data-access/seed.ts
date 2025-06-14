@@ -131,6 +131,7 @@ async function main() {
       data: {
         userId: user1.id,
         storeId: mcdonalds.id,
+        isMerchant: true,
       },
     });
   }
@@ -152,6 +153,7 @@ async function main() {
       data: {
         userId: user1.id,
         storeId: ethkyiv.id,
+        isMerchant: true,
       },
     });
   }
@@ -173,6 +175,7 @@ async function main() {
       data: {
         userId: user2.id,
         storeId: lvivcroissants.id,
+        isMerchant: true,
       },
     });
   }
