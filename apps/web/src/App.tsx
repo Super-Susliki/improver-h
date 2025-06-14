@@ -2,6 +2,8 @@ import { PrivyProvider } from "@privy-io/react-auth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { memo, Suspense, useState } from "react";
 import { RouterProvider } from "react-router";
+import { WagmiProvider } from "wagmi";
+import { wagmiConfig } from "./lib/wagmi-config";
 
 import { env } from "./env";
 import { SUPPORTED_CHAIN } from "./lib/chains";
@@ -28,11 +30,13 @@ const App = memo(() => {
         },
       }}
     >
-      <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <RouterProvider router={router} />
-        </Suspense>
-      </QueryClientProvider>
+      <WagmiProvider config={wagmiConfig}>
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <RouterProvider router={router} />
+          </Suspense>
+        </QueryClientProvider>
+      </WagmiProvider>
     </PrivyProvider>
   );
 });

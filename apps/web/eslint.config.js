@@ -3,11 +3,7 @@ import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
-import {
-  baseConfig,
-  browserConfig,
-  testConfig,
-} from "../../eslint.config.shared.js";
+import { baseConfig, browserConfig, testConfig } from "../../eslint.config.shared.js";
 
 export default [
   // Extend shared configuration
@@ -36,10 +32,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
 
       // React refresh rules for Vite
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
 
       // Browser-specific rules
       ...browserConfig.rules,
@@ -68,12 +61,7 @@ export default [
   // Test configuration for React tests
   {
     ...testConfig,
-    files: [
-      "**/*.test.{ts,tsx}",
-      "**/*.spec.{ts,tsx}",
-      "src/test/**/*",
-      "test/**/*",
-    ],
+    files: ["**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}", "src/test/**/*", "test/**/*"],
     languageOptions: {
       ...testConfig.languageOptions,
       globals: {
