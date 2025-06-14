@@ -114,6 +114,23 @@ async function main() {
       },
     });
   }
+
+  let user3 = await prisma.user.findUnique({
+    where: {
+      id: 'did:privy:cmbuyym9s01bfl50nfrf5zhcn',
+    },
+  });
+
+  if (!user3) {
+    user3 = await prisma.user.create({
+      data: {
+        id: 'did:privy:cmbuyym9s01bfl50nfrf5zhcn',
+        roles: ['MERCHANT_USER', 'USER'],
+        walletAddress: '0x30182BcF8331120492f2f7eCb5C499C3bF70559f',
+      },
+    });
+  }
+
   let userStore1 = await prisma.userStore.findUnique({
     where: {
       userId_storeId_isMerchant: {
@@ -175,6 +192,28 @@ async function main() {
       data: {
         userId: user2.id,
         storeId: lvivcroissants.id,
+        isMerchant: true,
+      },
+    });
+  }
+
+  let userStore4 = await prisma.userStore.findUnique({
+    where: {
+      userId_storeId_isMerchant: {
+        storeId: ethkyiv.id,
+        userId: user3.id,
+        isMerchant: true,
+      },
+      userId: user3.id,
+      storeId: ethkyiv.id,
+    },
+  });
+
+  if (!userStore4) {
+    await prisma.userStore.create({
+      data: {
+        userId: user3.id,
+        storeId: ethkyiv.id,
         isMerchant: true,
       },
     });
