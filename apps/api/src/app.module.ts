@@ -1,4 +1,3 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
@@ -26,8 +25,6 @@ import { UsersModule } from './users/users.module';
       validate: () => validateEnv(),
     }),
 
-    // HTTP client
-    HttpModule,
 
     // Auth
     AuthModule.forRoot(),
