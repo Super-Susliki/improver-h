@@ -16,7 +16,7 @@ const DefaultLayout = () => {
   return (
     <div
       className={cn(
-        "relative flex min-h-screen pb-[58px] max-w-[480px] flex-col mx-auto items-center",
+        "relative flex min-h-screen max-w-[480px] flex-col mx-auto items-center",
         routesWithPadding.includes(pathname) ? "px-5" : ""
       )}
     >
@@ -31,7 +31,7 @@ const DefaultLayout = () => {
               duration: 0.3,
               ease: "easeInOut",
             }}
-            className="w-full"
+            className="w-full "
           >
             {cloneElement(outlet, { key: pathname })}
           </motion.div>
