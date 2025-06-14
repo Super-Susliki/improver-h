@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 
 const DefaultLayout = () => {
   return (
-    <div className="relative flex min-h-screen flex-col px-5">
+    <div className="relative flex min-h-screen flex-col px-5 items-center">
       <Outlet />
     </div>
   );
