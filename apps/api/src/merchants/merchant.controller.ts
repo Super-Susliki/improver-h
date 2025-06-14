@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -53,6 +54,10 @@ export class MerchantsController {
   @ApiResponse({
     status: 200,
     description: 'The bonuses have been successfully granted',
+  })
+  @ApiBody({
+    type: GrantBonusesToUserRequestDto,
+    description: 'The request body for granting bonuses to a user',
   })
   async grantBonusesToStore(
     @Param('storeId') storeId: string,
