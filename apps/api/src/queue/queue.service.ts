@@ -14,8 +14,7 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
 
   onModuleInit() {
     // Start job processing loop
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    this.interval = setInterval(() => this.processQueue(), 100); // every 100ms
+    this.interval = setInterval(() => void this.processQueue(), 100); // every 100ms
   }
 
   onModuleDestroy() {

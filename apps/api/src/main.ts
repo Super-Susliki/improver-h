@@ -1,6 +1,6 @@
+import type { INestApplication } from '@nestjs/common';
 import {
   ClassSerializerInterceptor,
-  INestApplication,
   Logger,
   ValidationPipe,
 } from '@nestjs/common';
@@ -38,6 +38,7 @@ async function bootstrap() {
     });
 
     const configService = app.get(ConfigService);
+    const isProduction = configService.get('app.nodeEnv') === 'production';
 
     app.use(helmet());
 
@@ -62,13 +63,46 @@ async function bootstrap() {
 
     const corsOrigins = configService
       .getOrThrow<string>('app.corsOrigins')
-      .split(',');
+      .split(',')
+      .map((origin) => origin.trim());
+
+    Logger.log(`🔒 CORS Origins: ${corsOrigins.join(', ')}`);
+
     app.enableCors({
-      origin: corsOrigins,
+      origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        // Check if the origin is in our allowed list
+        if (corsOrigins.includes(origin) || corsOrigins.includes('*')) {
+          return callback(null, true);
+        }
+
+        // In development, be more permissive
+        if (
+          !isProduction &&
+          (origin.includes('localhost') || origin.includes('127.0.0.1'))
+        ) {
+          return callback(null, true);
+        }
+
+        return callback(new Error('Not allowed by CORS'), false);
+      },
       credentials: true,
       methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+      allowedHeaders: [
+        'Accept',
+        'Authorization',
+        'Content-Type',
+        'X-Requested-With',
+        'Range',
+        'X-Request-ID',
+        'X-Cloud-Trace-Context',
+      ],
+      exposedHeaders: ['X-Request-ID'],
       preflightContinue: false,
       optionsSuccessStatus: 204,
+      maxAge: isProduction ? 86400 : 0, // Cache preflight for 24 hours in production
     });
 
     const globalPrefix = configService.getOrThrow<string>('app.apiPrefix');
@@ -76,12 +110,16 @@ async function bootstrap() {
     setupSwagger(app, globalPrefix);
 
     const port = configService.getOrThrow<number>('app.port');
-    await app.listen(port);
+    await app.listen(port, '0.0.0.0'); // Listen on all interfaces for deployment
+
     Logger.log(
       `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
     );
     Logger.log(
       `🚀 Swagger is running on: http://localhost:${port}/${globalPrefix}/swagger`,
+    );
+    Logger.log(
+      `🌍 Environment: ${isProduction ? 'PRODUCTION' : 'DEVELOPMENT'}`,
     );
 
     const signals = ['SIGTERM', 'SIGINT'];

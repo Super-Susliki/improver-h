@@ -114,7 +114,24 @@ async function main() {
       },
     });
   }
-  let userStore1 = await prisma.userStore.findUnique({
+
+  let user3 = await prisma.user.findUnique({
+    where: {
+      id: 'did:privy:cmbuyym9s01bfl50nfrf5zhcn',
+    },
+  });
+
+  if (!user3) {
+    user3 = await prisma.user.create({
+      data: {
+        id: 'did:privy:cmbuyym9s01bfl50nfrf5zhcn',
+        roles: ['MERCHANT_USER', 'USER'],
+        walletAddress: '0x30182BcF8331120492f2f7eCb5C499C3bF70559f',
+      },
+    });
+  }
+
+  const userStore1 = await prisma.userStore.findUnique({
     where: {
       userId_storeId_isMerchant: {
         storeId: mcdonalds.id,
@@ -131,11 +148,12 @@ async function main() {
       data: {
         userId: user1.id,
         storeId: mcdonalds.id,
+        isMerchant: true,
       },
     });
   }
 
-  let userStore2 = await prisma.userStore.findUnique({
+  const userStore2 = await prisma.userStore.findUnique({
     where: {
       userId_storeId_isMerchant: {
         storeId: ethkyiv.id,
@@ -152,11 +170,12 @@ async function main() {
       data: {
         userId: user1.id,
         storeId: ethkyiv.id,
+        isMerchant: true,
       },
     });
   }
 
-  let userStore3 = await prisma.userStore.findUnique({
+  const userStore3 = await prisma.userStore.findUnique({
     where: {
       userId_storeId_isMerchant: {
         storeId: lvivcroissants.id,
@@ -173,6 +192,29 @@ async function main() {
       data: {
         userId: user2.id,
         storeId: lvivcroissants.id,
+        isMerchant: true,
+      },
+    });
+  }
+
+  const userStore4 = await prisma.userStore.findUnique({
+    where: {
+      userId_storeId_isMerchant: {
+        storeId: ethkyiv.id,
+        userId: user3.id,
+        isMerchant: true,
+      },
+      userId: user3.id,
+      storeId: ethkyiv.id,
+    },
+  });
+
+  if (!userStore4) {
+    await prisma.userStore.create({
+      data: {
+        userId: user3.id,
+        storeId: ethkyiv.id,
+        isMerchant: true,
       },
     });
   }
@@ -183,7 +225,7 @@ main()
   .then(async () => {
     await prisma.$disconnect();
   })
-  .catch(async (e) => {
+  .catch(async (e: unknown) => {
     console.error(e);
     await prisma.$disconnect();
     process.exit(1);
