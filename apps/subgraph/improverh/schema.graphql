@@ -1,0 +1,10 @@
+type SignatureSubmitted @entity(immutable: true) {
+  id: Bytes!
+  merchant: Bytes! # address
+  user: Bytes! # address
+  storeId: Bytes! # bytes32
+  signature: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
