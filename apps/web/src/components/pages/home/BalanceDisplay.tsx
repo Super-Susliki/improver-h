@@ -1,14 +1,10 @@
 import { useState } from "react";
-import { EyeIcon } from "./svg/EyeIcon";
-import { EyeOffIcon } from "./svg/EyeOffIcon";
-import { EthereumIcon } from "./svg";
+import { EthereumIcon, EyeIcon, EyeOffIcon } from "../../svg";
 import { useEthBalance } from "@/hooks/use-eth-balance";
+import { useAccount } from "wagmi";
 
-interface BalanceDisplayProps {
-  address?: `0x${string}`;
-}
-
-export const BalanceDisplay = ({ address }: BalanceDisplayProps) => {
+export const BalanceDisplay = () => {
+  const { address } = useAccount();
   const [isVisible, setIsVisible] = useState(true);
   const { balance, balanceUSD, isLoading, error } = useEthBalance(address);
 
@@ -31,7 +27,7 @@ export const BalanceDisplay = ({ address }: BalanceDisplayProps) => {
 
   return (
     <div className="flex flex-col rounded-[30px] border border-black">
-      <div className="flex items-center justify-center rounded-t-[30px] bg-black py-4">
+      <div className="flex items-center justify-center rounded-t-[30px] bg-black py-4 bg-[url('/bg/balance.jpg')] bg-cover bg-center">
         <div className="size-[60px] min-w-[60px] rounded-[20px] bg-white flex items-center justify-center">
           <EthereumIcon />
         </div>
