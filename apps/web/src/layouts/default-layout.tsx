@@ -13,9 +13,7 @@ const DefaultLayout = () => {
 
   return (
     <div
-      className={cn(
-        "relative flex min-h-screen pb-[58px] max-w-[480px] flex-col px-5 mx-auto items-center"
-      )}
+      className={cn("relative flex min-h-screen max-w-[480px] flex-col px-5 mx-auto items-center")}
     >
       <AnimatePresence mode="wait" initial={false}>
         {outlet && (
@@ -28,7 +26,7 @@ const DefaultLayout = () => {
               duration: 0.3,
               ease: "easeInOut",
             }}
-            className="w-full"
+            className="w-full "
           >
             {cloneElement(outlet, { key: pathname })}
           </motion.div>

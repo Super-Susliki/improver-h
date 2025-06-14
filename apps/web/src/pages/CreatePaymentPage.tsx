@@ -1,10 +1,4 @@
-import {
-  BadgeDollarSign,
-  ChevronRight,
-  Loader2,
-  QrCode,
-  Wallet,
-} from "lucide-react";
+import { BadgeDollarSign, ChevronRight, Loader2, QrCode, Wallet } from "lucide-react";
 import { useNavigate } from "react-router";
 
 import {
@@ -36,9 +30,7 @@ const CreatePaymentPage = () => {
     <DarkTopPage
       top={[
         <DarkTopPageBackButton route="/" className="col-span-1" />,
-        <DarkTopPageTitle className="col-span-3">
-          Create a payment
-        </DarkTopPageTitle>,
+        <DarkTopPageTitle className="col-span-3">Create a payment</DarkTopPageTitle>,
       ]}
     >
       <DarkTopPageContent>
@@ -69,7 +61,7 @@ const CreatePaymentPage = () => {
               Leave a tip
             </div>
             <div className="border flex flex-col p-[20px] rounded-[30px] shadow-xs gap-[20px]">
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center gap-2">
                 <div className="text-black font-medium text-[40px]">$</div>
                 <div className="flex justify-items items-center">
                   <Input

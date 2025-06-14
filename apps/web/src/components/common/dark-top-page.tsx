@@ -13,8 +13,10 @@ interface Props {
 
 export const DarkTopPage = ({ children, top, topClassName }: Props) => {
   return (
-    <main className="bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px] flex-1">
-      <div className={cn("grid grid-cols-5 px-5", topClassName)}>
+    <main
+      className={cn("bg-black w-full h-full text-white flex flex-col gap-[16px] pt-[16px] flex-1")}
+    >
+      <div className={cn("grid grid-cols-5 min-h-11 px-5", topClassName)}>
         {Array.isArray(top) ? top.map((item) => item) : top}
       </div>
       {children}
@@ -66,15 +68,18 @@ export const DarkTopPageTitle = ({
 export const DarkTopPageContent = ({
   children,
   className,
+  addBottomPadding = true,
 }: {
   children: React.ReactNode;
   className?: string;
+  addBottomPadding?: boolean;
 }) => {
   return (
     <div
       className={cn(
         "flex flex-col w-full h-full bg-white text-black rounded-t-[30px] p-[24px] gap-8 flex-1",
-        className
+        className,
+        addBottomPadding && "pb-[58px]"
       )}
     >
       {children}
