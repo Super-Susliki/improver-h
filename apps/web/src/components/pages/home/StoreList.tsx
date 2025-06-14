@@ -3,11 +3,10 @@ import { useAccount } from "wagmi";
 
 export const StoreList = () => {
   const { address } = useAccount();
-  const { data: stores } = useUserStores(address);
-
+  const { data: stores } = useUserStores();
   return (
     <div className="grid grid-cols-3 gap-[10px]">
-      {stores?.stores?.map((store) => <div key={store.storeId}>{store.store.name}</div>)}
+      {stores?.map((store) => <div key={store.id}>{store.name}</div>)}
     </div>
   );
 };

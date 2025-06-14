@@ -21,7 +21,7 @@ export class PrismaUserRepository {
   }
 
   async findByWalletAddress(walletAddress: string): Promise<User | null> {
-    const record = await this.prisma.user.findUnique({
+    const record = await this.prisma.user.findFirst({
       where: { walletAddress },
     });
     return record;
