@@ -10,6 +10,7 @@ import { Store } from '@prisma/client';
 import { PrivyAuthGuard } from '../auth/guards/privy-auth.guard';
 
 import { StoresService } from './stores.service';
+import { storeWithHashedId } from 'src/utils/store';
 
 @ApiTags('Stores')
 @Controller('stores')
@@ -25,7 +26,7 @@ export class StoresController {
     description: 'The store has been successfully retrieved',
   })
   async getStoreById(@Param('id') id: string): Promise<Store> {
-    return this.storesService.findById(id);
+    return storeWithHashedId(await this.storesService.findById(id));
   }
 
   @Get()

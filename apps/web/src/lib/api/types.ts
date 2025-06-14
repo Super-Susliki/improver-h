@@ -17,6 +17,8 @@ export interface User {
 export interface Store {
   id: string;
 
+  idHashed: string;
+
   name: string;
 
   description?: string | null;
