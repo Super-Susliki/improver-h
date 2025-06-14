@@ -13,7 +13,6 @@ export const env = createEnv({
     VITE_PRIVY_CLIENT_ID: z.string().min(1),
     VITE_API_BASE_URL: z.string().url().optional(),
     VITE_NODE_ENV: z.enum(["development", "test", "production"]).optional(),
-    VITE_API_URL: z.string().url().default("http://localhost:3000/api"),
   },
 
   /**

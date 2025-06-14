@@ -9,9 +9,7 @@ export const useIntMaxDeposits = () => {
     queryKey: ["intmax-deposits", intMaxClient?.address ?? null],
     queryFn: async () => {
       if (!intMaxClient?.address) return [];
-      console.log("fetching deposits");
       const deposits = await intMaxClient.fetchDeposits({ sortBy: "timestamp", sortOrder: "desc" });
-      console.log("deposits", deposits);
       return deposits;
     },
     enabled: !!intMaxClient,

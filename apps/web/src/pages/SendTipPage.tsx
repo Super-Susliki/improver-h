@@ -223,12 +223,9 @@ const SendTipPage = () => {
               {!isFullyConnected && (
                 <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-xl">
                   <AlertCircle className="w-5 h-5 text-amber-600" />
-                  <div className="text-sm">
-                    <p className="text-amber-800 font-medium">IntMax not connected</p>
-                    <p className="text-amber-600">
-                      {intMaxState.error ?? "Connecting to IntMax..."}
-                    </p>
-                  </div>
+                  <p className="text-amber-600 text-sm">
+                    {intMaxState.error ?? "Connecting to IntMax..."}
+                  </p>
                 </div>
               )}
             </div>
@@ -243,7 +240,7 @@ const SendTipPage = () => {
               }
             >
               {isPending && <Loader2 className="animate-spin" />}
-              {isPending ? "Sending..." : "Send Tip"}
+              {isPending ? "Sending..." : "Send a Tip"}
               <ChevronRight className="w-8 h-8" />
             </Button>
           </div>
