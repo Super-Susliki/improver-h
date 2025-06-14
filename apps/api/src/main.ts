@@ -98,6 +98,7 @@ async function bootstrap() {
         'Range',
         'X-Request-ID',
         'X-Cloud-Trace-Context',
+        'Cookie',
       ],
       exposedHeaders: ['X-Request-ID'],
       preflightContinue: false,
