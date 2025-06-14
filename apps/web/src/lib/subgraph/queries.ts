@@ -8,6 +8,8 @@ export const GET_SUBMITTED_SIGNATURES_QUERY = gql`
       user
       storeId
       signature
+      transactionHash
+      blockTimestamp
     }
   }
 `;

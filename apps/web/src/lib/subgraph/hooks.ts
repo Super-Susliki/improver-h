@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 
 import { GET_SUBMITTED_SIGNATURES_QUERY } from "./queries";
 import { apolloClient } from "../apollo";
+import { getAddress } from "viem";
 
 export function useSubmittedSignatures(storeIdHash: string) {
   const { data, loading, error } = useQuery(GET_SUBMITTED_SIGNATURES_QUERY, {
@@ -9,5 +10,17 @@ export function useSubmittedSignatures(storeIdHash: string) {
     client: apolloClient,
   });
 
-  return { data, loading, error };
+  return {
+    data: data?.signatureSubmitteds?.map((v: any) => ({
+      id: v.id,
+      merchant: getAddress(v.merchant),
+      user: getAddress(v.user),
+      storeIdHash: v.storeId,
+      signature: v.signature,
+      transactionHash: v.transactionHash,
+      blockTimestamp: +v.blockTimestamp,
+    })),
+    loading,
+    error,
+  };
 }
