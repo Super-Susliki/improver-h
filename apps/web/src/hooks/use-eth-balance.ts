@@ -1,7 +1,8 @@
-import { useBalance, useReadContract, useChainId } from "wagmi";
+import { useBalance, useReadContract } from "wagmi";
 import { formatEther, type Address } from "viem";
 import { AggregatorV3InterfaceAbi } from "@/abi/AggregatorV3Interface";
-import { ETH_USD_PRICE_FEEDS } from "@/config/contracts";
+import { ETH_USD_PRICE_FEED } from "@/config/contracts";
+import { mainnet } from "viem/chains";
 
 interface EthBalanceHook {
   balance: string | null;
@@ -11,27 +12,21 @@ interface EthBalanceHook {
 }
 
 export const useEthBalance = (address?: Address): EthBalanceHook => {
-  const chainId = useChainId();
-
   const {
     data: balanceData,
     isLoading: isBalanceLoading,
     error: balanceError,
   } = useBalance({ address });
 
-  const priceFeedAddress = ETH_USD_PRICE_FEEDS[chainId as keyof typeof ETH_USD_PRICE_FEEDS];
-
   const {
     data: roundData,
     isLoading: isPriceLoading,
     error: priceError,
   } = useReadContract({
-    address: priceFeedAddress,
+    address: ETH_USD_PRICE_FEED,
+    chainId: mainnet.id,
     abi: AggregatorV3InterfaceAbi,
     functionName: "latestRoundData",
-    query: {
-      enabled: !!priceFeedAddress,
-    },
   });
 
   const balance = balanceData ? formatEther(balanceData.value) : null;
