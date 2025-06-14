@@ -41,6 +41,7 @@
   },
   "packageManager": "yarn@4.9.2",
   "dependencies": {
-    "@graphprotocol/graph-cli": "^0.97.1"
+    "@graphprotocol/graph-cli": "^0.97.1",
+    "framer-motion": "^12.18.1"
   }
 }
