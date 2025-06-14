@@ -19,7 +19,7 @@
     "contracts:dev": "yarn workspace @hackathon-2025/contracts run dev",
     "contracts:deploy": "yarn workspace @hackathon-2025/contracts run deploy",
     "contracts:compile": "yarn workspace @hackathon-2025/contracts run compile",
-    "heroku-postbuild": "cd apps/api && yarn build && yarn db:generate && yarn db:migrate:deploy"
+    "heroku-postbuild": "cd apps/api && yarn db:generate && yarn build && yarn db:migrate:deploy"
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
