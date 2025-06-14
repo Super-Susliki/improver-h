@@ -1,11 +1,4 @@
-import {
-  BadgeDollarSign,
-  ChevronLeft,
-  ChevronRight,
-  QrCode,
-  Wallet,
-} from "lucide-react";
-import { useNavigate } from "react-router";
+import { BadgeDollarSign, ChevronRight, QrCode, Wallet } from "lucide-react";
 
 import {
   DarkTopPage,
@@ -19,11 +12,6 @@ import { useTipBalance } from "@/hooks/use-tip-balance";
 
 const CreatePaymentPage = () => {
   const { balance, setBalance } = useTipBalance();
-  const navigate = useNavigate();
-
-  const onBack = () => {
-    return navigate("/");
-  };
 
   return (
     <DarkTopPage
