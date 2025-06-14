@@ -16,6 +16,10 @@ export class ApiService {
     return httpClient.get<Store>(API_ENDPOINTS.getStore(storeId));
   }
 
+  static async getStores(): Promise<Store[]> {
+    return httpClient.get<Store[]>(API_ENDPOINTS.getAllStores());
+  }
+
   static async grantBonus(request: GrantBonusRequest): Promise<GrantBonusResponse> {
     return httpClient.post<GrantBonusResponse>(
       API_ENDPOINTS.grantBonus(request.storeId),

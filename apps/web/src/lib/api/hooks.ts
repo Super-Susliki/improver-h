@@ -13,6 +13,13 @@ function generateUUID() {
   });
 }
 
+export function useStores() {
+  return useQuery({
+    queryKey: ["stores"],
+    queryFn: () => ApiService.getStores(),
+  });
+}
+
 export function useUserStores() {
   return useQuery({
     queryKey: ["userStores"],

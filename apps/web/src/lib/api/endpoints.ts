@@ -5,5 +5,7 @@ export const API_ENDPOINTS = {
 
   getStore: (storeId: string) => `/stores/${storeId}`,
 
+  getAllStores: () => `/stores`,
+
   grantBonus: (storeId: string) => `/merchants/me/stores/${storeId}/bonuses`,
 } as const;
