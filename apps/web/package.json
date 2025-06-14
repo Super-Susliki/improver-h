@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "@privy-io/react-auth": "^2.14.1",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
@@ -23,6 +24,7 @@
     "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "graphql": "^16.11.0",
     "intmax2-client-sdk": "npm:@super-susliki/intmax2-client-sdk@1.2.4",
     "lucide-react": "^0.515.0",
     "react": "^19.1.0",

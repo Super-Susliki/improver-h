@@ -10,6 +10,8 @@ import { env } from "./env";
 import { SUPPORTED_CHAIN } from "./lib/chains";
 import { router } from "./lib/router";
 import { wagmiConfig } from "./lib/wagmi-config";
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from "./lib/apollo";
 
 const App = memo(() => {
   const [queryClient] = useState(() => new QueryClient());
@@ -35,9 +37,11 @@ const App = memo(() => {
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <Suspense fallback={<Loader />}>
-              <RouterProvider router={router} />
-            </Suspense>
+            <ApolloProvider client={apolloClient}>
+              <Suspense fallback={<Loader />}>
+                <RouterProvider router={router} />
+              </Suspense>
+            </ApolloProvider>
           </AuthProvider>
         </QueryClientProvider>
       </WagmiProvider>

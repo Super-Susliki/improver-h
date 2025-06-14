@@ -13,6 +13,8 @@ export const env = createEnv({
     VITE_PRIVY_CLIENT_ID: z.string().min(1),
     VITE_API_BASE_URL: z.string().url().optional(),
     VITE_NODE_ENV: z.enum(["development", "test", "production"]).optional(),
+    VITE_SUBGRAPH_URL: z.string().url().optional(),
+    VITE_SUBGRAPH_API_KEY: z.string().optional(),
   },
 
   /**
@@ -24,6 +26,10 @@ export const env = createEnv({
     VITE_PRIVY_CLIENT_ID: import.meta.env.VITE_PRIVY_CLIENT_ID,
     VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
     VITE_NODE_ENV: import.meta.env.VITE_NODE_ENV || import.meta.env.MODE,
+    VITE_SUBGRAPH_API_KEY: import.meta.env.VITE_SUBGRAPH_API_KEY,
+    VITE_SUBGRAPH_URL:
+      import.meta.env.VITE_SUBGRAPH_URL ||
+      "https://gateway.thegraph.com/api/subgraphs/id/8d5bHfPhLeAUJdmCJCsd3Hdado42HNgbRNnciuVvbEF2",
   },
 
   /**
