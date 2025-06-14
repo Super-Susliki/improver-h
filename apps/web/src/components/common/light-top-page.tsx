@@ -38,7 +38,7 @@ export const LightTopPageBackButton = ({ route, className }: LightTopPageBackBut
       <Button
         variant="ghost"
         size="icon"
-        className="rounded-full bg-transparent border border-black w-16 h-16 p-0"
+        className="rounded-full bg-transparent border border-black size-[44px] p-0"
         onClick={() => {
           void onBack();
         }}
