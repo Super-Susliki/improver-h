@@ -9,9 +9,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTipBalance } from "@/hooks/use-tip-balance";
+import { useNavigate } from "react-router";
+import { routes } from "@/lib/router";
 
 const CreatePaymentPage = () => {
   const { balance, setBalance, to, setTo } = useTipBalance();
+  const navigate = useNavigate();
 
   return (
     <DarkTopPage
@@ -31,7 +34,7 @@ const CreatePaymentPage = () => {
               <Input value={to} onChange={(e) => setTo(e.target.value)} className="py-[20px] pl-[20px] rounded-[30px] text-[18px]" />
             </div>
           </div>
-          <Button>
+          <Button onClick={() => navigate(routes.scanQrCode)}>
             Or scan QR <QrCode />
           </Button>
         </div>
