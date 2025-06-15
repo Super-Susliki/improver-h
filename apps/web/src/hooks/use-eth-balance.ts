@@ -1,5 +1,5 @@
 import { formatEther, type Address } from "viem";
-import { mainnet } from "viem/chains";
+import { mainnet, sepolia } from "viem/chains";
 import { useBalance, useReadContract } from "wagmi";
 
 import { AggregatorV3InterfaceAbi } from "@/abi/AggregatorV3Interface";
@@ -17,9 +17,10 @@ export const useEthBalance = (address?: Address): EthBalanceHook => {
     data: balanceData,
     isLoading: isBalanceLoading,
     error: balanceError,
-  } = useBalance({ address });
-
-  console.log({ balanceData, balanceError });
+  } = useBalance({
+    address,
+    chainId: sepolia.id,
+  });
 
   const {
     data: roundData,
@@ -31,8 +32,6 @@ export const useEthBalance = (address?: Address): EthBalanceHook => {
     abi: AggregatorV3InterfaceAbi,
     functionName: "latestRoundData",
   });
-
-  console.log({ roundData, priceError });
 
   const balance = balanceData ? formatEther(balanceData.value) : null;
 
