@@ -115,23 +115,78 @@ export const usePrivyIntMaxSync = () => {
   }, [authenticated, ready, wallets, setIntMaxClient]);
 
   const loginToIntMax = useCallback(async () => {
+    console.log("🔐 [IntMax-Login] Starting IntMax login process...");
+    console.log("🔍 [IntMax-Login] Pre-login check:", {
+      intMaxClientExists: !!intMaxClient,
+      privyAuthenticated: authenticated,
+      privyReady: ready,
+      privyUserExists: !!user,
+      privyUserId: user?.id || "N/A",
+      walletCount: wallets.length,
+      timestamp: new Date().toISOString(),
+    });
+
     try {
+      console.log("📞 [IntMax-Login] Calling loginIntMax function...");
+      const loginStartTime = Date.now();
+
       const loginResult = await loginIntMax();
+
+      const loginTime = Date.now() - loginStartTime;
+      console.log("✅ [IntMax-Login] loginIntMax completed successfully!", {
+        loginTimeMs: loginTime,
+        resultExists: !!loginResult,
+        resultAddress: loginResult?.address || "N/A",
+        timestamp: new Date().toISOString(),
+      });
+
       if (loginResult?.address) {
+        console.log("✅ [IntMax-Login] Login result contains address, returning success", {
+          address: loginResult.address,
+        });
         return { success: true, address: loginResult.address };
       } else {
+        console.error("❌ [IntMax-Login] Login result missing address:", {
+          loginResult,
+          loginResultType: typeof loginResult,
+          loginResultKeys: loginResult ? Object.keys(loginResult) : "N/A",
+        });
         throw new Error("Login result missing address");
       }
     } catch (error) {
+      console.error("❌ [IntMax-Login] Login failed with error:", {
+        error: error instanceof Error ? error.message : "Unknown error",
+        errorType: typeof error,
+        errorName: error instanceof Error ? error.name : "N/A",
+        errorStack: error instanceof Error ? error.stack : null,
+        privyUserExists: !!user,
+        privyUserId: user?.id || "N/A",
+        intMaxClientExists: !!intMaxClient,
+        timestamp: new Date().toISOString(),
+      });
       return { success: false, error: error instanceof Error ? error.message : "Login failed" };
     }
-  }, [loginIntMax]);
+  }, [loginIntMax, intMaxClient, authenticated, ready, user, wallets]);
 
   const warmUpIntMaxClient = useCallback(async (client: any) => {
+    console.log("🔥 [IntMax-Warmup] Starting client warm-up...");
     try {
+      console.log("📊 [IntMax-Warmup] Fetching token balances for warm-up...");
+      const warmupStartTime = Date.now();
+
       await client.fetchTokenBalances();
+
+      const warmupTime = Date.now() - warmupStartTime;
+      console.log("✅ [IntMax-Warmup] Client warm-up completed successfully!", {
+        warmupTimeMs: warmupTime,
+      });
       return { success: true };
     } catch (error) {
+      console.error("❌ [IntMax-Warmup] Warm-up failed:", {
+        error: error instanceof Error ? error.message : "Unknown error",
+        errorStack: error instanceof Error ? error.stack : null,
+        timestamp: new Date().toISOString(),
+      });
       return { success: false, error: error instanceof Error ? error.message : "Warm-up failed" };
     }
   }, []);
@@ -142,25 +197,44 @@ export const usePrivyIntMaxSync = () => {
     operationInProgress.current = true;
     setIntMaxState((prev) => ({ ...prev, isConnecting: true, error: null }));
 
+    console.log("🚀 [IntMax-FullConn] Starting full connection process...");
+    console.log("🔍 [IntMax-FullConn] Connection state:", {
+      operationInProgress: operationInProgress.current,
+      intMaxClientExists: !!intMaxClient,
+      intMaxStateLoggedIn: intMaxState.isLoggedIn,
+      retryCount: intMaxState.retryCount,
+      timestamp: new Date().toISOString(),
+    });
+
     try {
       let client = intMaxClient;
       if (!client) {
+        console.log("⚡ [IntMax-FullConn] No existing client, initializing...");
         const initResult = await initializeIntMax();
         if (!initResult.success) {
           throw new Error(initResult.error || "Failed to initialize IntMax client");
         }
         client = initResult.client!;
+        console.log("✅ [IntMax-FullConn] Client initialization completed");
+      } else {
+        console.log("✅ [IntMax-FullConn] Using existing client");
       }
 
       if (!intMaxState.isLoggedIn) {
+        console.log("🔐 [IntMax-FullConn] Not logged in, attempting login...");
         const loginResult = await loginToIntMax();
         if (!loginResult.success) {
           throw new Error(loginResult.error || "Failed to login to IntMax");
         }
+        console.log("✅ [IntMax-FullConn] Login completed successfully");
 
+        console.log("⏳ [IntMax-FullConn] Waiting 1 second before warm-up...");
         await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        console.log("🔥 [IntMax-FullConn] Starting client warm-up...");
         await warmUpIntMaxClient(client);
 
+        console.log("✅ [IntMax-FullConn] Setting final state...");
         setIntMaxState({
           isLoggedIn: true,
           address: loginResult.address!,
@@ -168,21 +242,39 @@ export const usePrivyIntMaxSync = () => {
           error: null,
           retryCount: 0,
         });
+        console.log("🎉 [IntMax-FullConn] Full connection process completed successfully!");
       }
     } catch (error) {
       let errorMessage = "Failed to connect to IntMax";
       let shouldRetry = true;
 
+      console.error("❌ [IntMax-FullConn] Connection failed:", {
+        error: error instanceof Error ? error.message : "Unknown error",
+        errorType: typeof error,
+        errorCode: (error as any)?.code || "N/A",
+        errorStack: error instanceof Error ? error.stack : null,
+        timestamp: new Date().toISOString(),
+      });
+
       if (error && typeof error === "object" && "code" in error) {
         if (error.code === 4001) {
           errorMessage = "User rejected the connection request";
           shouldRetry = false;
+          console.log("👤 [IntMax-FullConn] User rejected connection, will not retry");
         }
       } else if (error instanceof Error) {
         errorMessage = error.message;
       }
 
       const newRetryCount = intMaxState.retryCount + 1;
+      console.log("🔄 [IntMax-FullConn] Setting error state:", {
+        errorMessage,
+        shouldRetry,
+        newRetryCount,
+        maxRetries: MAX_RETRY_ATTEMPTS,
+        willRetry: shouldRetry && newRetryCount < MAX_RETRY_ATTEMPTS,
+      });
+
       setIntMaxState((prev) => ({
         ...prev,
         isConnecting: false,
@@ -191,14 +283,21 @@ export const usePrivyIntMaxSync = () => {
       }));
 
       if (shouldRetry && newRetryCount < MAX_RETRY_ATTEMPTS) {
+        console.log(
+          `⏰ [IntMax-FullConn] Scheduling retry ${newRetryCount}/${MAX_RETRY_ATTEMPTS} in ${RETRY_DELAY}ms`
+        );
         retryTimeoutRef.current = setTimeout(() => {
           operationInProgress.current = false;
           setIntMaxState((prev) => ({ ...prev, error: null }));
+          console.log("🔄 [IntMax-FullConn] Retry timeout triggered, clearing error state");
         }, RETRY_DELAY);
+      } else {
+        console.log("🛑 [IntMax-FullConn] Max retries reached or no retry allowed, stopping");
       }
     } finally {
       if (!retryTimeoutRef.current) {
         operationInProgress.current = false;
+        console.log("🏁 [IntMax-FullConn] Operation completed, clearing progress flag");
       }
     }
   }, [
