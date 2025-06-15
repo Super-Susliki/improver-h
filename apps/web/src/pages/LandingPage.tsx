@@ -21,7 +21,7 @@ const LandingPage = () => {
 
         <div className="max-w-4xl relative z-20 mx-auto mt-16 md:mt-0">
           <div className="mb-8">
-            <img src="/logo.svg" alt="Improver Logo" className="w-32 h-32 mx-auto " />
+            <img src="/logo-gradient.svg" alt="Improver Logo" className="w-32 h-32 mx-auto " />
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-black mb-6 leading-tight">

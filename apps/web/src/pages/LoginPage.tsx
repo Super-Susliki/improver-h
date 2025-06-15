@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { routes } from "@/lib/router";
 import LandingPage from "./LandingPage";
-import { motion } from "framer-motion";
 
 const LoginPage = () => {
   const { privyReady, privyAuthenticated, privyLogin } = useAuth();
