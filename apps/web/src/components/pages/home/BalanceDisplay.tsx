@@ -32,21 +32,6 @@ export const BalanceDisplay = () => {
     refetch: refetchIntMax,
   } = useIntMaxBalances();
 
-  console.log("💰 [BalanceDisplay] Component render state:", {
-    privyUserExists: !!privyUser,
-    privyUserId: privyUser?.id || "N/A",
-    walletAddress: address || "N/A",
-    ethBalance: balance || "N/A",
-    ethBalanceUSD: balanceUSD || "N/A",
-    ethIsLoading: isLoading,
-    ethError: error || "N/A",
-    intMaxBalances: intMaxBalances || "N/A",
-    intMaxIsLoading: isIntMaxLoading,
-    intMaxIsError: isIntMaxError,
-    ethPriceUSD: ethPriceUSD || "N/A",
-    timestamp: new Date().toISOString(),
-  });
-
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
@@ -59,17 +44,9 @@ export const BalanceDisplay = () => {
 
   // Calculate IntMax balance in USD
   const calculateIntMaxUSD = () => {
-    console.log("🧮 [BalanceDisplay] Calculating IntMax USD balance...");
     const balances = (intMaxBalances as any)?.balances as IntMaxTokenBalance[] | undefined;
-    console.log("🔍 [BalanceDisplay] IntMax balances data:", {
-      balancesExists: !!balances,
-      balancesType: typeof balances,
-      balancesLength: balances ? balances.length : "N/A",
-      balancesRaw: balances,
-    });
 
     if (!balances) {
-      console.log("❌ [BalanceDisplay] No balances data available");
       return null;
     }
 
@@ -78,48 +55,26 @@ export const BalanceDisplay = () => {
       (balance) => balance.token.contractAddress === zeroAddress || balance.token.symbol === "ETH"
     );
 
-    console.log("🔍 [BalanceDisplay] ETH balance search result:", {
-      ethBalanceFound: !!ethBalance,
-      ethBalanceAmount: ethBalance?.amount?.toString() || "N/A",
-      ethBalanceSymbol: ethBalance?.token.symbol || "N/A",
-      ethBalanceAddress: ethBalance?.token.contractAddress || "N/A",
-    });
-
     if (!ethBalance?.amount || ethBalance.amount === 0n) {
-      console.log("❌ [BalanceDisplay] No ETH balance found or balance is zero");
       return null;
     }
 
     // Convert BigInt to ETH string using formatEther
     const intMaxEthAmount = formatEther(ethBalance.amount);
-    console.log("🔢 [BalanceDisplay] Formatted ETH amount:", {
-      intMaxEthAmount,
-      ethPriceUSD,
-    });
 
     // Use the ETH price from our price hook
     if (ethPriceUSD && intMaxEthAmount) {
       const intMaxEthAmountNum = parseFloat(intMaxEthAmount);
       const usdValue = (intMaxEthAmountNum * ethPriceUSD).toFixed(2);
-      console.log("✅ [BalanceDisplay] Calculated USD value:", {
-        intMaxEthAmountNum,
-        ethPriceUSD,
-        usdValue,
-      });
+
       return usdValue;
     }
 
-    console.log("❌ [BalanceDisplay] Cannot calculate USD value - missing price data");
     return null;
   };
 
   const intMaxBalanceUSD = calculateIntMaxUSD();
   const hasIntMaxBalance = intMaxBalanceUSD !== null && parseFloat(intMaxBalanceUSD) > 0;
-
-  console.log("📊 [BalanceDisplay] Final balance calculations:", {
-    intMaxBalanceUSD,
-    hasIntMaxBalance,
-  });
 
   const displayBalance = () => {
     if (isLoading) return "$---.--";

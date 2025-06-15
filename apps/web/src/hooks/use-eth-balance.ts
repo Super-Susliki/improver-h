@@ -19,6 +19,8 @@ export const useEthBalance = (address?: Address): EthBalanceHook => {
     error: balanceError,
   } = useBalance({ address });
 
+  console.log({ balanceData, balanceError });
+
   const {
     data: roundData,
     isLoading: isPriceLoading,
@@ -29,6 +31,8 @@ export const useEthBalance = (address?: Address): EthBalanceHook => {
     abi: AggregatorV3InterfaceAbi,
     functionName: "latestRoundData",
   });
+
+  console.log({ roundData, priceError });
 
   const balance = balanceData ? formatEther(balanceData.value) : null;
 
