@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { routes } from "@/lib/router";
 import LandingPage from "./LandingPage";
+import { motion } from "framer-motion";
 
 const LoginPage = () => {
   const { privyReady, privyAuthenticated, privyLogin } = useAuth();
@@ -37,8 +38,8 @@ const LoginPage = () => {
             with Improver
           </h1>
           <p className="text-light-gray text-lg">
-            Lorem ipsum dolor sit amet consectetur. Ut in ut phasellus augue turpis magna gravida
-            tincidunt. Sem massa in id duis.
+            The ultimate loyalty and tipping platform for hotels, restaurants, and cafes. Connect
+            customers with establishments through blockchain-secured rewards and payments.
           </p>
         </div>
         <Button
