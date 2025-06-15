@@ -21,12 +21,16 @@ interface IntMaxTokenBalance {
 export const BalanceDisplay = () => {
   const { privyUser } = useAuth();
   const [isVisible, setIsVisible] = useState(true);
-  console.log("privyUser ==>", privyUser);
   const address = privyUser?.wallet?.address as Address | undefined;
   const { balance, balanceUSD, isLoading, error } = useEthBalance(address);
 
   const { ethPriceUSD } = useEthPrice();
-  const { data: intMaxBalances } = useIntMaxBalances();
+  const {
+    data: intMaxBalances,
+    isLoading: isIntMaxLoading,
+    isError: isIntMaxError,
+    refetch: refetchIntMax,
+  } = useIntMaxBalances();
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -120,11 +124,24 @@ export const BalanceDisplay = () => {
 
         {/* Error messages */}
         {error && !isLoading && (
-          <p className="text-xs text-red-500 mt-1">Failed to fetch ETH balance data</p>
+          <p className="text-xs text-red-500 mt-1">Failed to fetch balance</p>
+        )}
+
+        {/* IntMax Error with retry */}
+        {isIntMaxError && !isIntMaxLoading && (
+          <div className="flex flex-col items-center gap-1 mt-1">
+            <p className="text-xs text-red-500">Failed to fetch IntMax balance</p>
+            <button
+              onClick={() => refetchIntMax()}
+              className="text-xs text-blue-600 hover:text-blue-800 underline"
+            >
+              Retry
+            </button>
+          </div>
         )}
 
         {/* Loading message */}
-        {isLoading && <p className="text-xs text-gray-500 mt-1">Loading...</p>}
+        {(isLoading || isIntMaxLoading) && <p className="text-xs text-gray-500 mt-1">Loading...</p>}
 
         {/* Balance details when visible */}
         {isVisible && !isLoading && (
@@ -135,7 +152,7 @@ export const BalanceDisplay = () => {
                 {balanceUSD && ` (${formatBalance(balanceUSD)})`}
               </p>
             )}
-            {hasIntMaxBalance && getIntMaxETHBalance() && (
+            {hasIntMaxBalance && getIntMaxETHBalance() && !isIntMaxError && (
               <p className="text-xs text-gray-600">
                 {getIntMaxETHBalance()} ETH on IntMax
                 {intMaxBalanceUSD && ` (${formatBalance(intMaxBalanceUSD)})`}
