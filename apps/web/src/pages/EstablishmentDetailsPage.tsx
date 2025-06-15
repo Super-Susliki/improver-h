@@ -27,7 +27,14 @@ export const EstablishmentDetailsPage = () => {
 
   return (
     <DarkTopPage
-      className={`bg-cover bg-center ${store.bannerUrl ? `bg-[url('${store.bannerUrl}')]` : "bg-gray-600"}`}
+      className={"bg-gray-600"}
+      style={{
+        backgroundPosition: "top center",
+        backgroundSize: "auto 382px",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "black",
+        backgroundImage: store.bannerUrl ? `url(${store.bannerUrl})` : "none",
+      }}
       top={[
         <DarkTopPageBackButton route={routes.establishments} />,
         <DarkTopPageTitle className="col-span-3 text-center">{store.name}</DarkTopPageTitle>,
