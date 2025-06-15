@@ -10,7 +10,7 @@ import { useMemo } from "react";
 import { formatUnits } from "viem";
 
 const TipsHistoryPage = () => {
-  const { data, isLoading, error, isError, refetch } = useIntMaxDeposits();
+  const { data, isLoading, isError, refetch } = useIntMaxDeposits();
   const { isFullyConnected, isConnecting, hasError, canRetry, retryIntMaxConnection } = useAuth();
 
   const dataGrouped = useMemo(() => {
