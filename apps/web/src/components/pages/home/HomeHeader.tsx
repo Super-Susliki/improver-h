@@ -10,7 +10,7 @@ export const HomeHeader = () => {
 
   return (
     <div className="flex justify-between w-full py-4">
-      <div>
+      <div className="">
         <p className="text-[32px] font-medium text-black">Hello 👋</p>
       </div>
 

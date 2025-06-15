@@ -37,8 +37,8 @@ const LoginPage = () => {
             with Improver
           </h1>
           <p className="text-light-gray text-lg">
-            Lorem ipsum dolor sit amet consectetur. Ut in ut phasellus augue turpis magna gravida
-            tincidunt. Sem massa in id duis.
+            The ultimate loyalty and tipping platform for hotels, restaurants, and cafes. Connect
+            customers with establishments through blockchain-secured rewards and payments.
           </p>
         </div>
         <Button

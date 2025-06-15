@@ -6,8 +6,11 @@ export const StoreList = () => {
 
   if (!stores?.length) {
     return (
-      <div className="flex flex-col gap-4 py-4">
+      <div className="flex flex-col gap-2 py-6">
         <div className="text-base text-light-gray text-center">No establishments yet</div>
+        <div className="text-base text-light-gray text-center">
+          Show your QR code to merchant to get started
+        </div>
       </div>
     );
   }
