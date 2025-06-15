@@ -17,7 +17,7 @@ export interface User {
 export interface Store {
   id: string;
 
-  idHashed: string;
+  idHash: string;
 
   name: string;
 
