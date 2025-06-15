@@ -68,6 +68,17 @@ const LandingPage = () => {
                 The Graph
               </div>
             </div>
+            <div className="flex mt-2 justify-center items-center gap-4 opacity-70">
+              <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+                <img src="/ethereum.svg" alt="ethereum" className="size-4" />
+                Ethereum
+              </div>
+              <span className="text-gray-400">•</span>
+              <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+                <img src="/base.svg" alt="base" className="size-4" />
+                Base
+              </div>
+            </div>
           </div>
         </div>
       </section>

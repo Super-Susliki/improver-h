@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <section className="mobile:hidden flex flex-col gap-10 pt-[20vh] items-center">
+      <section className="mobile:hidden flex flex-col gap-8 pt-[20vh] items-center min-h-[100vh]">
         <div className="absolute top-0 left-0 w-full h-full  z-[-1]">
           <img src="/login-bg.svg" alt="bg" className="w-full h-full object-cover" />
         </div>
@@ -51,9 +51,9 @@ const LoginPage = () => {
           Get Started
         </Button>
 
-        <div className="mt-8">
-          <p className="text-sm text-light-gray mb-4">Powered by</p>
-          <div className="flex justify-center items-center gap-4 opacity-70">
+        <div className="mt-auto mb-5">
+          <p className="text-sm text-light-gray mb-4 text-center">Powered by</p>
+          <div className="flex justify-center items-center gap-3 opacity-70">
             <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
               <RedStone className="size-4" />
               RedStone
@@ -67,6 +67,17 @@ const LoginPage = () => {
             <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
               <img src="/the-graph.svg" alt="the-graph" className="size-4" />
               The Graph
+            </div>
+          </div>
+          <div className="flex mt-2 justify-center items-center gap-3 opacity-70">
+            <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+              <img src="/ethereum.svg" alt="ethereum" className="size-4" />
+              Ethereum
+            </div>
+            <span className="text-gray-400">•</span>
+            <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+              <img src="/base.svg" alt="base" className="size-4" />
+              Base
             </div>
           </div>
         </div>
