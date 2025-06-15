@@ -10,7 +10,11 @@ interface IntMaxState {
   address: string | null;
   isConnecting: boolean;
   error: string | null;
+  retryCount: number;
 }
+
+const MAX_RETRY_ATTEMPTS = 3;
+const RETRY_DELAY = 5000;
 
 export const usePrivyIntMaxSync = () => {
   const { ready, authenticated, user, login, logout } = usePrivy();
@@ -23,6 +27,7 @@ export const usePrivyIntMaxSync = () => {
     address: null,
     isConnecting: false,
     error: null,
+    retryCount: 0,
   });
 
   const operationInProgress = useRef(false);
@@ -39,113 +44,155 @@ export const usePrivyIntMaxSync = () => {
   useEffect(() => {
     if (!authenticated) {
       operationInProgress.current = false;
-
       if (retryTimeoutRef.current) {
         clearTimeout(retryTimeoutRef.current);
         retryTimeoutRef.current = null;
       }
-
       setIntMaxClient(null);
       setIntMaxState({
         isLoggedIn: false,
         address: null,
         isConnecting: false,
         error: null,
+        retryCount: 0,
       });
     }
   }, [authenticated, setIntMaxClient]);
 
-  useEffect(() => {
-    const initializeAndLogin = async () => {
-      if (!authenticated || !ready || wallets.length === 0 || operationInProgress.current) {
-        return;
+  const initializeIntMax = useCallback(async () => {
+    if (!authenticated || !ready || wallets.length === 0) {
+      return { success: false, error: "Prerequisites not met" };
+    }
+
+    try {
+      const wallet = wallets[0];
+      const provider = await wallet.getEthereumProvider();
+      const client = await IntMaxClient.init({
+        environment: "testnet",
+        provider: provider as any,
+      });
+      setIntMaxClient(client);
+      return { success: true, client };
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+    }
+  }, [authenticated, ready, wallets, setIntMaxClient]);
+
+  const loginToIntMax = useCallback(async () => {
+    try {
+      const loginResult = await loginIntMax();
+      if (loginResult?.address) {
+        return { success: true, address: loginResult.address };
+      } else {
+        throw new Error("Login result missing address");
+      }
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : "Login failed" };
+    }
+  }, [loginIntMax]);
+
+  const warmUpIntMaxClient = useCallback(async (client: any) => {
+    try {
+      await client.fetchTokenBalances();
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : "Warm-up failed" };
+    }
+  }, []);
+
+  const performFullConnection = useCallback(async () => {
+    if (operationInProgress.current) return;
+
+    operationInProgress.current = true;
+    setIntMaxState((prev) => ({ ...prev, isConnecting: true, error: null }));
+
+    try {
+      let client = intMaxClient;
+      if (!client) {
+        const initResult = await initializeIntMax();
+        if (!initResult.success) {
+          throw new Error(initResult.error || "Failed to initialize IntMax client");
+        }
+        client = initResult.client!;
       }
 
-      if (intMaxClient && intMaxState.isLoggedIn) {
-        return;
-      }
-
-      operationInProgress.current = true;
-      setIntMaxState((prev) => ({ ...prev, isConnecting: true, error: null }));
-
-      try {
-        let client = intMaxClient;
-
-        if (!client) {
-          console.log("🔄 Initializing IntMax client...");
-          const wallet = wallets[0];
-          const provider = await wallet.getEthereumProvider();
-
-          client = await IntMaxClient.init({
-            environment: "testnet",
-            provider: provider as any,
-          });
-
-          setIntMaxClient(client);
-          console.log("✅ IntMax client initialized successfully");
+      if (!intMaxState.isLoggedIn) {
+        const loginResult = await loginToIntMax();
+        if (!loginResult.success) {
+          throw new Error(loginResult.error || "Failed to login to IntMax");
         }
 
-        if (!intMaxState.isLoggedIn) {
-          console.log("🔄 Logging into IntMax...");
-          const loginResult = await loginIntMax();
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await warmUpIntMaxClient(client);
 
-          if (loginResult?.address) {
-            setIntMaxState({
-              isLoggedIn: true,
-              address: loginResult.address,
-              isConnecting: false,
-              error: null,
-            });
-            console.log("✅ IntMax login successful:", loginResult.address);
-          } else {
-            throw new Error("Login result missing address");
-          }
-        }
-      } catch (error) {
-        console.error("❌ IntMax connection failed:", error);
-
-        let errorMessage = "Failed to connect to IntMax";
-        let shouldRetry = true;
-
-        // Handle specific error types
-        if (error && typeof error === "object" && "code" in error) {
-          if (error.code === 4001) {
-            errorMessage = "User rejected the connection request";
-            shouldRetry = false; // Don't retry user rejections
-          }
-        } else if (error instanceof Error && error.message.includes("400")) {
-          errorMessage = "IntMax service temporarily unavailable";
-        }
-
-        setIntMaxState((prev) => ({
-          ...prev,
+        setIntMaxState({
+          isLoggedIn: true,
+          address: loginResult.address!,
           isConnecting: false,
-          error: errorMessage,
-        }));
-
-        if (shouldRetry) {
-          retryTimeoutRef.current = setTimeout(() => {
-            operationInProgress.current = false;
-            setIntMaxState((prev) => ({ ...prev, error: null }));
-          }, 10000);
-        }
-      } finally {
-        if (!retryTimeoutRef.current) {
-          operationInProgress.current = false;
-        }
+          error: null,
+          retryCount: 0,
+        });
       }
-    };
+    } catch (error) {
+      let errorMessage = "Failed to connect to IntMax";
+      let shouldRetry = true;
 
-    void initializeAndLogin();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      if (error && typeof error === "object" && "code" in error) {
+        if (error.code === 4001) {
+          errorMessage = "User rejected the connection request";
+          shouldRetry = false;
+        }
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      const newRetryCount = intMaxState.retryCount + 1;
+      setIntMaxState((prev) => ({
+        ...prev,
+        isConnecting: false,
+        error: errorMessage,
+        retryCount: newRetryCount,
+      }));
+
+      if (shouldRetry && newRetryCount < MAX_RETRY_ATTEMPTS) {
+        retryTimeoutRef.current = setTimeout(() => {
+          operationInProgress.current = false;
+          setIntMaxState((prev) => ({ ...prev, error: null }));
+        }, RETRY_DELAY);
+      }
+    } finally {
+      if (!retryTimeoutRef.current) {
+        operationInProgress.current = false;
+      }
+    }
+  }, [
+    intMaxClient,
+    intMaxState.isLoggedIn,
+    intMaxState.retryCount,
+    initializeIntMax,
+    loginToIntMax,
+    warmUpIntMaxClient,
+  ]);
+
+  useEffect(() => {
+    const shouldConnect =
+      authenticated &&
+      ready &&
+      wallets.length > 0 &&
+      !intMaxState.isLoggedIn &&
+      !operationInProgress.current &&
+      !intMaxState.isConnecting;
+
+    if (shouldConnect) {
+      void performFullConnection();
+    }
   }, [
     authenticated,
     ready,
     wallets.length,
-    intMaxClient,
     intMaxState.isLoggedIn,
-    setIntMaxClient,
-    loginIntMax,
+    intMaxState.isConnecting,
+    performFullConnection,
   ]);
 
   const handlePrivyLogout = useCallback(async () => {
@@ -154,7 +201,7 @@ export const usePrivyIntMaxSync = () => {
         await intMaxClient.logout();
       }
     } catch (error) {
-      console.error("Failed to logout from IntMax:", error);
+      // Ignore logout errors
     } finally {
       setIntMaxClient(null);
       setIntMaxState({
@@ -162,6 +209,7 @@ export const usePrivyIntMaxSync = () => {
         address: null,
         isConnecting: false,
         error: null,
+        retryCount: 0,
       });
       operationInProgress.current = false;
       await logout();
@@ -171,13 +219,11 @@ export const usePrivyIntMaxSync = () => {
   const retryIntMaxConnection = useCallback(async () => {
     if (!authenticated || !wallets.length) return;
 
-    // Clear any existing retry timeout
     if (retryTimeoutRef.current) {
       clearTimeout(retryTimeoutRef.current);
       retryTimeoutRef.current = null;
     }
 
-    // Reset state to trigger reconnection
     operationInProgress.current = false;
     setIntMaxClient(null);
     setIntMaxState({
@@ -185,32 +231,28 @@ export const usePrivyIntMaxSync = () => {
       address: null,
       isConnecting: false,
       error: null,
+      retryCount: 0,
     });
   }, [authenticated, wallets.length, setIntMaxClient]);
 
-  const isFullyConnected = authenticated && intMaxState.isLoggedIn;
+  const isFullyConnected = authenticated && intMaxState.isLoggedIn && intMaxClient;
   const isConnecting =
     (authenticated && !intMaxState.isLoggedIn && intMaxState.isConnecting) || isLoginIntMaxPending;
   const hasError = intMaxState.error !== null;
+  const canRetry = hasError && intMaxState.retryCount < MAX_RETRY_ATTEMPTS;
 
   return {
-    // Privy state
     privyReady: ready,
     privyAuthenticated: authenticated,
     privyUser: user,
     privyLogin: login,
     privyLogout: handlePrivyLogout,
-
-    // IntMax state
     intMaxState,
     intMaxClient,
-
-    // Combined state
     isFullyConnected,
     isConnecting,
     hasError,
-
-    // Actions
+    canRetry,
     retryIntMaxConnection,
   };
 };
