@@ -17,7 +17,7 @@ export interface User {
 export interface Store {
   id: string;
 
-  idHashed: string;
+  idHash: string;
 
   name: string;
 
@@ -28,6 +28,8 @@ export interface Store {
   bannerUrl?: string | null;
 
   websiteUrl?: string | null;
+
+  theme: string;
 
   createdAt: Date;
 

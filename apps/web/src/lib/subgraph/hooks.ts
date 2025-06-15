@@ -14,10 +14,11 @@ export interface UseSubmittedSignature {
   blockTimestamp: number;
 }
 
-export function useSubmittedSignatures(storeIdHash: string) {
+export function useSubmittedSignatures(storeIdHash?: string) {
   const { data, loading, error } = useQuery(GET_SUBMITTED_SIGNATURES_QUERY, {
     variables: { storeId: storeIdHash },
     client: apolloClient,
+    skip: !storeIdHash,
   });
 
   return {

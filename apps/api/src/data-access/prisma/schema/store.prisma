@@ -6,6 +6,7 @@ model Store {
   logoUrl     String? @map("logo_url")
   bannerUrl   String? @map("banner_url")
   websiteUrl  String? @map("website_url")
+  theme       String  @default("white") @map("theme")
 
   createdAt      DateTime           @default(now()) @map("created_at")
   updatedAt      DateTime           @updatedAt @map("updated_at")

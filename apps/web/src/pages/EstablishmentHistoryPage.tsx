@@ -7,12 +7,19 @@ import {
 import { Loader } from "@/components/common/Loader";
 import { HistoryItem } from "@/components/establishment-history/history-item";
 import { Button } from "@/components/ui/button";
+import { useStore } from "@/lib/api";
+import { routes } from "@/lib/router";
 import { useSubmittedSignatures } from "@/lib/subgraph/hooks";
+import { useParams } from "react-router";
 
 const EstablishmentHistoryPage = () => {
-  const { data, loading } = useSubmittedSignatures("0x123");
+  const { storeId } = useParams();
+  const { data: store, isLoading: isStoreLoading } = useStore(storeId || "");
+  const { data, loading } = useSubmittedSignatures(store?.idHash);
 
-  if (loading) return <Loader />;
+  if (loading || isStoreLoading) return <Loader />;
+
+  if (!store && !isStoreLoading) return <div>Store not found</div>;
 
   const handleExportAsCSV = async () => {
     const csv = data?.map((item) => ({
@@ -45,8 +52,11 @@ const EstablishmentHistoryPage = () => {
   return (
     <DarkTopPage
       top={[
-        <DarkTopPageBackButton route="/" className="col-span-1" />,
-        <DarkTopPageTitle className="col-span-3">McDonalds's history</DarkTopPageTitle>,
+        <DarkTopPageBackButton
+          route={routes.establishmentDetails.replace(":storeId", storeId || "")}
+          className="col-span-1"
+        />,
+        <DarkTopPageTitle className="col-span-3">{`${store!.name}'s onchain history`}</DarkTopPageTitle>,
       ]}
     >
       <DarkTopPageContent>

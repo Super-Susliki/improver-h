@@ -11,9 +11,10 @@ const ActionButtons = () => {
   const navigate = useNavigate();
   const { privyUser } = useAuth();
   const { fundWallet } = useFundWallet();
-
+  console.log("privyUser ==>", privyUser);
   const buttonsConfig: {
     title: string;
+    subtitle?: string;
     icon: React.ReactElement;
     link?: string;
     onClick?: () => void;
@@ -22,7 +23,8 @@ const ActionButtons = () => {
       { title: "Show QR", icon: <QRCodeIcon />, link: "/qr" },
       { title: "Loyalty", icon: <Gift className="h-6 w-6" color="#B8ACFF" />, link: "/loyalty" },
       {
-        title: "Receive",
+        title: "Receive Tips",
+        subtitle: "via IntMax",
         icon: <ArrowDownToLine className="h-6 w-6" color="#B8ACFF" />,
         link: "/receive",
       },
@@ -62,14 +64,19 @@ const ActionButtons = () => {
               handleButtonClick(button);
             }}
             className={`
-              rounded-[30px] cursor-pointer h-[105px] flex flex-col gap-[10px] justify-center items-center
+              rounded-[30px] cursor-pointer h-[105px] flex flex-col gap-[6px] justify-center items-center
               bg-black hover:bg-gray-800
               transition-colors duration-200
             `}
           >
             <>
               <div>{button.icon}</div>
-              <p className={`text-[14px] leading-[16px] text-white`}>{button.title}</p>
+              <div className="flex flex-col items-center gap-[2px]">
+                <p className={`text-[14px] leading-[16px] text-white`}>{button.title}</p>
+                {button.subtitle && (
+                  <p className="text-[10px] leading-[12px] text-gray-300">{button.subtitle}</p>
+                )}
+              </div>
             </>
           </button>
         );

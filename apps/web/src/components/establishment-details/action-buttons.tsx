@@ -15,7 +15,7 @@ import { useNavigate } from "react-router";
 
 const actionButtons = [
   {
-    label: "History",
+    label: "Onchain history",
     background: "#FEE5E2",
     icon: <History />,
     route: routes.establishmentHistory,
