@@ -169,7 +169,7 @@ const SendTipPage = () => {
                           }
                         }
                       }}
-                      className={`self-end text-center border-none shadow-none !text-[40px] font-medium my-0 ${
+                      className={`self-end text-center border-none shadow-none h-[40px] !text-[40px] font-medium my-0 ${
                         fieldErrors.balance ? "text-red-600" : ""
                       }`}
                       placeholder="0.00"
