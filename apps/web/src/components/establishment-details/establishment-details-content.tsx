@@ -27,7 +27,7 @@ export const EstablishmentDetailsContent = ({ storeId }: Props) => {
       <div className="flex flex-col">
         {store && (
           <Button
-            className="flex gap-1 items-center"
+            className="flex gap-1 items-center mb-5 "
             onClick={() => {
               setIsQRScannerOpen(true);
             }}
