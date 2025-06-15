@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UseMobileNotification } from "@/components/common/use-mobile-notification";
 import { useAuth } from "@/contexts/AuthContext";
+import { IntMax, RedStone } from "@/components/svg";
 
 const LandingPage = () => {
   const { privyLogin } = useAuth();
@@ -47,6 +48,26 @@ const LandingPage = () => {
             >
               Get Started <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
+          </div>
+
+          <div className="mt-8">
+            <p className="text-sm text-light-gray mb-4">Powered by</p>
+            <div className="flex justify-center items-center gap-4 opacity-70">
+              <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+                <RedStone className="size-4" />
+                RedStone
+              </div>
+              <span className="text-gray-400">•</span>
+              <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+                <IntMax className="size-4" />
+                IntMax
+              </div>
+              <span className="text-gray-400">•</span>
+              <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+                <img src="/the-graph.svg" alt="the-graph" className="size-4" />
+                The Graph
+              </div>
+            </div>
           </div>
         </div>
       </section>

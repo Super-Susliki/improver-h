@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { routes } from "@/lib/router";
 import LandingPage from "./LandingPage";
+import { IntMax, RedStone } from "@/components/svg";
 
 const LoginPage = () => {
   const { privyReady, privyAuthenticated, privyLogin } = useAuth();
@@ -49,6 +50,26 @@ const LoginPage = () => {
         >
           Get Started
         </Button>
+
+        <div className="mt-8">
+          <p className="text-sm text-light-gray mb-4">Powered by</p>
+          <div className="flex justify-center items-center gap-4 opacity-70">
+            <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+              <RedStone className="size-4" />
+              RedStone
+            </div>
+            <span className="text-gray-400">•</span>
+            <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+              <IntMax className="size-4" />
+              IntMax
+            </div>
+            <span className="text-gray-400">•</span>
+            <div className="flex items-center gap-1 text-sm font-medium text-gray-600">
+              <img src="/the-graph.svg" alt="the-graph" className="size-4" />
+              The Graph
+            </div>
+          </div>
+        </div>
       </section>
       <LandingPage />
     </>

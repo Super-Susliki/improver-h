@@ -6,3 +6,6 @@ export * from "./EyeOffIcon";
 export * from "./QRCodeIcon";
 export * from "./ReceiveIcon";
 export * from "./WalletIcon";
+
+export * from "./IntMax";
+export * from "./RedStone";
