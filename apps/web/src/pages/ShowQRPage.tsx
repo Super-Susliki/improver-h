@@ -1,3 +1,5 @@
+import { Copy, Check } from "lucide-react";
+import { useState } from "react";
 import QRCode from "react-qr-code";
 
 import {
@@ -6,11 +8,27 @@ import {
   LightTopPageContent,
   LightTopPageTitle,
 } from "@/components/common/light-top-page";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { routes } from "@/lib/router";
 
 const ShowQRPage = () => {
   const { privyUser, privyReady, privyAuthenticated } = useAuth();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyUserId = async () => {
+    if (!privyUser?.id) return;
+
+    try {
+      await navigator.clipboard.writeText(privyUser.id);
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy user ID:", err);
+    }
+  };
 
   return (
     <LightTopPage
@@ -52,6 +70,35 @@ const ShowQRPage = () => {
                 />
               </div>
 
+              {/* User ID Display */}
+              <div className="w-full">
+                <p className="text-sm text-gray-600 text-center mb-2">Your User ID</p>
+                <div className="bg-gray-50 rounded-xl p-4 border">
+                  <p className="text-sm font-mono text-center break-all">{privyUser.id}</p>
+                </div>
+              </div>
+
+              {/* Copy Button */}
+              <Button
+                onClick={() => {
+                  void handleCopyUserId();
+                }}
+                className="w-full bg-black hover:bg-gray-800 text-white rounded-xl h-12 flex items-center gap-2"
+              >
+                {copied ? (
+                  <>
+                    <Check size={20} />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy size={20} />
+                    Copy User ID
+                  </>
+                )}
+              </Button>
+
+              {/* Instructions */}
               <div className="text-center text-sm text-gray-600 mt-4">
                 <p>Share this QR code to get bonuses from merchants</p>
               </div>

@@ -60,20 +60,56 @@ export const usePrivyIntMaxSync = () => {
   }, [authenticated, setIntMaxClient]);
 
   const initializeIntMax = useCallback(async () => {
+    console.log("🚀 [IntMax-Init] Starting IntMax client initialization...");
+    console.log("🔍 [IntMax-Init] Prerequisites check:", {
+      authenticated,
+      ready,
+      walletsCount: wallets.length,
+      userAgent: navigator.userAgent,
+      hostname: window.location.hostname,
+      timestamp: new Date().toISOString(),
+    });
+
     if (!authenticated || !ready || wallets.length === 0) {
+      console.warn("❌ [IntMax-Init] Prerequisites not met - aborting initialization");
       return { success: false, error: "Prerequisites not met" };
     }
 
     try {
+      console.log("🔗 [IntMax-Init] Getting wallet provider...");
       const wallet = wallets[0];
+      console.log("🔗 [IntMax-Init] Wallet info:", {
+        walletType: wallet.walletClientType,
+        address: wallet.address,
+      });
+
       const provider = await wallet.getEthereumProvider();
+      console.log("✅ [IntMax-Init] Provider obtained successfully");
+
+      console.log("🌐 [IntMax-Init] Initializing IntMax client with environment: testnet");
+      const startTime = Date.now();
+
       const client = await IntMaxClient.init({
         environment: "testnet",
         provider: provider as any,
       });
+
+      const initTime = Date.now() - startTime;
+      console.log("✅ [IntMax-Init] IntMax client initialized successfully!", {
+        initTimeMs: initTime,
+        clientAddress: client?.address || "unknown",
+      });
+
       setIntMaxClient(client);
       return { success: true, client };
     } catch (error) {
+      console.error("❌ [IntMax-Init] Failed to initialize IntMax client:", {
+        error: error instanceof Error ? error.message : "Unknown error",
+        stack: error instanceof Error ? error.stack : null,
+        hostname: window.location.hostname,
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString(),
+      });
       return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
     }
   }, [authenticated, ready, wallets, setIntMaxClient]);

@@ -110,7 +110,7 @@ export const BalanceDisplay = () => {
         </div>
       </div>
       <div className="rounded-b-[30px] bg-white py-4 flex flex-col gap-[2px] justify-center items-center">
-        <p className="text-sm text-black">{hasIntMaxBalance ? "Your balances" : "Your balance"}</p>
+        <p className="text-sm text-black">Your balance</p>
         <div className="flex gap-[10px] items-center">
           <p className="text-[40px] leading-[50px] font-medium text-black">{displayBalance()}</p>
           <button
@@ -122,10 +122,13 @@ export const BalanceDisplay = () => {
           </button>
         </div>
 
-        {/* Error messages */}
+        {/* ETH Balance Error messages */}
         {error && !isLoading && (
-          <p className="text-xs text-red-500 mt-1">Failed to fetch balance</p>
+          <p className="text-xs text-red-500 mt-1">Failed to fetch ETH balance</p>
         )}
+
+        {/* ETH Balance Loading message */}
+        {isLoading && <p className="text-xs text-gray-500 mt-1">Loading ETH balance...</p>}
 
         {/* IntMax Error with retry */}
         {isIntMaxError && !isIntMaxLoading && (
@@ -140,18 +143,20 @@ export const BalanceDisplay = () => {
           </div>
         )}
 
-        {/* Loading message */}
-        {(isLoading || isIntMaxLoading) && <p className="text-xs text-gray-500 mt-1">Loading...</p>}
+        {/* IntMax Loading message */}
+        {isIntMaxLoading && <p className="text-xs text-gray-500 mt-1">Loading IntMax balance...</p>}
 
         {/* Balance details when visible */}
-        {isVisible && !isLoading && (
+        {isVisible && (
           <div className="flex flex-col items-center gap-1 mt-1">
-            {balance && (
+            {/* ETH Balance - Always shown when visible and not loading */}
+            {!isLoading && balance && (
               <p className="text-xs text-gray-600">
                 {parseFloat(balance).toFixed(4)} ETH
                 {balanceUSD && ` (${formatBalance(balanceUSD)})`}
               </p>
             )}
+            {/* IntMax Balance - Only shown when available */}
             {hasIntMaxBalance && getIntMaxETHBalance() && !isIntMaxError && (
               <p className="text-xs text-gray-600">
                 {getIntMaxETHBalance()} ETH on IntMax
