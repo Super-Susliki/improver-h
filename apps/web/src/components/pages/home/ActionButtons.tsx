@@ -11,7 +11,7 @@ const ActionButtons = () => {
   const navigate = useNavigate();
   const { privyUser } = useAuth();
   const { fundWallet } = useFundWallet();
-
+  console.log("privyUser ==>", privyUser);
   const buttonsConfig: {
     title: string;
     subtitle?: string;

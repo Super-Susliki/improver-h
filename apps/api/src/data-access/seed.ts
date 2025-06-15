@@ -59,6 +59,7 @@ async function main() {
         bannerUrl:
           'https://lvivcroissants.com/us/wp-content/uploads/sites/4/2024/07/logo-sk-lviv-croissants.png',
         websiteUrl: 'https://lvivcroissants.com/ua/',
+        theme: 'black',
       },
     });
   }
@@ -132,22 +133,8 @@ async function main() {
     });
   }
 
-  // Create additional test users for customer experience
-  let testUser1 = await prisma.user.findUnique({
-    where: {
-      id: 'test-user-1',
-    },
-  });
-
-  if (!testUser1) {
-    testUser1 = await prisma.user.create({
-      data: {
-        id: 'test-user-1',
-        roles: ['USER'],
-        walletAddress: '0x742d35Cc6634C0532925a3b8D4C0532925a3b8D4',
-      },
-    });
-  }
+  // Use user3 as test-user-1 (did:privy:cmbuyym9s01bfl50nfrf5zhcn)
+  let testUser1 = user3;
 
   let testUser2 = await prisma.user.findUnique({
     where: {
@@ -277,7 +264,7 @@ async function main() {
   }
 
   // Create customer relationships with points for testing
-  // Test User 1 - has points at multiple stores
+  // Test User 1 (user3 - did:privy:cmbuyym9s01bfl50nfrf5zhcn) - has points at multiple stores
   const customerStore1 = await prisma.userStore.upsert({
     where: {
       userId_storeId_isMerchant: {
@@ -809,7 +796,9 @@ async function main() {
   console.log('- ETHKyiv (ethkyiv)');
   console.log('');
   console.log('👥 TEST USERS:');
-  console.log('- test-user-1: Has points at all stores (250, 150, 500, 75)');
+  console.log(
+    '- did:privy:cmbuyym9s01bfl50nfrf5zhcn: Has points at all stores (250, 150, 500, 75)',
+  );
   console.log(
     "- test-user-2: Has points at McDonald's (50) and Aroma Kava (300)",
   );
@@ -829,7 +818,7 @@ async function main() {
   console.log('🧪 TESTING SCENARIOS COVERED:');
   console.log('- Users with sufficient points for various reward tiers');
   console.log(
-    '- Users with insufficient points (test-user-1 at ETHKyiv: 75 points)',
+    '- Users with insufficient points (did:privy:cmbuyym9s01bfl50nfrf5zhcn at ETHKyiv: 75 points)',
   );
   console.log(
     '- Different reward types: discounts, free items, special offers',

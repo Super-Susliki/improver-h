@@ -29,6 +29,8 @@ export interface Store {
 
   websiteUrl?: string | null;
 
+  theme: string;
+
   createdAt: Date;
 
   updatedAt: Date;
