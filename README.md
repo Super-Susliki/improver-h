@@ -2,7 +2,7 @@
 
 A Web3-powered loyalty and tipping platform for businesses and organizations.
 
-Project is built specially for ETHKyiv2025 hackathon
+The project is built specially for ETHKyiv2025 hackathon
 
 ## Overview
 
