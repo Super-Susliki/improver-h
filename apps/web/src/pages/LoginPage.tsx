@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <section className="mobile:hidden flex flex-col gap-10 pt-[30vh] items-center">
+      <section className="mobile:hidden flex flex-col gap-10 pt-[20vh] items-center">
         <div className="absolute top-0 left-0 w-full h-full  z-[-1]">
           <img src="/login-bg.svg" alt="bg" className="w-full h-full object-cover" />
         </div>
