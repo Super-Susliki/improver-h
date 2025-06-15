@@ -119,21 +119,21 @@ async function main() {
 
   let user3 = await prisma.user.findUnique({
     where: {
-      id: 'did:privy:cmbuyym9s01bfl50nfrf5zhcn',
+      id: 'did:privy:cmbw729mt00aajl0lo5nb5kh7',
     },
   });
 
   if (!user3) {
     user3 = await prisma.user.create({
       data: {
-        id: 'did:privy:cmbuyym9s01bfl50nfrf5zhcn',
+        id: 'did:privy:cmbw729mt00aajl0lo5nb5kh7',
         roles: ['MERCHANT_USER', 'USER'],
         walletAddress: '0x30182BcF8331120492f2f7eCb5C499C3bF70559f',
       },
     });
   }
 
-  // Use user3 as test-user-1 (did:privy:cmbuyym9s01bfl50nfrf5zhcn)
+  // Use user3 as test-user-1 (did:privy:cmbw729mt00aajl0lo5nb5kh7)
   let testUser1 = user3;
 
   let testUser2 = await prisma.user.findUnique({
@@ -264,7 +264,8 @@ async function main() {
   }
 
   // Create customer relationships with points for testing
-  // Test User 1 (user3 - did:privy:cmbuyym9s01bfl50nfrf5zhcn) - has points at multiple stores
+
+  // Test User 1 (user3 - did:privy:cmbw729mt00aajl0lo5nb5kh7) - has points at multiple stores
   const customerStore1 = await prisma.userStore.upsert({
     where: {
       userId_storeId_isMerchant: {
@@ -797,7 +798,7 @@ async function main() {
   console.log('');
   console.log('👥 TEST USERS:');
   console.log(
-    '- did:privy:cmbuyym9s01bfl50nfrf5zhcn: Has points at all stores (250, 150, 500, 75)',
+    '- did:privy:cmbw729mt00aajl0lo5nb5kh7: Has points at all stores (250, 150, 500, 75)',
   );
   console.log(
     "- test-user-2: Has points at McDonald's (50) and Aroma Kava (300)",
@@ -818,7 +819,7 @@ async function main() {
   console.log('🧪 TESTING SCENARIOS COVERED:');
   console.log('- Users with sufficient points for various reward tiers');
   console.log(
-    '- Users with insufficient points (did:privy:cmbuyym9s01bfl50nfrf5zhcn at ETHKyiv: 75 points)',
+    '- Users with insufficient points (did:privy:cmbw729mt00aajl0lo5nb5kh7 at ETHKyiv: 75 points)',
   );
   console.log(
     '- Different reward types: discounts, free items, special offers',
